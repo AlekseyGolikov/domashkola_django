@@ -1,0 +1,27 @@
+html {
+    height: 100%;
+} 
+
+body{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.header {
+    flex: 0 0 auto;
+    border: 1px solid #000;
+}
+  
+.content{
+    flex: 1 0 auto;
+
+    border: 1px solid #000;
+}
+
+/* FOOTER */
+.footer {
+    flex: 0 0 auto;
+    
+    border: 1px solid #000;
+}
