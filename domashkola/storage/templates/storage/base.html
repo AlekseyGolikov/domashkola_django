@@ -1,0 +1,79 @@
+﻿{% load static %}
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{{ title }}</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="shortcut icon" type="image/png" href="{% static 'img/icons/favicon.svg' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/customb.css' %}">
+        
+    </head>
+    <body class="container">
+
+        <header class="header border-bottom py-2">
+            <!--Основное меню-->  
+                {% include 'storage/menu.html' %}
+            <!--Выплывающее боковое меню-->
+            
+                {% include 'storage/menu_side.html' %} 
+
+        </header>
+
+        <div class="content">
+            <!--Контент-->
+            {% block content %}
+                {% include 'storage/index.html' %}
+            {% endblock content %}
+        </div>
+
+
+        <!-- Здесь подразумевается место для содержимого -->
+        <footer class="footer" >
+            <p class="text-center text-body-secondary border-top py-2">&copy; 2025 Домашняя школа</p>
+        </footer>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <!-- <script type="text/javascript">
+            const collapsibleMenu = document.querySelector('#accordionMenu');
+            const container = document.querySelector('#stack');
+            let stack = [];
+            // let last_id_before_hide = '';
+            
+            collapsibleMenu.addEventListener('shown.bs.collapse', (event) => {
+                stack.push(event.target.id);
+                container.textContent = stack;
+                // last_id_before_hide = stack[stack.length-1];
+                // document.querySelector('#last_id').textContent = last_id_before_hide;
+            });
+
+            collapsibleMenu.addEventListener('hidden.bs.collapse', (event) => {
+                let id = '#' + stack.pop();
+                // document.querySelector('#id').textContent = id;
+                let collapseEl = new bootstrap.Collapse(id, {toggle: false});
+                collapseEl.hide();
+                container.textContent = stack;
+                
+            });
+        </script> -->
+        <script type="text/javascript">
+            const collapsibleMenu = document.querySelector('#accordionMenu');
+            let stack = [];
+            collapsibleMenu.addEventListener('shown.bs.collapse', (event) => {
+                stack.push(event.target.id);
+                
+            });
+            collapsibleMenu.addEventListener('hidden.bs.collapse', (event) => {
+                let id = '#' + stack.pop();
+                let collapseEl = new bootstrap.Collapse(id, {toggle: false});
+                collapseEl.hide();                
+            });
+            document.querySelector('#hideBtn').addEventListener('click', (e) => {
+                
+            });
+        </script>
+    </body>
+</html> 

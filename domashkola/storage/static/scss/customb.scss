@@ -1,0 +1,44 @@
+$accordion-padding-y:                     0.5rem;
+$accordion-padding-x:                     0rem;
+$accordion-border-radius:                 0.5rem;
+
+$transition-collapse:         height 10.35s ease;
+$transition-collapse-width:   width 10.35s ease;
+
+$nav-tabs-border-color:       #000;
+$nav-tabs-link-hover-border-color: #000;
+$nav-tabs-link-active-border-color: #000;
+$nav-link-color: red;
+$nav-underline-link-active-color: red;
+
+// $nav-link-padding-y:                .5rem;
+// $nav-link-padding-x:                1rem;
+// $nav-link-font-size:                null;
+// $nav-link-font-weight:              null;
+// $nav-link-color:                    red;
+// $nav-link-hover-color:              red;
+// $nav-link-transition:               color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
+// $nav-link-disabled-color:           red;
+// $nav-link-focus-box-shadow:         red;
+
+// $nav-tabs-border-color:             red;
+// $nav-tabs-border-width:             1rem;
+// $nav-tabs-border-radius:            1rem;
+// $nav-tabs-link-hover-border-color:  red;
+// $nav-tabs-link-active-color:        red;
+// $nav-tabs-link-active-bg:           red;
+// $nav-tabs-link-active-border-color: red;
+
+// $nav-pills-border-radius:           1rem;
+// $nav-pills-link-active-color:       red;
+// $nav-pills-link-active-bg:          red;
+
+// $nav-underline-gap:                 1rem;
+// $nav-underline-border-width:        .125rem;
+// $nav-underline-link-active-color:   red;
+
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+@import "../node_modules/bootstrap/scss/accordion";
+@import "../node_modules/bootstrap/scss/navs";

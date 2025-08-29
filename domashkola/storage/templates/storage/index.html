@@ -1,0 +1,1241 @@
+{% extends 'storage/base.html' %}
+
+{% block content %}
+    
+<div id="stack"></div>
+<!-- <div id="id"></div>
+<div id="last_id"></div> -->
+
+
+
+
+
+
+<div class="accordion " id="accordionMenu">
+    {% for key, value in sections.items %}
+        <div class="accordion-item ">
+            <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#{{ key }}" aria-expanded="true" aria-controls="{{ key }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-book mx-2" viewBox="0 0 16 16">
+                    <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+                </svg>
+                {{ value }}
+            </button>
+            </h2>
+            <div id="{{ key }}" class="accordion-collapse collapse" data-bs-parent="#accordionMenu">
+                <div class="accordion-body" id="accordionMenu">
+                
+                    <!-- Дошкольники -->
+                    
+                    
+                    {% if key == 'preSchool' %}
+                        <div class="accordion" id="accordionPreSchool">
+
+                            {% for k,v in preSchool.items %}
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{k}}" aria-expanded="true" aria-controls="collapse{{k}}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-person mx-2" viewBox="0 0 16 16">
+                                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+                                        </svg>
+                                        {{ v }}
+                                    </button>
+                                    </h2>
+                                    <div id="collapse{{k}}" class="accordion-collapse collapse " data-bs-parent="#accordionPreSchool">
+                                        <div class="accordion-body">
+
+                                            <div class="accordion" id="accordion{{k}}">
+                                                {% for ks,vs in subjects_0.items %}
+                                                    <div class="accordion-item">
+                                                        <h2 class="accordion-header">
+                                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{k}}{{ks}}" aria-expanded="true" aria-controls="collapse{{k}}{{ks}}">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-folder mx-2" viewBox="0 0 16 16">
+                                                                    <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z"/>
+                                                                </svg>
+                                                                {{ vs }}
+                                                            </button>
+                                                        </h2>
+                                                        <div id="collapse{{k}}{{ks}}" class="accordion-collapse collapse " data-bs-parent="#accordion{{k}}">
+                                                            <div class="accordion-body">
+                                                                
+                                                                <div class="accordion" id="accordion{{k}}{{ks}}">
+                                                                    {% for kp,vp in presentation.items %}
+
+                                                                        <div class="accordion-item">
+                                                                            <h2 class="accordion-header">
+                                                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{k}}{{ks}}{{kp}}" aria-expanded="true" aria-controls="collapse{{k}}{{ks}}{{kp}}">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-postcard mx-2" viewBox="0 0 16 16">
+                                                                                    <path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4Zm7.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7ZM2 5.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5ZM10.5 5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3ZM13 8h-2V6h2v2Z"/>
+                                                                                </svg>
+                                                                                {{ vp }}
+                                                                            </button>
+                                                                            </h2>
+                                                                            <div id="collapse{{k}}{{ks}}{{kp}}" class="accordion-collapse collapse " data-bs-parent="#accordion{{k}}{{ks}}">
+                                                                                <div class="accordion-body">
+                                                                                    <div class="d-flex flex-column justify-content-center">
+                                                                                                                                                          
+                                                                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                                                            {% for kf,vf in formatData.items %} 
+                                                                                                
+                                                                                                <li class="nav-item " role="presentation">
+
+                                                                                                    {% if kf == 'text' %}
+                                                                                                        <button class="nav-link active" id="tab{{k}}{{ks}}{{kp}}{{kf}}" data-bs-toggle="tab" data-bs-target="#tab-pane{{k}}{{ks}}{{kp}}{{kf}}" type="button" role="tab" aria-controls="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" aria-selected="true">{{vf}}</button>
+                                                                                                    {% else %}
+                                                                                                        <button class="nav-link" id="tab{{k}}{{ks}}{{kp}}{{kf}}" data-bs-toggle="tab" data-bs-target="#tab-pane{{k}}{{ks}}{{kp}}{{kf}}" type="button" role="tab" aria-controls="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" aria-selected="false">{{vf}}</button>
+                                                                                                    {% endif %}
+                                                                                                
+                                                                                                </li>
+                                                                                                
+                                                                                            {% endfor %}
+                                                                                        </ul>
+                                                                                        
+                                                                                        <div class="tab-content" id="tabContent{{k}}{{ks}}{{kp}}">
+                                                                                            {% for kf,vf in formatData.items %} 
+                                                                                                
+                                                                                                {% if kf == 'text' %}
+                                                                                                    <div class="tab-pane fade show active" id="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" role="tabpanel" aria-labelledby="tab{{k}}{{ks}}{{kp}}{{kf}}" tabindex="0">
+                                                                                                {% else %}
+                                                                                                    <div class="tab-pane fade" id="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" role="tabpanel" aria-labelledby="tab{{k}}{{ks}}{{kp}}{{kf}}" tabindex="0">
+                                                                                                {% endif %}
+                                                                                                    
+                                                                                                
+                                                                                                        {% for raw in content %}
+                                                                                                            {% if raw.formatData == kf and raw.presentation == kp and raw.subject == ks and raw.grade == k %}
+                                                                                                                
+                                                                                                                <button type="button" class="btn btn-light text-start">{{raw.content}}</button>
+                                                                                                                
+                                                                                                            {% endif %}
+                                                                                                        {% endfor %}
+                                                                                                {% if kf == text %}
+                                                                                                    </div>
+                                                                                                {% else %}
+                                                                                                    </div>
+                                                                                                {% endif %}
+                                                                                            {% endfor %}
+                                                                                            
+                                                                                        </div>
+                                                                                                                                                                                                                                                                                           
+                                                                                        
+                                                                                    </div>
+                                                                                                                                                                                                                                                            
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    {% endfor %}
+                                                                </div> 
+                                                                                                                                                                                                                                                
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>       
+                                                                   
+                                    
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <!-- Начальная школа -->
+                    {% if key == 'elementarySchool' %}
+                        <div class="accordion" id="accordionElementarySchool">
+                            {% for k,v in elementarySchool.items %}
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{k}}" aria-expanded="true" aria-controls="collapseOne">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-person mx-2" viewBox="0 0 16 16">
+                                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+                                        </svg>
+                                        {{ v }}
+                                    </button>
+                                    </h2>
+                                    <div id="collapse{{k}}" class="accordion-collapse collapse " data-bs-parent="#accordionElementarySchool">
+                                        <div class="accordion-body">
+                                            
+                                            <!-- 1 класс  -->
+                                            {% if k == '1' %}
+                                                <div class="accordion" id="accordion{{k}}">
+                                                    {% for ks,vs in subjects_1.items %}
+                                                                                                        
+                                                        <div class="accordion-item">
+                                                            <h2 class="accordion-header">
+                                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{k}}{{ks}}{{kp}}" aria-expanded="true" aria-controls="collapse{{k}}{{ks}}">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-folder mx-2" viewBox="0 0 16 16">
+                                                                    <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z"/>
+                                                                </svg>
+                                                                {{ vs }} 
+                                                            </button>
+                                                            </h2>
+                                                            <div id="collapse{{k}}{{ks}}" class="accordion-collapse collapse " data-bs-parent="#accordion{{k}}">
+                                                                <div class="accordion-body">
+                                                                    
+                                                                    
+                                                                    <div class="accordion" id="accordion{{k}}{{ks}}">
+                                                                        {% for kp,vp in presentation.items %}
+                                                                        
+                                                                        
+                                                                            <div class="accordion-item">
+                                                                                <h2 class="accordion-header">
+                                                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{k}}{{ks}}{{kp}}" aria-expanded="true" aria-controls="collapse{{k}}{{ks}}{{kp}}">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-postcard mx-2" viewBox="0 0 16 16">
+                                                                                        <path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4Zm7.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7ZM2 5.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5ZM10.5 5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3ZM13 8h-2V6h2v2Z"/>
+                                                                                    </svg>
+                                                                                    {{ vp }} 
+                                                                                </button>
+                                                                                </h2>
+                                                                                <div id="collapse{{k}}{{ks}}{{kp}}" class="accordion-collapse collapse " data-bs-parent="#accordion{{k}}{{ks}}">
+                                                                                    <div class="accordion-body">
+                                                                                    
+                                                                                        <div class="d-flex flex-column justify-content-center">
+                                                                                                                                                          
+                                                                                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                                                                {% for kf,vf in formatData.items %} 
+                                                                                                    
+                                                                                                    <li class="nav-item " role="presentation">
+
+                                                                                                        {% if kf == 'text' %}
+                                                                                                            <button class="nav-link active" id="tab{{k}}{{ks}}{{kp}}{{kf}}" data-bs-toggle="tab" data-bs-target="#tab-pane{{k}}{{ks}}{{kp}}{{kf}}" type="button" role="tab" aria-controls="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" aria-selected="true">{{vf}}</button>
+                                                                                                        {% else %}
+                                                                                                            <button class="nav-link" id="tab{{k}}{{ks}}{{kp}}{{kf}}" data-bs-toggle="tab" data-bs-target="#tab-pane{{k}}{{ks}}{{kp}}{{kf}}" type="button" role="tab" aria-controls="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" aria-selected="false">{{vf}}</button>
+                                                                                                        {% endif %}
+                                                                                                    
+                                                                                                    </li>
+                                                                                                    
+                                                                                                {% endfor %}
+                                                                                            </ul>
+                                                                                            
+                                                                                            <div class="tab-content" id="tabContent{{k}}{{ks}}{{kp}}">
+                                                                                                {% for kf,vf in formatData.items %} 
+                                                                                                    
+                                                                                                    {% if kf == 'text' %}
+                                                                                                        <div class="tab-pane fade show active" id="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" role="tabpanel" aria-labelledby="tab{{k}}{{ks}}{{kp}}{{kf}}" tabindex="0">
+                                                                                                    {% else %}
+                                                                                                        <div class="tab-pane fade" id="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" role="tabpanel" aria-labelledby="tab{{k}}{{ks}}{{kp}}{{kf}}" tabindex="0">
+                                                                                                    {% endif %}
+                                                                                                        
+                                                                                                    
+                                                                                                            {% for raw in content %}
+                                                                                                                {% if raw.formatData == kf and raw.presentation == kp and raw.subject == ks and raw.grade == k %}
+                                                                                                                    
+                                                                                                                    <button type="button" class="btn btn-light text-start">{{raw.content}}</button>
+                                                                                                                    
+                                                                                                                {% endif %}
+                                                                                                            {% endfor %}
+                                                                                                    {% if kf == text %}
+                                                                                                        </div>
+                                                                                                    {% else %}
+                                                                                                        </div>
+                                                                                                    {% endif %}
+                                                                                                {% endfor %}
+                                                                                                
+                                                                                            </div>
+                                                                                                                                                                                                                                                                                            
+                                                                                            
+                                                                                        </div> 
+                                                                                    
+                                                                                    </div>                                                                                                                                                                                                                                                              
+
+                                                                                </div>
+                                                                            </div>
+                                                                        {% endfor %}
+                                                                    </div>
+                                                                    
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    {% endfor %}
+                                                </div>                            
+                                            {% endif %}
+
+                                            <!-- 2 класс  -->
+                                            {% if k == '2' %}
+                                                <div class="accordion" id="accordion{{k}}">
+                                                    {% for ks,vs in subjects_2.items %}
+
+                                                        <div class="accordion-item">
+                                                            <h2 class="accordion-header">
+                                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{k}}{{ks}}{{kp}}" aria-expanded="true" aria-controls="collapse{{k}}{{ks}}">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-folder mx-2" viewBox="0 0 16 16">
+                                                                    <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z"/>
+                                                                </svg>
+                                                                {{ vs }} 
+                                                            </button>
+                                                            </h2>
+                                                            <div id="collapse{{k}}{{ks}}" class="accordion-collapse collapse " data-bs-parent="#accordion{{k}}">
+                                                                <div class="accordion-body">
+                                                                    
+                                                                    
+                                                                    <div class="accordion" id="accordion{{k}}{{ks}}">
+                                                                        {% for kp,vp in presentation.items %}
+                                                                        
+                                                                        
+                                                                            <div class="accordion-item">
+                                                                                <h2 class="accordion-header">
+                                                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{k}}{{ks}}{{kp}}" aria-expanded="true" aria-controls="collapse{{k}}{{ks}}{{kp}}">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-postcard mx-2" viewBox="0 0 16 16">
+                                                                                        <path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4Zm7.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7ZM2 5.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5ZM10.5 5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3ZM13 8h-2V6h2v2Z"/>
+                                                                                    </svg>
+                                                                                    {{ vp }} 
+                                                                                </button>
+                                                                                </h2>
+                                                                                <div id="collapse{{k}}{{ks}}{{kp}}" class="accordion-collapse collapse " data-bs-parent="#accordion{{k}}{{ks}}">
+                                                                                    <div class="accordion-body">
+                                                                                        
+                                                                                        <div class="d-flex flex-column justify-content-center">
+                                                                                                                                                          
+                                                                                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                                                                {% for kf,vf in formatData.items %} 
+                                                                                                    
+                                                                                                    <li class="nav-item " role="presentation">
+
+                                                                                                        {% if kf == 'text' %}
+                                                                                                            <button class="nav-link active" id="tab{{k}}{{ks}}{{kp}}{{kf}}" data-bs-toggle="tab" data-bs-target="#tab-pane{{k}}{{ks}}{{kp}}{{kf}}" type="button" role="tab" aria-controls="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" aria-selected="true">{{vf}}</button>
+                                                                                                        {% else %}
+                                                                                                            <button class="nav-link" id="tab{{k}}{{ks}}{{kp}}{{kf}}" data-bs-toggle="tab" data-bs-target="#tab-pane{{k}}{{ks}}{{kp}}{{kf}}" type="button" role="tab" aria-controls="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" aria-selected="false">{{vf}}</button>
+                                                                                                        {% endif %}
+                                                                                                    
+                                                                                                    </li>
+                                                                                                    
+                                                                                                {% endfor %}
+                                                                                            </ul>
+                                                                                            
+                                                                                            <div class="tab-content" id="tabContent{{k}}{{ks}}{{kp}}">
+                                                                                                {% for kf,vf in formatData.items %} 
+                                                                                                    
+                                                                                                    {% if kf == 'text' %}
+                                                                                                        <div class="tab-pane fade show active" id="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" role="tabpanel" aria-labelledby="tab{{k}}{{ks}}{{kp}}{{kf}}" tabindex="0">
+                                                                                                    {% else %}
+                                                                                                        <div class="tab-pane fade" id="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" role="tabpanel" aria-labelledby="tab{{k}}{{ks}}{{kp}}{{kf}}" tabindex="0">
+                                                                                                    {% endif %}
+                                                                                                        
+                                                                                                    
+                                                                                                            {% for raw in content %}
+                                                                                                                {% if raw.formatData == kf and raw.presentation == kp and raw.subject == ks and raw.grade == k %}
+                                                                                                                    
+                                                                                                                    <button type="button" class="btn btn-light text-start">{{raw.content}}</button>
+                                                                                                                    
+                                                                                                                {% endif %}
+                                                                                                            {% endfor %}
+                                                                                                    {% if kf == text %}
+                                                                                                        </div>
+                                                                                                    {% else %}
+                                                                                                        </div>
+                                                                                                    {% endif %}
+                                                                                                {% endfor %}
+                                                                                                
+                                                                                            </div>
+                                                                                                                                                                                                                                                                                            
+                                                                                            
+                                                                                        </div>                                                                                                                                                              
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        {% endfor %}
+                                                                    </div>
+                                                                    
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    {% endfor %}
+                                                </div>                            
+                                            {% endif %}
+
+                                            <!-- 3 класс  -->
+                                            {% if k == '3' %}
+                                                <div class="accordion" id="accordion{{k}}">
+                                                    {% for ks,vs in subjects_3.items %}
+
+                                                        <div class="accordion-item">
+                                                            <h2 class="accordion-header">
+                                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{k}}{{ks}}{{kp}}" aria-expanded="true" aria-controls="collapse{{k}}{{ks}}">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-folder me-2" viewBox="0 0 16 16">
+                                                                    <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z"/>
+                                                                </svg>
+                                                                {{ vs }} 
+                                                            </button>
+                                                            </h2>
+                                                            <div id="collapse{{k}}{{ks}}" class="accordion-collapse collapse " data-bs-parent="#accordion{{k}}">
+                                                                <div class="accordion-body">
+                                                                    
+                                                                    
+                                                                    <div class="accordion" id="accordion{{k}}{{ks}}">
+                                                                        {% for kp,vp in presentation.items %}
+                                                                        
+                                                                        
+                                                                            <div class="accordion-item">
+                                                                                <h2 class="accordion-header">
+                                                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{k}}{{ks}}{{kp}}" aria-expanded="true" aria-controls="collapse{{k}}{{ks}}{{kp}}">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-postcard me-2" viewBox="0 0 16 16">
+                                                                                        <path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4Zm7.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7ZM2 5.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5ZM10.5 5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3ZM13 8h-2V6h2v2Z"/>
+                                                                                    </svg>
+                                                                                    {{ vp }} 
+                                                                                </button>
+                                                                                </h2>
+                                                                                <div id="collapse{{k}}{{ks}}{{kp}}" class="accordion-collapse collapse " data-bs-parent="#accordion{{k}}{{ks}}">
+                                                                                    <div class="accordion-body">
+                                                                                        <div class="d-flex flex-column justify-content-center">
+                                                                                                                                                          
+                                                                                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                                                                {% for kf,vf in formatData.items %} 
+                                                                                                    
+                                                                                                    <li class="nav-item " role="presentation">
+
+                                                                                                        {% if kf == 'text' %}
+                                                                                                            <button class="nav-link active" id="tab{{k}}{{ks}}{{kp}}{{kf}}" data-bs-toggle="tab" data-bs-target="#tab-pane{{k}}{{ks}}{{kp}}{{kf}}" type="button" role="tab" aria-controls="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" aria-selected="true">{{vf}}</button>
+                                                                                                        {% else %}
+                                                                                                            <button class="nav-link" id="tab{{k}}{{ks}}{{kp}}{{kf}}" data-bs-toggle="tab" data-bs-target="#tab-pane{{k}}{{ks}}{{kp}}{{kf}}" type="button" role="tab" aria-controls="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" aria-selected="false">{{vf}}</button>
+                                                                                                        {% endif %}
+                                                                                                    
+                                                                                                    </li>
+                                                                                                    
+                                                                                                {% endfor %}
+                                                                                            </ul>
+                                                                                            
+                                                                                            <div class="tab-content" id="tabContent{{k}}{{ks}}{{kp}}">
+                                                                                                {% for kf,vf in formatData.items %} 
+                                                                                                    
+                                                                                                    {% if kf == 'text' %}
+                                                                                                        <div class="tab-pane fade show active" id="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" role="tabpanel" aria-labelledby="tab{{k}}{{ks}}{{kp}}{{kf}}" tabindex="0">
+                                                                                                    {% else %}
+                                                                                                        <div class="tab-pane fade" id="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" role="tabpanel" aria-labelledby="tab{{k}}{{ks}}{{kp}}{{kf}}" tabindex="0">
+                                                                                                    {% endif %}
+                                                                                                        
+                                                                                                    
+                                                                                                            {% for raw in content %}
+                                                                                                                {% if raw.formatData == kf and raw.presentation == kp and raw.subject == ks and raw.grade == k %}
+                                                                                                                    
+                                                                                                                    <button type="button" class="btn btn-light text-start">{{raw.content}}</button>
+                                                                                                                    
+                                                                                                                {% endif %}
+                                                                                                            {% endfor %}
+                                                                                                    {% if kf == text %}
+                                                                                                        </div>
+                                                                                                    {% else %}
+                                                                                                        </div>
+                                                                                                    {% endif %}
+                                                                                                {% endfor %}
+                                                                                                
+                                                                                            </div>
+                                                                                                                                                                                                                                                                                            
+                                                                                            
+                                                                                        </div> 
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        {% endfor %}
+                                                                    </div>
+                                                                    
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    {% endfor %}
+                                                </div>                            
+                                            {% endif %}
+
+                                            <!-- 4 класс  -->
+                                            {% if k == '4' %}
+                                                <div class="accordion" id="accordion{{k}}">
+                                                    {% for ks,vs in subjects_4.items %}
+
+                                                        <div class="accordion-item">
+                                                            <h2 class="accordion-header">
+                                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{k}}{{ks}}{{kp}}" aria-expanded="true" aria-controls="collapse{{k}}{{ks}}">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-folder mx-2" viewBox="0 0 16 16">
+                                                                    <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z"/>
+                                                                </svg>
+                                                                {{ vs }} 
+                                                            </button>
+                                                            </h2>
+                                                            <div id="collapse{{k}}{{ks}}" class="accordion-collapse collapse " data-bs-parent="#accordion{{k}}">
+                                                                <div class="accordion-body">
+                                                                    
+                                                                    
+                                                                    <div class="accordion" id="accordion{{k}}{{ks}}">
+                                                                        {% for kp,vp in presentation.items %}
+                                                                        
+                                                                        
+                                                                            <div class="accordion-item">
+                                                                                <h2 class="accordion-header">
+                                                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{k}}{{ks}}{{kp}}" aria-expanded="true" aria-controls="collapse{{k}}{{ks}}{{kp}}">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-postcard mx-2" viewBox="0 0 16 16">
+                                                                                        <path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4Zm7.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7ZM2 5.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5ZM10.5 5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3ZM13 8h-2V6h2v2Z"/>
+                                                                                    </svg>
+                                                                                    {{ vp }} 
+                                                                                </button>
+                                                                                </h2>
+                                                                                <div id="collapse{{k}}{{ks}}{{kp}}" class="accordion-collapse collapse " data-bs-parent="#accordion{{k}}{{ks}}">
+                                                                                    <div class="accordion-body">
+                                                                                        <div class="d-flex flex-column justify-content-center">
+                                                                                                                                                          
+                                                                                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                                                                {% for kf,vf in formatData.items %} 
+                                                                                                    
+                                                                                                    <li class="nav-item " role="presentation">
+
+                                                                                                        {% if kf == 'text' %}
+                                                                                                            <button class="nav-link active" id="tab{{k}}{{ks}}{{kp}}{{kf}}" data-bs-toggle="tab" data-bs-target="#tab-pane{{k}}{{ks}}{{kp}}{{kf}}" type="button" role="tab" aria-controls="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" aria-selected="true">{{vf}}</button>
+                                                                                                        {% else %}
+                                                                                                            <button class="nav-link" id="tab{{k}}{{ks}}{{kp}}{{kf}}" data-bs-toggle="tab" data-bs-target="#tab-pane{{k}}{{ks}}{{kp}}{{kf}}" type="button" role="tab" aria-controls="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" aria-selected="false">{{vf}}</button>
+                                                                                                        {% endif %}
+                                                                                                    
+                                                                                                    </li>
+                                                                                                    
+                                                                                                {% endfor %}
+                                                                                            </ul>
+                                                                                            
+                                                                                            <div class="tab-content" id="tabContent{{k}}{{ks}}{{kp}}">
+                                                                                                {% for kf,vf in formatData.items %} 
+                                                                                                    
+                                                                                                    {% if kf == 'text' %}
+                                                                                                        <div class="tab-pane fade show active" id="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" role="tabpanel" aria-labelledby="tab{{k}}{{ks}}{{kp}}{{kf}}" tabindex="0">
+                                                                                                    {% else %}
+                                                                                                        <div class="tab-pane fade" id="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" role="tabpanel" aria-labelledby="tab{{k}}{{ks}}{{kp}}{{kf}}" tabindex="0">
+                                                                                                    {% endif %}
+                                                                                                        
+                                                                                                    
+                                                                                                            {% for raw in content %}
+                                                                                                                {% if raw.formatData == kf and raw.presentation == kp and raw.subject == ks and raw.grade == k %}
+                                                                                                                    
+                                                                                                                    <button type="button" class="btn btn-light text-start">{{raw.content}}</button>
+                                                                                                                    
+                                                                                                                {% endif %}
+                                                                                                            {% endfor %}
+                                                                                                    {% if kf == text %}
+                                                                                                        </div>
+                                                                                                    {% else %}
+                                                                                                        </div>
+                                                                                                    {% endif %}
+                                                                                                {% endfor %}
+                                                                                                
+                                                                                            </div>
+                                                                                                                                                                                                                                                                                            
+                                                                                            
+                                                                                        </div> 
+                                                                                           
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        {% endfor %}
+                                                                    </div>
+                                                                    
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    {% endfor %}
+                                                </div>                            
+                                            {% endif %}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <!-- Средняя школа -->
+                    {% if key == 'upperSchool' %}
+                        <div class="accordion" id="accordionUpperSchool">
+                            {% for k,v in upperSchool.items %}
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ k }}" aria-expanded="true" aria-controls="collapseOne">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-person mx-2" viewBox="0 0 16 16">
+                                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+                                        </svg>
+                                        {{ v }}
+                                    </button>
+                                    </h2>
+                                    <div id="collapse{{k}}" class="accordion-collapse collapse " data-bs-parent="#accordionUpperSchool">
+                                        <div class="accordion-body">
+                                        
+                                            <!-- 5 класс  -->
+                                            {% if k == '5' %}
+                                                <div class="accordion" id="accordion{{k}}">
+                                                    {% for ks,vs in subjects_5.items %}
+
+                                                        <div class="accordion-item">
+                                                            <h2 class="accordion-header">
+                                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{k}}{{ks}}{{kp}}" aria-expanded="true" aria-controls="collapse{{k}}{{ks}}">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-folder mx-2" viewBox="0 0 16 16">
+                                                                    <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z"/>
+                                                                </svg>
+                                                                {{ vs }} 
+                                                            </button>
+                                                            </h2>
+                                                            <div id="collapse{{k}}{{ks}}" class="accordion-collapse collapse " data-bs-parent="#accordion{{k}}">
+                                                                <div class="accordion-body">
+                                                                    
+                                                                    
+                                                                    <div class="accordion" id="accordion{{k}}{{ks}}">
+                                                                        {% for kp,vp in presentation.items %}
+                                                                        
+                                                                        
+                                                                            <div class="accordion-item">
+                                                                                <h2 class="accordion-header">
+                                                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{k}}{{ks}}{{kp}}" aria-expanded="true" aria-controls="collapse{{k}}{{ks}}{{kp}}">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-postcard mx-2" viewBox="0 0 16 16">
+                                                                                        <path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4Zm7.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7ZM2 5.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5ZM10.5 5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3ZM13 8h-2V6h2v2Z"/>
+                                                                                    </svg>
+                                                                                    {{ vp }} 
+                                                                                </button>
+                                                                                </h2>
+                                                                                <div id="collapse{{k}}{{ks}}{{kp}}" class="accordion-collapse collapse " data-bs-parent="#accordion{{k}}{{ks}}">
+                                                                                    <div class="accordion-body">
+                                                                                        <div class="d-flex flex-column justify-content-center">
+                                                                                                                                                          
+                                                                                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                                                                {% for kf,vf in formatData.items %} 
+                                                                                                    
+                                                                                                    <li class="nav-item " role="presentation">
+
+                                                                                                        {% if kf == 'text' %}
+                                                                                                            <button class="nav-link active" id="tab{{k}}{{ks}}{{kp}}{{kf}}" data-bs-toggle="tab" data-bs-target="#tab-pane{{k}}{{ks}}{{kp}}{{kf}}" type="button" role="tab" aria-controls="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" aria-selected="true">{{vf}}</button>
+                                                                                                        {% else %}
+                                                                                                            <button class="nav-link" id="tab{{k}}{{ks}}{{kp}}{{kf}}" data-bs-toggle="tab" data-bs-target="#tab-pane{{k}}{{ks}}{{kp}}{{kf}}" type="button" role="tab" aria-controls="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" aria-selected="false">{{vf}}</button>
+                                                                                                        {% endif %}
+                                                                                                    
+                                                                                                    </li>
+                                                                                                    
+                                                                                                {% endfor %}
+                                                                                            </ul>
+                                                                                            
+                                                                                            <div class="tab-content" id="tabContent{{k}}{{ks}}{{kp}}">
+                                                                                                {% for kf,vf in formatData.items %} 
+                                                                                                    
+                                                                                                    {% if kf == 'text' %}
+                                                                                                        <div class="tab-pane fade show active" id="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" role="tabpanel" aria-labelledby="tab{{k}}{{ks}}{{kp}}{{kf}}" tabindex="0">
+                                                                                                    {% else %}
+                                                                                                        <div class="tab-pane fade" id="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" role="tabpanel" aria-labelledby="tab{{k}}{{ks}}{{kp}}{{kf}}" tabindex="0">
+                                                                                                    {% endif %}
+                                                                                                        
+                                                                                                    
+                                                                                                            {% for raw in content %}
+                                                                                                                {% if raw.formatData == kf and raw.presentation == kp and raw.subject == ks and raw.grade == k %}
+                                                                                                                    
+                                                                                                                    <button type="button" class="btn btn-light text-start">{{raw.content}}</button>
+                                                                                                                    
+                                                                                                                {% endif %}
+                                                                                                            {% endfor %}
+                                                                                                    {% if kf == text %}
+                                                                                                        </div>
+                                                                                                    {% else %}
+                                                                                                        </div>
+                                                                                                    {% endif %}
+                                                                                                {% endfor %}
+                                                                                                
+                                                                                            </div>
+                                                                                                                                                                                                                                                                                            
+                                                                                            
+                                                                                        </div> 
+                                                                                          
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        {% endfor %}
+                                                                    </div>
+                                                                    
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    {% endfor %}
+                                                </div>                            
+                                            {% endif %}
+
+                                            <!-- 6 класс  -->
+                                            {% if k == '6' %}
+                                                <div class="accordion" id="accordion{{k}}">
+                                                    {% for ks,vs in subjects_6.items %}
+
+                                                        <div class="accordion-item">
+                                                            <h2 class="accordion-header">
+                                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{k}}{{ks}}{{kp}}" aria-expanded="true" aria-controls="collapse{{k}}{{ks}}">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-folder mx-2" viewBox="0 0 16 16">
+                                                                    <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z"/>
+                                                                </svg>
+                                                                {{ vs }} 
+                                                            </button>
+                                                            </h2>
+                                                            <div id="collapse{{k}}{{ks}}" class="accordion-collapse collapse " data-bs-parent="#accordion{{k}}">
+                                                                <div class="accordion-body">
+                                                                    
+                                                                    
+                                                                    <div class="accordion" id="accordion{{k}}{{ks}}">
+                                                                        {% for kp,vp in presentation.items %}
+                                                                        
+                                                                        
+                                                                            <div class="accordion-item">
+                                                                                <h2 class="accordion-header">
+                                                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{k}}{{ks}}{{kp}}" aria-expanded="true" aria-controls="collapse{{k}}{{ks}}{{kp}}">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-postcard mx-2" viewBox="0 0 16 16">
+                                                                                        <path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4Zm7.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7ZM2 5.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5ZM10.5 5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3ZM13 8h-2V6h2v2Z"/>
+                                                                                    </svg>
+                                                                                    {{ vp }} 
+                                                                                </button>
+                                                                                </h2>
+                                                                                <div id="collapse{{k}}{{ks}}{{kp}}" class="accordion-collapse collapse " data-bs-parent="#accordion{{k}}{{ks}}">
+                                                                                    <div class="accordion-body">
+                                                                                        <div class="d-flex flex-column justify-content-center">
+                                                                                                                                                          
+                                                                                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                                                                {% for kf,vf in formatData.items %} 
+                                                                                                    
+                                                                                                    <li class="nav-item " role="presentation">
+
+                                                                                                        {% if kf == 'text' %}
+                                                                                                            <button class="nav-link active" id="tab{{k}}{{ks}}{{kp}}{{kf}}" data-bs-toggle="tab" data-bs-target="#tab-pane{{k}}{{ks}}{{kp}}{{kf}}" type="button" role="tab" aria-controls="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" aria-selected="true">{{vf}}</button>
+                                                                                                        {% else %}
+                                                                                                            <button class="nav-link" id="tab{{k}}{{ks}}{{kp}}{{kf}}" data-bs-toggle="tab" data-bs-target="#tab-pane{{k}}{{ks}}{{kp}}{{kf}}" type="button" role="tab" aria-controls="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" aria-selected="false">{{vf}}</button>
+                                                                                                        {% endif %}
+                                                                                                    
+                                                                                                    </li>
+                                                                                                    
+                                                                                                {% endfor %}
+                                                                                            </ul>
+                                                                                            
+                                                                                            <div class="tab-content" id="tabContent{{k}}{{ks}}{{kp}}">
+                                                                                                {% for kf,vf in formatData.items %} 
+                                                                                                    
+                                                                                                    {% if kf == 'text' %}
+                                                                                                        <div class="tab-pane fade show active" id="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" role="tabpanel" aria-labelledby="tab{{k}}{{ks}}{{kp}}{{kf}}" tabindex="0">
+                                                                                                    {% else %}
+                                                                                                        <div class="tab-pane fade" id="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" role="tabpanel" aria-labelledby="tab{{k}}{{ks}}{{kp}}{{kf}}" tabindex="0">
+                                                                                                    {% endif %}
+                                                                                                        
+                                                                                                    
+                                                                                                            {% for raw in content %}
+                                                                                                                {% if raw.formatData == kf and raw.presentation == kp and raw.subject == ks and raw.grade == k %}
+                                                                                                                    
+                                                                                                                    <button type="button" class="btn btn-light text-start">{{raw.content}}</button>
+                                                                                                                    
+                                                                                                                {% endif %}
+                                                                                                            {% endfor %}
+                                                                                                    {% if kf == text %}
+                                                                                                        </div>
+                                                                                                    {% else %}
+                                                                                                        </div>
+                                                                                                    {% endif %}
+                                                                                                {% endfor %}
+                                                                                                
+                                                                                            </div>
+                                                                                                                                                                                                                                                                                            
+                                                                                            
+                                                                                        </div> 
+                                                                                                                                                                                                                                                                
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        {% endfor %}
+                                                                    </div>
+                                                                    
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    {% endfor %}
+                                                </div>                            
+                                            {% endif %}
+
+                                            <!-- 7 класс  -->
+                                            {% if k == '7' %}
+                                                <div class="accordion" id="accordion{{k}}">
+                                                    {% for ks,vs in subjects_7.items %}
+
+                                                        <div class="accordion-item">
+                                                            <h2 class="accordion-header">
+                                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{k}}{{ks}}{{kp}}" aria-expanded="true" aria-controls="collapse{{k}}{{ks}}">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-folder mx-2" viewBox="0 0 16 16">
+                                                                    <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z"/>
+                                                                </svg>
+                                                                {{ vs }} 
+                                                            </button>
+                                                            </h2>
+                                                            <div id="collapse{{k}}{{ks}}" class="accordion-collapse collapse " data-bs-parent="#accordion{{k}}">
+                                                                <div class="accordion-body">
+                                                                    
+                                                                    
+                                                                    <div class="accordion" id="accordion{{k}}{{ks}}">
+                                                                        {% for kp,vp in presentation.items %}
+                                                                        
+                                                                        
+                                                                            <div class="accordion-item">
+                                                                                <h2 class="accordion-header">
+                                                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{k}}{{ks}}{{kp}}" aria-expanded="true" aria-controls="collapse{{k}}{{ks}}{{kp}}">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-postcard mx-2" viewBox="0 0 16 16">
+                                                                                        <path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4Zm7.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7ZM2 5.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5ZM10.5 5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3ZM13 8h-2V6h2v2Z"/>
+                                                                                    </svg>
+                                                                                    {{ vp }} 
+                                                                                </button>
+                                                                                </h2>
+                                                                                <div id="collapse{{k}}{{ks}}{{kp}}" class="accordion-collapse collapse " data-bs-parent="#accordion{{k}}{{ks}}">
+                                                                                    <div class="accordion-body">
+                                                                                        <div class="d-flex flex-column justify-content-center">
+                                                                                                                                                          
+                                                                                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                                                                {% for kf,vf in formatData.items %} 
+                                                                                                    
+                                                                                                    <li class="nav-item " role="presentation">
+
+                                                                                                        {% if kf == 'text' %}
+                                                                                                            <button class="nav-link active" id="tab{{k}}{{ks}}{{kp}}{{kf}}" data-bs-toggle="tab" data-bs-target="#tab-pane{{k}}{{ks}}{{kp}}{{kf}}" type="button" role="tab" aria-controls="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" aria-selected="true">{{vf}}</button>
+                                                                                                        {% else %}
+                                                                                                            <button class="nav-link" id="tab{{k}}{{ks}}{{kp}}{{kf}}" data-bs-toggle="tab" data-bs-target="#tab-pane{{k}}{{ks}}{{kp}}{{kf}}" type="button" role="tab" aria-controls="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" aria-selected="false">{{vf}}</button>
+                                                                                                        {% endif %}
+                                                                                                    
+                                                                                                    </li>
+                                                                                                    
+                                                                                                {% endfor %}
+                                                                                            </ul>
+                                                                                            
+                                                                                            <div class="tab-content" id="tabContent{{k}}{{ks}}{{kp}}">
+                                                                                                {% for kf,vf in formatData.items %} 
+                                                                                                    
+                                                                                                    {% if kf == 'text' %}
+                                                                                                        <div class="tab-pane fade show active" id="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" role="tabpanel" aria-labelledby="tab{{k}}{{ks}}{{kp}}{{kf}}" tabindex="0">
+                                                                                                    {% else %}
+                                                                                                        <div class="tab-pane fade" id="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" role="tabpanel" aria-labelledby="tab{{k}}{{ks}}{{kp}}{{kf}}" tabindex="0">
+                                                                                                    {% endif %}
+                                                                                                        
+                                                                                                    
+                                                                                                            {% for raw in content %}
+                                                                                                                {% if raw.formatData == kf and raw.presentation == kp and raw.subject == ks and raw.grade == k %}
+                                                                                                                    
+                                                                                                                    <button type="button" class="btn btn-light text-start">{{raw.content}}</button>
+                                                                                                                    
+                                                                                                                {% endif %}
+                                                                                                            {% endfor %}
+                                                                                                    {% if kf == text %}
+                                                                                                        </div>
+                                                                                                    {% else %}
+                                                                                                        </div>
+                                                                                                    {% endif %}
+                                                                                                {% endfor %}
+                                                                                                
+                                                                                            </div>
+                                                                                                                                                                                                                                                                                            
+                                                                                            
+                                                                                        </div> 
+                                                                                                                                                                                                                                                                
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        {% endfor %}
+                                                                    </div>
+                                                                    
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    {% endfor %}
+                                                </div>                            
+                                            {% endif %}
+
+                                            <!-- 8 класс  -->
+                                            {% if k == '8' %}
+                                                <div class="accordion" id="accordion{{k}}">
+                                                    {% for ks,vs in subjects_8.items %}
+
+                                                        <div class="accordion-item">
+                                                            <h2 class="accordion-header">
+                                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{k}}{{ks}}{{kp}}" aria-expanded="true" aria-controls="collapse{{k}}{{ks}}">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-folder mx-2" viewBox="0 0 16 16">
+                                                                    <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z"/>
+                                                                </svg>
+                                                                {{ vs }} 
+                                                            </button>
+                                                            </h2>
+                                                            <div id="collapse{{k}}{{ks}}" class="accordion-collapse collapse " data-bs-parent="#accordion{{k}}">
+                                                                <div class="accordion-body">
+                                                                    
+                                                                    
+                                                                    <div class="accordion" id="accordion{{k}}{{ks}}">
+                                                                        {% for kp,vp in presentation.items %}
+                                                                        
+                                                                        
+                                                                            <div class="accordion-item">
+                                                                                <h2 class="accordion-header">
+                                                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{k}}{{ks}}{{kp}}" aria-expanded="true" aria-controls="collapse{{k}}{{ks}}{{kp}}">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-postcard mx-2" viewBox="0 0 16 16">
+                                                                                        <path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4Zm7.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7ZM2 5.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5ZM10.5 5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3ZM13 8h-2V6h2v2Z"/>
+                                                                                    </svg>
+                                                                                    {{ vp }} 
+                                                                                </button>
+                                                                                </h2>
+                                                                                <div id="collapse{{k}}{{ks}}{{kp}}" class="accordion-collapse collapse " data-bs-parent="#accordion{{k}}{{ks}}">
+                                                                                    <div class="accordion-body">
+                                                                                        <div class="d-flex flex-column justify-content-center">
+                                                                                                                                                          
+                                                                                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                                                                {% for kf,vf in formatData.items %} 
+                                                                                                    
+                                                                                                    <li class="nav-item " role="presentation">
+
+                                                                                                        {% if kf == 'text' %}
+                                                                                                            <button class="nav-link active" id="tab{{k}}{{ks}}{{kp}}{{kf}}" data-bs-toggle="tab" data-bs-target="#tab-pane{{k}}{{ks}}{{kp}}{{kf}}" type="button" role="tab" aria-controls="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" aria-selected="true">{{vf}}</button>
+                                                                                                        {% else %}
+                                                                                                            <button class="nav-link" id="tab{{k}}{{ks}}{{kp}}{{kf}}" data-bs-toggle="tab" data-bs-target="#tab-pane{{k}}{{ks}}{{kp}}{{kf}}" type="button" role="tab" aria-controls="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" aria-selected="false">{{vf}}</button>
+                                                                                                        {% endif %}
+                                                                                                    
+                                                                                                    </li>
+                                                                                                    
+                                                                                                {% endfor %}
+                                                                                            </ul>
+                                                                                            
+                                                                                            <div class="tab-content" id="tabContent{{k}}{{ks}}{{kp}}">
+                                                                                                {% for kf,vf in formatData.items %} 
+                                                                                                    
+                                                                                                    {% if kf == 'text' %}
+                                                                                                        <div class="tab-pane fade show active" id="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" role="tabpanel" aria-labelledby="tab{{k}}{{ks}}{{kp}}{{kf}}" tabindex="0">
+                                                                                                    {% else %}
+                                                                                                        <div class="tab-pane fade" id="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" role="tabpanel" aria-labelledby="tab{{k}}{{ks}}{{kp}}{{kf}}" tabindex="0">
+                                                                                                    {% endif %}
+                                                                                                        
+                                                                                                    
+                                                                                                            {% for raw in content %}
+                                                                                                                {% if raw.formatData == kf and raw.presentation == kp and raw.subject == ks and raw.grade == k %}
+                                                                                                                    
+                                                                                                                    <button type="button" class="btn btn-light text-start">{{raw.content}}</button>
+                                                                                                                    
+                                                                                                                {% endif %}
+                                                                                                            {% endfor %}
+                                                                                                    {% if kf == text %}
+                                                                                                        </div>
+                                                                                                    {% else %}
+                                                                                                        </div>
+                                                                                                    {% endif %}
+                                                                                                {% endfor %}
+                                                                                                
+                                                                                            </div>
+                                                                                                
+                                                                                        </div> 
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        {% endfor %}
+                                                                    </div>
+                                                                    
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    {% endfor %}
+                                                </div>                            
+                                            {% endif %}
+                                            
+                                            <!-- 9 класс  -->
+                                            {% if k == '9' %}
+                                                <div class="accordion" id="accordion{{k}}">
+                                                    {% for ks,vs in subjects_9.items %}
+
+                                                        <div class="accordion-item">
+                                                            <h2 class="accordion-header">
+                                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{k}}{{ks}}{{kp}}" aria-expanded="true" aria-controls="collapse{{k}}{{ks}}">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-folder mx-2" viewBox="0 0 16 16">
+                                                                    <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z"/>
+                                                                </svg>
+                                                                {{ vs }} 
+                                                            </button>
+                                                            </h2>
+                                                            <div id="collapse{{k}}{{ks}}" class="accordion-collapse collapse " data-bs-parent="#accordion{{k}}">
+                                                                <div class="accordion-body">
+                                                                    
+                                                                    
+                                                                    <div class="accordion" id="accordion{{k}}{{ks}}">
+                                                                        {% for kp,vp in presentation.items %}
+                                                                        
+                                                                        
+                                                                            <div class="accordion-item">
+                                                                                <h2 class="accordion-header">
+                                                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{k}}{{ks}}{{kp}}" aria-expanded="true" aria-controls="collapse{{k}}{{ks}}{{kp}}">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-postcard mx-2" viewBox="0 0 16 16">
+                                                                                        <path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4Zm7.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7ZM2 5.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5ZM10.5 5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3ZM13 8h-2V6h2v2Z"/>
+                                                                                    </svg>
+                                                                                    {{ vp }} 
+                                                                                </button>
+                                                                                </h2>
+                                                                                <div id="collapse{{k}}{{ks}}{{kp}}" class="accordion-collapse collapse " data-bs-parent="#accordion{{k}}{{ks}}">
+                                                                                    <div class="accordion-body">
+                                                                                        <div class="d-flex flex-column justify-content-center">
+                                                                                                                                                          
+                                                                                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                                                                {% for kf,vf in formatData.items %} 
+                                                                                                    
+                                                                                                    <li class="nav-item " role="presentation">
+
+                                                                                                        {% if kf == 'text' %}
+                                                                                                            <button class="nav-link active" id="tab{{k}}{{ks}}{{kp}}{{kf}}" data-bs-toggle="tab" data-bs-target="#tab-pane{{k}}{{ks}}{{kp}}{{kf}}" type="button" role="tab" aria-controls="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" aria-selected="true">{{vf}}</button>
+                                                                                                        {% else %}
+                                                                                                            <button class="nav-link" id="tab{{k}}{{ks}}{{kp}}{{kf}}" data-bs-toggle="tab" data-bs-target="#tab-pane{{k}}{{ks}}{{kp}}{{kf}}" type="button" role="tab" aria-controls="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" aria-selected="false">{{vf}}</button>
+                                                                                                        {% endif %}
+                                                                                                    
+                                                                                                    </li>
+                                                                                                    
+                                                                                                {% endfor %}
+                                                                                            </ul>
+                                                                                            
+                                                                                            <div class="tab-content" id="tabContent{{k}}{{ks}}{{kp}}">
+                                                                                                {% for kf,vf in formatData.items %} 
+                                                                                                    
+                                                                                                    {% if kf == 'text' %}
+                                                                                                        <div class="tab-pane fade show active" id="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" role="tabpanel" aria-labelledby="tab{{k}}{{ks}}{{kp}}{{kf}}" tabindex="0">
+                                                                                                    {% else %}
+                                                                                                        <div class="tab-pane fade" id="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" role="tabpanel" aria-labelledby="tab{{k}}{{ks}}{{kp}}{{kf}}" tabindex="0">
+                                                                                                    {% endif %}
+                                                                                                        
+                                                                                                    
+                                                                                                            {% for raw in content %}
+                                                                                                                {% if raw.formatData == kf and raw.presentation == kp and raw.subject == ks and raw.grade == k %}
+                                                                                                                    
+                                                                                                                    <button type="button" class="btn btn-light text-start">{{raw.content}}</button>
+                                                                                                                    
+                                                                                                                {% endif %}
+                                                                                                            {% endfor %}
+                                                                                                    {% if kf == text %}
+                                                                                                        </div>
+                                                                                                    {% else %}
+                                                                                                        </div>
+                                                                                                    {% endif %}
+                                                                                                {% endfor %}
+                                                                                                
+                                                                                            </div>
+                                                                                                                                                                                                                                                                                            
+                                                                                            
+                                                                                        </div> 
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        {% endfor %}
+                                                                    </div>
+                                                                    
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    {% endfor %}
+                                                </div>                            
+                                            {% endif %}
+
+                                            <!-- 10 класс    -->
+                                            {% if k == '10' %}
+                                                <div class="accordion" id="accordion{{k}}">
+                                                    {% for ks,vs in subjects_10.items %}
+
+                                                        <div class="accordion-item">
+                                                            <h2 class="accordion-header">
+                                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{k}}{{ks}}{{kp}}" aria-expanded="true" aria-controls="collapse{{k}}{{ks}}">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-folder mx-2" viewBox="0 0 16 16">
+                                                                    <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z"/>
+                                                                </svg>
+                                                                {{ vs }} 
+                                                            </button>
+                                                            </h2>
+                                                            <div id="collapse{{k}}{{ks}}" class="accordion-collapse collapse " data-bs-parent="#accordion{{k}}">
+                                                                <div class="accordion-body">
+                                                                    
+                                                                    
+                                                                    <div class="accordion" id="accordion{{k}}{{ks}}">
+                                                                        {% for kp,vp in presentation.items %}
+                                                                        
+                                                                        
+                                                                            <div class="accordion-item">
+                                                                                <h2 class="accordion-header">
+                                                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{k}}{{ks}}{{kp}}" aria-expanded="true" aria-controls="collapse{{k}}{{ks}}{{kp}}">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-postcard mx-2" viewBox="0 0 16 16">
+                                                                                        <path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4Zm7.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7ZM2 5.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5ZM10.5 5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3ZM13 8h-2V6h2v2Z"/>
+                                                                                    </svg>
+                                                                                    {{ vp }} 
+                                                                                </button>
+                                                                                </h2>
+                                                                                <div id="collapse{{k}}{{ks}}{{kp}}" class="accordion-collapse collapse " data-bs-parent="#accordion{{k}}{{ks}}">
+                                                                                    <div class="accordion-body">
+                                                                                        <div class="d-flex flex-column justify-content-center">
+                                                                                                                                                          
+                                                                                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                                                                {% for kf,vf in formatData.items %} 
+                                                                                                    
+                                                                                                    <li class="nav-item " role="presentation">
+
+                                                                                                        {% if kf == 'text' %}
+                                                                                                            <button class="nav-link active" id="tab{{k}}{{ks}}{{kp}}{{kf}}" data-bs-toggle="tab" data-bs-target="#tab-pane{{k}}{{ks}}{{kp}}{{kf}}" type="button" role="tab" aria-controls="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" aria-selected="true">{{vf}}</button>
+                                                                                                        {% else %}
+                                                                                                            <button class="nav-link" id="tab{{k}}{{ks}}{{kp}}{{kf}}" data-bs-toggle="tab" data-bs-target="#tab-pane{{k}}{{ks}}{{kp}}{{kf}}" type="button" role="tab" aria-controls="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" aria-selected="false">{{vf}}</button>
+                                                                                                        {% endif %}
+                                                                                                    
+                                                                                                    </li>
+                                                                                                    
+                                                                                                {% endfor %}
+                                                                                            </ul>
+                                                                                            
+                                                                                            <div class="tab-content" id="tabContent{{k}}{{ks}}{{kp}}">
+                                                                                                {% for kf,vf in formatData.items %} 
+                                                                                                    
+                                                                                                    {% if kf == 'text' %}
+                                                                                                        <div class="tab-pane fade show active" id="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" role="tabpanel" aria-labelledby="tab{{k}}{{ks}}{{kp}}{{kf}}" tabindex="0">
+                                                                                                    {% else %}
+                                                                                                        <div class="tab-pane fade" id="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" role="tabpanel" aria-labelledby="tab{{k}}{{ks}}{{kp}}{{kf}}" tabindex="0">
+                                                                                                    {% endif %}
+                                                                                                        
+                                                                                                    
+                                                                                                            {% for raw in content %}
+                                                                                                                {% if raw.formatData == kf and raw.presentation == kp and raw.subject == ks and raw.grade == k %}
+                                                                                                                    
+                                                                                                                    <button type="button" class="btn btn-light text-start">{{raw.content}}</button>
+                                                                                                                    
+                                                                                                                {% endif %}
+                                                                                                            {% endfor %}
+                                                                                                    {% if kf == text %}
+                                                                                                        </div>
+                                                                                                    {% else %}
+                                                                                                        </div>
+                                                                                                    {% endif %}
+                                                                                                {% endfor %}
+                                                                                                
+                                                                                            </div>
+                                                                                                                                                                                                                                                                                            
+                                                                                            
+                                                                                        </div> 
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        {% endfor %}
+                                                                    </div>
+                                                                    
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    {% endfor %}
+                                                </div>                            
+                                            {% endif %}
+
+                                            <!-- 11 класс  -->
+                                            {% if k == '11' %}
+                                                <div class="accordion" id="accordion{{k}}">
+                                                    {% for ks,vs in subjects_11.items %}
+
+                                                        <div class="accordion-item">
+                                                            <h2 class="accordion-header">
+                                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{k}}{{ks}}{{kp}}" aria-expanded="true" aria-controls="collapse{{k}}{{ks}}">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-folder mx-2" viewBox="0 0 16 16">
+                                                                    <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z"/>
+                                                                </svg>
+                                                                {{ vs }} 
+                                                            </button>
+                                                            </h2>
+                                                            <div id="collapse{{k}}{{ks}}" class="accordion-collapse collapse " data-bs-parent="#accordion{{k}}">
+                                                                <div class="accordion-body">
+                                                                    
+                                                                    
+                                                                    <div class="accordion" id="accordion{{k}}{{ks}}">
+                                                                        {% for kp,vp in presentation.items %}
+                                                                        
+                                                                        
+                                                                            <div class="accordion-item">
+                                                                                <h2 class="accordion-header">
+                                                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{k}}{{ks}}{{kp}}" aria-expanded="true" aria-controls="collapse{{k}}{{ks}}{{kp}}">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-postcard mx-2" viewBox="0 0 16 16">
+                                                                                        <path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4Zm7.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7ZM2 5.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5ZM10.5 5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3ZM13 8h-2V6h2v2Z"/>
+                                                                                    </svg>
+                                                                                    {{ vp }} 
+                                                                                </button>
+                                                                                </h2>
+                                                                                <div id="collapse{{k}}{{ks}}{{kp}}" class="accordion-collapse collapse " data-bs-parent="#accordion{{k}}{{ks}}">
+                                                                                    <div class="accordion-body">
+                                                                                        <div class="d-flex flex-column justify-content-center">
+                                                                                                                                                          
+                                                                                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                                                                {% for kf,vf in formatData.items %} 
+                                                                                                    
+                                                                                                    <li class="nav-item " role="presentation">
+
+                                                                                                        {% if kf == 'text' %}
+                                                                                                            <button class="nav-link active" id="tab{{k}}{{ks}}{{kp}}{{kf}}" data-bs-toggle="tab" data-bs-target="#tab-pane{{k}}{{ks}}{{kp}}{{kf}}" type="button" role="tab" aria-controls="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" aria-selected="true">{{vf}}</button>
+                                                                                                        {% else %}
+                                                                                                            <button class="nav-link" id="tab{{k}}{{ks}}{{kp}}{{kf}}" data-bs-toggle="tab" data-bs-target="#tab-pane{{k}}{{ks}}{{kp}}{{kf}}" type="button" role="tab" aria-controls="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" aria-selected="false">{{vf}}</button>
+                                                                                                        {% endif %}
+                                                                                                    
+                                                                                                    </li>
+                                                                                                    
+                                                                                                {% endfor %}
+                                                                                            </ul>
+                                                                                            
+                                                                                            <div class="tab-content" id="tabContent{{k}}{{ks}}{{kp}}">
+                                                                                                {% for kf,vf in formatData.items %} 
+                                                                                                    
+                                                                                                    {% if kf == 'text' %}
+                                                                                                        <div class="tab-pane fade show active" id="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" role="tabpanel" aria-labelledby="tab{{k}}{{ks}}{{kp}}{{kf}}" tabindex="0">
+                                                                                                    {% else %}
+                                                                                                        <div class="tab-pane fade" id="tab-pane{{k}}{{ks}}{{kp}}{{kf}}" role="tabpanel" aria-labelledby="tab{{k}}{{ks}}{{kp}}{{kf}}" tabindex="0">
+                                                                                                    {% endif %}
+                                                                                                        
+                                                                                                    
+                                                                                                            {% for raw in content %}
+                                                                                                                {% if raw.formatData == kf and raw.presentation == kp and raw.subject == ks and raw.grade == k %}
+                                                                                                                    
+                                                                                                                    <button type="button" class="btn btn-light text-start">{{raw.content}}</button>
+                                                                                                                    
+                                                                                                                {% endif %}
+                                                                                                            {% endfor %}
+                                                                                                    {% if kf == text %}
+                                                                                                        </div>
+                                                                                                    {% else %}
+                                                                                                        </div>
+                                                                                                    {% endif %}
+                                                                                                {% endfor %}
+                                                                                                
+                                                                                            </div>
+                                                                                                                                                                                                                                                                                            
+                                                                                            
+                                                                                        </div> 
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        {% endfor %}
+                                                                    </div>
+                                                                    
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    {% endfor %}
+                                                </div>                            
+                                            {% endif %}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    
+</div> 
+
+{% endblock content %}
