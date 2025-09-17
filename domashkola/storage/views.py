@@ -1,10 +1,53 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from .models import Content
+from django.http import JsonResponse
+from .models import Content, Grades, Subjects, Presentation, FormatData
+from django.core.serializers.json import DjangoJSONEncoder
+from django.core.serializers import serialize
+import json
 
-sections = { 
-		'preSchool': 'Дошкольники', 
-		'elementarySchool': 'Начальная школа', 
+
+# class ContentEncoder(DjangoJSONEncoder):
+#     def default(self, obj):
+#         if isinstance(obj, Content):
+#             return {"grade": obj.grade, "subject": obj.subject}
+#             # return obj.__dict__
+#         return super().default()
+
+def menujson(request):
+	res = {}
+	# resp = Subjects.objects.values('subject_name', 'subject_code').order_by('-subject_name')
+	resp1 = Grades.objects.values('grade_name', 'grade_code').order_by('id')
+	resp2 = Subjects.objects.values('subject_name', 'subject_code').order_by('id')
+	resp3 = Presentation.objects.values('presentation_name', 'presentation_code').order_by('id')
+	resp4 = FormatData.objects.values('format_name', 'format_code').order_by('id')
+	resp5 = Content.objects.values('grade', 'subject', 'presentation', 'formatData', 'content').order_by('id')
+	res1 = [item for item in resp1]
+	res2 = [item for item in resp2]
+	res3 = [item for item in resp3]
+	res4 = [item for item in resp4]
+	res5 = [item for item in resp5]
+	res['grades'] = res1
+	res['subjects'] = res2
+	res['presentation'] = res3
+	res['formatData'] = res4
+	res['content'] = res5
+	return JsonResponse(res, safe=False)
+
+
+def contentjson(request):
+	resp = Content.objects.values('grade', 'subject', 'presentation', 'formatData', 'content').order_by('-grade')
+	res = [item for item in resp]
+	# print(f'res = {res} \n ---------')
+
+	resp2 = [{'a': 'ab34s', 'b': 222}, {'a': '23', 'b': 212422}]
+
+	return JsonResponse(res, safe=False)
+
+
+
+sections = {
+		'preSchool': 'Дошкольники',
+		'elementarySchool': 'Начальная школа',
 		'upperSchool': 'Средняя школа'
 }
 preSchool = {
@@ -12,7 +55,7 @@ preSchool = {
 	'2_3': 'Возраст 2 - 3 года',
 	'3_5': 'Возраст 3 - 5 года',
 	'5_7': 'Возраст 5 - 7 лет'
-	
+
 }
 elementarySchool = {
 	'1': '1 класс',
@@ -29,7 +72,22 @@ upperSchool = {
 	'10': '10 класс',
 	'11': '11 класс'
 }
-subjects_0 = {
+subjects_1_2 = {
+	# 'rus': 'Русский язык',
+	# 'lit': 'Чтение',
+	'tales': 'Сказки'
+}
+subjects_2_3 = {
+	# 'rus': 'Русский язык',
+	'lit': 'Чтение',
+	'tales': 'Сказки'
+}
+subjects_3_5 = {
+	'rus': 'Русский язык',
+	'lit': 'Чтение',
+	'tales': 'Сказки'
+}
+subjects_5_7 = {
 	'rus': 'Русский язык',
 	'lit': 'Чтение',
 	'tales': 'Сказки'
@@ -124,8 +182,9 @@ subjects_11 = {
 presentation = {
 	'cartoon': 'Мультфильмы',
 	'cinema': 'Кино',
-	'clip': 'Клипы',
-	'play': 'Игры',
+	'clip': 'Книги',
+	'teach': 'Учебники',
+	'play': 'Настольные игры',
 	'channel': 'Каналы',
 	'site': 'Сайты'
 }
@@ -133,13 +192,17 @@ formatData = {
 	'text': 'Текст',
 	'movie': 'Видео',
 	'file': 'Файлы',
-	'link': 'Ссылки',		
-
+	'link': 'Ссылки',
 }
 
+def makeMenu():
+	content = Content.objects.count()
+	menu = dict()
+	i = 0
+	for raw in content:
+		pass
 
 
- 
 def index(request):
 	count = Content.objects.count()
 	content = Content.objects.all()
@@ -149,7 +212,10 @@ def index(request):
 		'preSchool': preSchool,
 		'elementarySchool': elementarySchool,
 		'upperSchool': upperSchool,
-		'subjects_0': subjects_0,
+		'subjects_1_2': subjects_1_2,
+		'subjects_2_3': subjects_2_3,
+		'subjects_3_5': subjects_3_5,
+		'subjects_5_7': subjects_5_7,
 		'subjects_1': subjects_1,
 		'subjects_2': subjects_2,
 		'subjects_3': subjects_3,
@@ -167,4 +233,3 @@ def index(request):
 		'count': count,
 	}
 	return render(request, 'storage/index.html', context)
- 

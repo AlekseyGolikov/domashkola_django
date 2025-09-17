@@ -120,6 +120,8 @@ USE_TZ = True
 
 
 STATIC_URL = 'domashkola/storage/static/'
+# STATIC_ROOT = 'domashkola/storage/static/'
+# STATIC_URL = 'domashkola/static/'
 # STATIC_ROOT = 'domashkola/static/'
 
 

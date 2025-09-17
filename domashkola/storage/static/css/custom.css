@@ -1,6 +1,6 @@
 html {
     height: 100%;
-} 
+}
 
 body{
     display: flex;
@@ -11,7 +11,7 @@ body{
 .header {
     flex: 0 1 auto;
 }
-  
+
 .content{
     flex: 1 1 auto;
     padding-top: 0.25rem;
@@ -22,7 +22,7 @@ body{
 /* FOOTER */
 .footer {
     flex: 0 1 auto;
-    
+
     /* border: 1px solid #000; */
 }
 
@@ -47,10 +47,13 @@ body{
     flex: 0 1 auto;
 }
 
+.empty-item {
+    display: none;
+}
+
 /* Маленькие экраны */
 @media (max-width: 500px) {
     .auth-items {
         display: none;
     }
 }
-
