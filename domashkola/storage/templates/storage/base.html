@@ -1,5 +1,5 @@
-﻿{% load static %}
-{% csrf_token %}
+﻿
+{% load static %}
 <!doctype html>
 <html lang="ru">
     <head>
@@ -7,11 +7,31 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{ title }}</title>
         <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> -->
-        <link rel="shortcut icon" href="{% static 'img/icons/favicon.ico' %}" />
+        <link rel="shortcut icon" href="{% static 'img/icons/favicon.svg' %}" />
         <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/customb.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/preloader.css' %}">
+        <!-- <script type="text/javascript">
+            const preloader = document.createElement('div');
+            preloader.classList.add('preloader');
+
+            const imgsvg = document.createElement('svg');
+            imgsvg.classList.add('preloader__image');
+            imgsvg.setAttribute('role', 'img');
+            imgsvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+            imgsvg.setAttribute('viewBox', '0 0 512 512');
+            preloader.appendChild(imgsvg);
+
+            const pathtag = document.createElement('path');
+            pathtag.setAttribute('fill', 'currentColor');
+            pathtag.setAttribute('d', 'M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z');
+            imgsvg.appendChild(pathtag);
+            document.body.appendChild(preloader);
+
+            document.body.classList.add('loaded_hiding');
+            console.log('preloader start');
+        </script> -->
     </head>
     <body class="container">
 
@@ -23,6 +43,7 @@
             </path>
             </svg>
         </div>
+
 
         <header class="header border-bottom py-2">
             <!--Основное меню-->
@@ -63,80 +84,15 @@
             var items = [];
             var item;
             var id;
-
-            // fetch('/menujson')
-            //     .then(response => response.json())
-            //     .then(function (data){
-            //         console.log('---------формируем полное меню-------------');
-            //         for (let i=0; i<data.grades.length; i++){
-            //             switch (data.grades[i].grade_code){
-            //                 case '1_2':
-            //                     item = new MenuItem(parentNode=document.getElementById('body_preSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-            //                     items.pop(item);
-            //                     for (let i=0; i<data.subjects.length; i++){
-            //                         item = new MenuItem(parentNode=document.getElementById('body_1_2'), header=data.subjects[i].subject_name, level=3, id=data.subjects[i].subject_code);
-            //                         items.pop(item);
-            //                     }
-            //                     break;
-            //                 case '2_3':
-            //                     item = new MenuItem(parentNode=document.getElementById('body_preSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-            //                     break;
-            //                 case '3_5':
-            //                     item = new MenuItem(parentNode=document.getElementById('body_preSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-            //                     break;
-            //                 case '5_7':
-            //                     item = new MenuItem(parentNode=document.getElementById('body_preSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-            //                     break;
-            //                 case '1':
-            //                     item = new MenuItem(parentNode=document.getElementById('body_elSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-            //                     break;
-            //                 case '2':
-            //                     item = new MenuItem(parentNode=document.getElementById('body_elSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-            //                     break;
-            //                 case '3':
-            //                     item = new MenuItem(parentNode=document.getElementById('body_elSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-            //                     break;
-            //                 case '4':
-            //                     item = new MenuItem(parentNode=document.getElementById('body_elSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-            //                     break;
-            //                 case '5':
-            //                     item = new MenuItem(parentNode=document.getElementById('body_hiSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-            //                     break;
-            //                 case '6':
-            //                     item = new MenuItem(parentNode=document.getElementById('body_hiSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-            //                     break;
-            //                 case '7':
-            //                     item = new MenuItem(parentNode=document.getElementById('body_hiSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-            //                     break;
-            //                 case '8':
-            //                     item = new MenuItem(parentNode=document.getElementById('body_hiSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-            //                     break;
-            //                 case '9':
-            //                     item = new MenuItem(parentNode=document.getElementById('body_hiSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-            //                     break;
-            //                 case '10':
-            //                     item = new MenuItem(parentNode=document.getElementById('body_hiSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-            //                     break;
-            //                 case '11':
-            //                     item = new MenuItem(parentNode=document.getElementById('body_hiSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-            //                     break;
-            //             }
-            //         }
-            //         console.log(document.getElementById('header_1_2'));
-            //         // for (let i=0; i<data.length; i++){
-            //         //     console.log(data[i]);
-            //         //     parentNode = document.getElementById('body_'+data[i].grade+data[i].subject);
-            //         //     // createNote(parentNode, data[i]);
-            //         // }
-            //     })
-            //     .catch(error => console.error('Error:', error));
+            var event;
 
             async function getMenu(addContent, navigation){
                 try{
-
                     const response = await fetch('/menujson');
+
                     const data = await response.json();
-                    console.log('---------формируем полное меню-------------');
+                    if(response.ok){
+                        console.log('---------формируем полное меню-------------');
                         for (let i=0; i<data.grades.length; i++){
                             switch (data.grades[i].grade_code){
                                 case '1_2':
@@ -161,12 +117,15 @@
                                             // btn_group.classList.add('empty-item');
                                             wrap_btn_group.appendChild(btn_group);
 
-                                            let checked = true;
+                                            // let checked = true;
                                             for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
                                                 item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                $('#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code).attr('checked', true);
+                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+                                                // $(id).attr('checked', true);
+                                                // $(id).trigger('click');
                                                 items.pop(item);
+
                                             }
                                             // const tNode = document.createTextNode('body id = '+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
                                             // document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(tNode);
@@ -197,7 +156,9 @@
                                             for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
                                                 item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                $('#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code).attr('checked', true);
+                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+                                                // $(id).attr('checked', true);
+                                                // $(id).trigger('click');
                                                 items.pop(item);
                                             }
                                             // const tNode = document.createTextNode('body id = '+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
@@ -228,7 +189,9 @@
                                             for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
                                                 item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                $('#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code).attr('checked', true);
+                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+                                                // $(id).attr('checked', true);
+                                                // $(id).trigger('click');
                                                 items.pop(item);
                                             }
                                             // const tNode = document.createTextNode('body id = '+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
@@ -259,7 +222,9 @@
                                             for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
                                                 item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                $('#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code).attr('checked', true);
+                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+                                                // $(id).attr('checked', true);
+                                                // $(id).trigger('click');
                                                 items.pop(item);
                                             }
                                             // const tNode = document.createTextNode('body id = '+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
@@ -290,7 +255,9 @@
                                             for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
                                                 item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                $('#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code).attr('checked', true);
+                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+                                                // $(id).attr('checked', true);
+                                                // $(id).trigger('click');
                                                 items.pop(item);
                                             }
                                         }
@@ -319,7 +286,9 @@
                                             for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
                                                 item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                $('#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code).attr('checked', true);
+                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+                                                // $(id).attr('checked', true);
+                                                // $(id).trigger('click');
                                                 items.pop(item);
                                             }
                                         }
@@ -348,7 +317,9 @@
                                             for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
                                                 item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                $('#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code).attr('checked', true);
+                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+                                                // $(id).attr('checked', true);
+                                                // $(id).trigger('click');
                                                 items.pop(item);
                                             }
                                         }
@@ -377,7 +348,9 @@
                                             for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
                                                 item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                $('#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code).attr('checked', true);
+                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+                                                // $(id).attr('checked', true);
+                                                // $(id).trigger('click');
                                                 items.pop(item);
                                             }
                                         }
@@ -406,7 +379,9 @@
                                             for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
                                                 item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                $('#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code).attr('checked', true);
+                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+                                                // $(id).attr('checked', true);
+                                                // $(id).trigger('click');
                                                 items.pop(item);
                                             }
                                         }
@@ -435,7 +410,9 @@
                                             for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
                                                 item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                $('#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code).attr('checked', true);
+                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+                                                // $(id).attr('checked', true);
+                                                // $(id).trigger('click');
                                                 items.pop(item);
                                             }
                                         }
@@ -464,7 +441,9 @@
                                             for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
                                                 item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                $('#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code).attr('checked', true);
+                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+                                                // $(id).attr('checked', true);
+                                                // $(id).trigger('click');
                                                 items.pop(item);
                                             }
                                         }
@@ -493,7 +472,9 @@
                                             for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
                                                 item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                $('#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code).attr('checked', true);
+                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+                                                // $(id).attr('checked', true);
+                                                // $(id).trigger('click');
                                                 items.pop(item);
                                             }
                                         }
@@ -522,7 +503,9 @@
                                             for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
                                                 item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                $('#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code).attr('checked', true);
+                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+                                                // $(id).attr('checked', true);
+                                                // $(id).trigger('click');
                                                 items.pop(item);
                                             }
                                         }
@@ -551,7 +534,9 @@
                                             for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
                                                 item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                $('#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code).attr('checked', true);
+                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+                                                // $(id).attr('checked', true);
+                                                // $(id).trigger('click');
                                                 items.pop(item);
                                             }
                                         }
@@ -580,7 +565,9 @@
                                             for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
                                                 item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                $('#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code).attr('checked', true);
+                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+                                                // $(id).attr('checked', true);
+                                                // $(id).trigger('click');
                                                 items.pop(item);
                                             }
                                         }
@@ -588,14 +575,13 @@
                                     break;
                             }
                         }
-                // console.log(data)
-
+                        // console.log(data.content);
+                        addContent(data.content);
+                    }
                 }
                 catch(error){
                     console.error('Error:', error);
                 }
-
-                addContent();
                 console.log('---------конец  формирования меню-------------');
                 navigation();
             }
@@ -603,9 +589,10 @@
             function navigation(){
                 $(document).ready(function(){
                     $('input[name="btncheck"]').click(function(){
-                        if (this.checked){
-                            console.log(this.id+' '+this.checked);
-                        }
+                        $('#content_'+this.id+' a').each(function(el){
+                            // console.log(this);
+                            $(this).parent().toggleClass('empty-item');
+                        });
                     });
                     $(".accordion-header").click(function(){
                         console.log('-----работает функция сворачивания вкладок-------')
@@ -627,10 +614,10 @@
                         // console.log('item data-id: '+item.data('id'));
                         // console.log('item id: '+item.id);
                         // console.log('header data-id: '+header.data('id'));
-                        console.log('header id: '+this.id);
+                        // console.log('header id: '+this.id);
                         // console.log('button data-id: '+ button.data('id'));
                         // console.log('button id: '+ button.id);
-                        console.log('body data-id: '+ body.data('id'));
+                        // console.log('body data-id: '+ body.data('id'));
                         // console.log('body id: '+ body.id);
                         //меняем цвет фона заголовка вкладки. заголовок имеет класс accordion-header
                         $(this).children('button').toggleClass('collapsed');
@@ -644,153 +631,37 @@
                     });
                 });
             }
-
-            function addContent(){
-                fetch('/contentjson')
-                .then(response => response.json())
-                .then(function (data){
-                    console.log('---------записываем данные из БД-------------')
-                    console.log(data)
-                    for (let i=0; i<data.length; i++){
-                        parentNode = document.getElementById('body_'+data[i].grade+data[i].subject+data[i].presentation);
-                        // console.log('body_'+data[i].grade+data[i].subject+data[i].presentation);
-                        // console.log(parentNode);
-                        // console.log(data);
-                        // console.log('body_'+data[i].grade+data[i].subject+data[i].presentation);
-                        createNote(parentNode, data[i]);
-                    }
-
-                })
-                .catch(error => console.error('Error:', error));
+            function preloader(){
+                document.body.classList.add('loaded');
+                document.body.classList.remove('loaded_hiding');
+                console.log('preloader end');
             }
 
+            function addContent(data){
+                var note;
+                console.log('---------Начало записи данных из БД-------------')
+                for (let i=0; i<data.length; i++){
+                    parentNode = document.getElementById('body_'+data[i].grade+data[i].subject+data[i].presentation);
+                    // console.log('body_'+data[i].grade+data[i].subject+data[i].presentation);
+                    // console.log(parentNode);
+                    // console.log(data[i]);
+                    // console.log('body_'+data[i].grade+data[i].subject+data[i].presentation);
+                    createNote(parentNode, data[i]);
+                    // console.log(document.getElementById(data[i].grade+data[i].subject+data[i].presentation+data[i].formatData).id);
+                    // id = '#'+document.getElementById(data[i].grade+data[i].subject+data[i].presentation+data[i].formatData).id;
+                    // $(id).attr('checked', true);
+                    // $(id).trigger('click'); 
+                    note = document.getElementById(data[i].grade+data[i].subject+data[i].presentation+data[i].formatData);
+                    note.checked = true;
+                    note.dispatchEvent(new Event('click'));
 
+                }
+                console.log('---------Конец записи данных из БД-------------')
+                preloader();
+            }
 
             getMenu(addContent, navigation);
 
-            // const accordion = document.getElementById('accordion');
-            // const item1 = new MenuItem(parentNode=accordion, header='Дошкольники', level=1, id='preSchool');
-            //     const item1_1 = new MenuItem(parentNode=item1.getBodyNode(), header='Возраст 1 - 2 года', level=2, id='1_2');
-            //         const item1_1_1 = new MenuItem(parentNode=item1_1.getBodyNode(), header='Сказки', level=3, id='1_2tales');
-            //     const item1_2 = new MenuItem(parentNode=item1.getBodyNode(), header='Возраст 2 - 3 года', level=2, id='2_3');
-            //         const item1_2_1 = new MenuItem(parentNode=item1_2.getBodyNode(), header='Сказки', level=3, id='2_3tales');
-            //     const item1_3 = new MenuItem(parentNode=item1.getBodyNode(), header='Возраст 3 - 5 года', level=2, id='3_5');
-            //         const item1_3_1 = new MenuItem(parentNode=item1_3.getBodyNode(), header='Сказки', level=3, id='3_5tales');
-            //         const item1_3_2 = new MenuItem(parentNode=item1_3.getBodyNode(), header='Русский язык', level=3, id='3_5rus');
-            //     const item1_4 = new MenuItem(parentNode=item1.getBodyNode(), header='Возраст 5 - 7 года', level=2, id='5_7');
-            //         const item1_4_1 = new MenuItem(parentNode=item1_4.getBodyNode(), header='Сказки', level=3, id='5_7tales');
-            //         const item1_4_2 = new MenuItem(parentNode=item1_4.getBodyNode(), header='Русский язык', level=3, id='5_7rus');
-            //         const item1_4_3 = new MenuItem(parentNode=item1_4.getBodyNode(), header='Чтение', level=3, id='5_7lit');
-
-            // const item2 = new MenuItem(parentNode=accordion, header='Начальная школа', level=1, id='elSchool');
-            //     const item2_1 = new MenuItem(parentNode=item2.getBodyNode(), header='1 класс', level=2, id='1');
-            //         const item2_1_1 = new MenuItem(parentNode=item2_1.getBodyNode(), header='Русский язык', level=3, id='1rus');
-            //         const item2_1_2 = new MenuItem(parentNode=item2_1.getBodyNode(), header='Чтение', level=3, id='1lit');
-            //         const item2_1_3 = new MenuItem(parentNode=item2_1.getBodyNode(), header='Окружающий мир', level=3, id='1geo');
-            //     const item2_2 = new MenuItem(parentNode=item2.getBodyNode(), header='2 класс', level=2, id='2');
-            //         const item2_2_1 = new MenuItem(parentNode=item2_2.getBodyNode(), header='Русский язык', level=3, id='2rus');
-            //     const item2_3 = new MenuItem(parentNode=item2.getBodyNode(), header='3 класс', level=2, id='3');
-            //     const item2_4 = new MenuItem(parentNode=item2.getBodyNode(), header='4 класс', level=2, id='4');
-
-            // const item3 = new MenuItem(parentNode=accordion, header='Средняя школа', level=1, id='hiSchool');
-            // const item3_1 = new MenuItem(parentNode=item3.getBodyNode(), header='5 класс', level=2, id='5');
-            // const item3_2 = new MenuItem(parentNode=item3.getBodyNode(), header='6 класс', level=2, id='6');
-            // const item3_3 = new MenuItem(parentNode=item3.getBodyNode(), header='7 класс', level=2, id='7');
-            // const item3_4 = new MenuItem(parentNode=item3.getBodyNode(), header='8 класс', level=2, id='8');
-            // const item3_5 = new MenuItem(parentNode=item3.getBodyNode(), header='9 класс', level=2, id='9');
-            // const item3_6 = new MenuItem(parentNode=item3.getBodyNode(), header='10 класс', level=2, id='10');
-            // const item3_7 = new MenuItem(parentNode=item3.getBodyNode(), header='11 класс', level=2, id='11');
-
-
-
-        </script>
-        <script type="text/javascript">
-            // $(document).ready(function(){
-            //     fetch('/contentjson')
-            //     .then(response => response.json())
-            //     .then(function (data){
-            //         console.log('---------записываем данные из БД-------------')
-            //         console.log(data)
-            //         for (let i=0; i<data.length; i++){
-            //             // parentNode = document.getElementById('body_'+data[i].grade+data[i].subject+data[i].presentation);
-
-            //             // console.log('body_'+data[i].grade+data[i].subject+data[i].presentation);
-            //             // createNote(parentNode, data[i]);
-            //         }
-            //     })
-            //     .catch(error => console.error('Error:', error));
-            // });
-
-
-
-            // const xhr = new XMLHttpRequest();
-            // xhr.onload = () => {
-            //     if (xhr.status == 200) {
-            //         const data = xhr.response;
-            //         // console.log('json = '+menuJson);
-            //         // console.log('type json = '+typeof(json));
-
-            //         for (let i=0; i<data.length; i++){
-            //             console.log('grade: '+data[i].grade+'  subject: '+data[i].subject+'  presentation: '+data[i].presentation+'  formatData: '+data[i].formatData+'\n');
-            //         }
-            //     }
-            // };
-            // xhr.open("GET", "/menujson");
-            // xhr.responseType = "json";              // устанавливаем тип ответа
-            // xhr.setRequestHeader("Accept", "application/json");
-            // xhr.send();     // выполняем запрос
-
-
-        </script>
-
-        <script type="text/javascript">
-            window.onload = function () {
-                document.body.classList.add('loaded_hiding');
-                window.setTimeout(function () {
-                    document.body.classList.add('loaded');
-                    document.body.classList.remove('loaded_hiding');
-                    console.log('preloader');
-                }, 1500);
-            }
-        </script>
-
-        <script type="text/javascript">
-            // $(document).ready(function(){
-            //     $(".accordion-header").click(function(){
-            //         let curLvl=0;
-            //         //последняя раскрытая вклад. имеет класс accordion-collapse
-            //         const collapsedTab = $(this).next();
-            //         const body = $(this).next().children();
-            //         const header = $(this);
-            //         const button = $(this).children();
-            //         const item = $(this).parent();
-
-            //         // уровень последней раскрытой вкладки
-            //         curLvl = collapsedTab.data('lvl');
-
-            //         //раскрываем или закрываем вкладку, по которой произошёл клик
-            //         collapsedTab.toggle(350).toggleClass('show');
-            //         // console.log('текущий уровень: '+collapsedTab.data('lvl'));
-            //         // console.log('collapse  data-id: '+ collapsedTab.data('id'));
-            //         // console.log('item data-id: '+item.data('id'));
-            //         // console.log('item id: '+item.id);
-            //         // console.log('header data-id: '+header.data('id'));
-            //         console.log('header id: '+this.id);
-            //         // console.log('button data-id: '+ button.data('id'));
-            //         // console.log('button id: '+ button.id);
-            //         // console.log('body data-id: '+ body.data('id'));
-            //         // console.log('body id: '+ body.id);
-            //         //меняем цвет фона заголовка вкладки. заголовок имеет класс accordion-header
-            //         $(this).children('button').toggleClass('collapsed');
-
-            //         //закрываем все остальные ранее открытые вкладки
-            //         for (let i = curLvl; i<=4; i++) {
-            //             collapsedEl = $('.show').not(collapsedTab).filter('[data-lvl='+i+']');
-            //             collapsedEl.toggle(350).toggleClass('show');
-            //             collapsedEl.prev().children('button').toggleClass('collapsed');
-            //         }
-            //     });
-            // });
         </script>
     </body>
 </html>

@@ -135,6 +135,9 @@ class CheckboxItem {
 function createNote(parentNode, data){
     // <p><a class="link-opacity-50" href="#">Link opacity 50</a></p>
     const el_p = document.createElement('p');
+    el_p.id = 'content_'+data.grade+data.subject+data.presentation+data.formatData;
+    // el_p.classList.add('empty-item');
+    // console.log('#'+data.grade+data.subject+data.presentation+data.formatData);
     parentNode.appendChild(el_p);
     const el_a = document.createElement('a');
     el_p.appendChild(el_a);
@@ -223,6 +226,5 @@ function createNote(parentNode, data){
     // console.log('accordion_header id = '+parentNode.closest('#item_'+data.grade+data.subject).childNodes[0].id);
     // console.log('accordion_button id = '+parentNode.closest('#item_'+data.grade+data.subject).childNodes[0].childNodes[0].id);
     // console.log('-----------------------');
-
 
 }
