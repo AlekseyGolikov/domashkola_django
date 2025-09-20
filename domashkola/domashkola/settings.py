@@ -27,8 +27,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
-
 # Application definition
+
+# instructions for Django debugger toolbar
+# import sys
+# import os
+# TESTING = "test" in sys.argv or "PYTEST_VERSION" in os.environ
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -37,17 +42,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'storage',
+    'storage.apps.StorageConfig',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'domashkola.urls'
@@ -106,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
@@ -120,7 +126,7 @@ USE_TZ = True
 
 
 STATIC_URL = 'domashkola/storage/static/'
-# STATIC_ROOT = 'domashkola/storage/static/'
+# STATIC_ROOT = 'domashkola/static/storage/'
 # STATIC_URL = 'domashkola/static/'
 # STATIC_ROOT = 'domashkola/static/'
 
@@ -129,3 +135,10 @@ STATIC_URL = 'domashkola/storage/static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.1",
+    # ...
+]

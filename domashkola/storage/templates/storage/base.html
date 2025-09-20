@@ -7,31 +7,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{ title }}</title>
         <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> -->
-        <link rel="shortcut icon" href="{% static 'img/icons/favicon.svg' %}" />
+        <link rel="shortcut icon" href="{% static 'img/icons/favicon2.png' %}" />
         <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/customb.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/preloader.css' %}">
-        <!-- <script type="text/javascript">
-            const preloader = document.createElement('div');
-            preloader.classList.add('preloader');
 
-            const imgsvg = document.createElement('svg');
-            imgsvg.classList.add('preloader__image');
-            imgsvg.setAttribute('role', 'img');
-            imgsvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-            imgsvg.setAttribute('viewBox', '0 0 512 512');
-            preloader.appendChild(imgsvg);
-
-            const pathtag = document.createElement('path');
-            pathtag.setAttribute('fill', 'currentColor');
-            pathtag.setAttribute('d', 'M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z');
-            imgsvg.appendChild(pathtag);
-            document.body.appendChild(preloader);
-
-            document.body.classList.add('loaded_hiding');
-            console.log('preloader start');
-        </script> -->
     </head>
     <body class="container">
 
@@ -102,7 +83,6 @@
                                         item = new MenuItem(parentNode=document.getElementById('body_1_2'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
                                         items.pop(item);
 
-                                        // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
                                         for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
                                             item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
                                             items.pop(item);
@@ -121,9 +101,6 @@
                                             for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
                                                 item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
-                                                // $(id).attr('checked', true);
-                                                // $(id).trigger('click');
                                                 items.pop(item);
 
                                             }
@@ -609,17 +586,6 @@
 
                         //раскрываем или закрываем вкладку, по которой произошёл клик
                         collapsedTab.toggle(350).toggleClass('show');
-                        // console.log('текущий уровень: '+collapsedTab.data('lvl'));
-                        // console.log('collapse  data-id: '+ collapsedTab.data('id'));
-                        // console.log('item data-id: '+item.data('id'));
-                        // console.log('item id: '+item.id);
-                        // console.log('header data-id: '+header.data('id'));
-                        // console.log('header id: '+this.id);
-                        // console.log('button data-id: '+ button.data('id'));
-                        // console.log('button id: '+ button.id);
-                        // console.log('body data-id: '+ body.data('id'));
-                        // console.log('body id: '+ body.id);
-                        //меняем цвет фона заголовка вкладки. заголовок имеет класс accordion-header
                         $(this).children('button').toggleClass('collapsed');
 
                         //закрываем все остальные ранее открытые вкладки
@@ -641,17 +607,9 @@
                 var note;
                 console.log('---------Начало записи данных из БД-------------')
                 for (let i=0; i<data.length; i++){
-                    parentNode = document.getElementById('body_'+data[i].grade+data[i].subject+data[i].presentation);
-                    // console.log('body_'+data[i].grade+data[i].subject+data[i].presentation);
-                    // console.log(parentNode);
-                    // console.log(data[i]);
-                    // console.log('body_'+data[i].grade+data[i].subject+data[i].presentation);
+                    parentNode = document.getElementById('body_'+data[i].grade_id+data[i].subject_id+data[i].presentation_id);
                     createNote(parentNode, data[i]);
-                    // console.log(document.getElementById(data[i].grade+data[i].subject+data[i].presentation+data[i].formatData).id);
-                    // id = '#'+document.getElementById(data[i].grade+data[i].subject+data[i].presentation+data[i].formatData).id;
-                    // $(id).attr('checked', true);
-                    // $(id).trigger('click'); 
-                    note = document.getElementById(data[i].grade+data[i].subject+data[i].presentation+data[i].formatData);
+                    note = document.getElementById(data[i].grade_id+data[i].subject_id+data[i].presentation_id+data[i].formatData_id);
                     note.checked = true;
                     note.dispatchEvent(new Event('click'));
 
