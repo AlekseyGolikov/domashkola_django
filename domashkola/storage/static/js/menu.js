@@ -27,11 +27,13 @@ class MenuItem {
         accordion_item.id = 'item_'+this._id;
         accordion_item.classList.add('accordion-item');
         accordion_item.classList.add('empty-item');
+        // accordion_item.classList.add('opacity-75');
         this._parent.appendChild(accordion_item);
 
         const accordion_header = document.createElement('h2');
         accordion_header.id = 'header_'+this._id;
         accordion_header.classList.add('accordion-header');
+        // accordion_header.classList.add('opacity-100');
         // accordion_header.classList.add('empty-item');
         accordion_item.appendChild(accordion_header);
 
@@ -39,6 +41,7 @@ class MenuItem {
         accordion_button.id = 'button_' + this._id;
         accordion_button.classList.add('accordion-button');
         accordion_button.classList.add('collapsed');
+        // accordion_button.classList.add('opacity-100');
         accordion_button.setAttribute('type', 'button');
         // accordion_button.classList.add('empty-item');
         const accordion_textNode = document.createTextNode(this._header);
@@ -66,6 +69,7 @@ class MenuItem {
         accordion_collapse.id = 'collapse_'+this._id;
         accordion_collapse.classList.add('accordion-collapse');
         accordion_collapse.classList.add('collapse');
+        // accordion_collapse.classList.add('opacity-100');
         // accordion_collapse.classList.add('show');
         accordion_collapse.setAttribute('data-lvl', this._level);
         // accordion_collapse.classList.add('empty-item');
@@ -75,6 +79,7 @@ class MenuItem {
         // this._body = accordion_body;
         accordion_body.id = 'body_'+this._id;
         accordion_body.classList.add('accordion-body');
+        // accordion_body.classList.add('opacity-100');
         accordion_body.setAttribute('style', 'padding-bottom: 0;');
         accordion_body.setAttribute('data-id', 'body_'+this._id);
         // accordion_body.classList.add('empty-item');

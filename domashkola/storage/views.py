@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from django.http import JsonResponse
 from .models import Content, Grades, Subjects, Presentation, FormatData
 from django.views.generic.list import ListView
+from django.core import serializers
+import os
 
 
 class IndexView(ListView):
@@ -13,22 +15,30 @@ class IndexView(ListView):
 def menujson(request):
 	res = {}
 	# resp = Subjects.objects.values('subject_name', 'subject_code').order_by('-subject_name')
-	resp1 = Grades.objects.values('grade_name', 'grade_code').order_by('id')
-	resp2 = Subjects.objects.values('subject_name', 'subject_code').order_by('id')
-	resp3 = Presentation.objects.values('presentation_name', 'presentation_code').order_by('id')
-	resp4 = FormatData.objects.values('format_name', 'format_code').order_by('id')
-	resp5 = Content.objects.values('grade_id', 'subject_id', 'presentation_id', 'formatData_id', 'content').order_by('id')
-	res1 = [item for item in resp1]
-	res2 = [item for item in resp2]
-	res3 = [item for item in resp3]
-	res4 = [item for item in resp4]
-	res5 = [item for item in resp5]
-	res['grades'] = res1
-	res['subjects'] = res2
-	res['presentation'] = res3
-	res['formatData'] = res4
-	res['content'] = res5
-	return JsonResponse(res, safe=False)
+	if request.method == 'GET':
+		resp1 = Grades.objects.values('grade_name', 'grade_code').order_by('id')
+		resp2 = Subjects.objects.values('subject_name', 'subject_code').order_by('id')
+		resp3 = Presentation.objects.values('presentation_name', 'presentation_code').order_by('id')
+		resp4 = FormatData.objects.values('format_name', 'format_code').order_by('id')
+		resp5 = Content.objects.values('grade_id', 'subject_id', 'presentation_id', 'formatData_id', 'content').order_by('id')
+		res1 = [item for item in resp1]
+		res2 = [item for item in resp2]
+		res3 = [item for item in resp3]
+		res4 = [item for item in resp4]
+		res5 = [item for item in resp5]
+		res['grades'] = res1
+		res['subjects'] = res2
+		res['presentation'] = res3
+		res['formatData'] = res4
+		res['content'] = res5
+		return JsonResponse(res, safe=False)
+	else:
+		return render(request, 'storage/error.html', {'error_msg': 'HTTP method error!'})
+
+def android(request):
+    if request.method == 'GET':
+        resp1 = Grades.objects.values('grade_name', 'grade_code').order_by('id')
+        return HttpResponse(serializers.serialize('json',[resp1,]))
 
 
 def func(request):

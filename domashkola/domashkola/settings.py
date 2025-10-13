@@ -14,6 +14,8 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+# print('!!!!!!')
+# print(BASE_DIR)
 
 
 # Quick-start development settings - unsuitable for production
@@ -82,8 +84,8 @@ WSGI_APPLICATION = 'domashkola.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'domashkola_django',
-        'USER': 'domashkola_admin',
+        'NAME': 'u3160041_domashkola_django',
+        'USER': 'u3160041_domashkola_admin',
         'PASSWORD': 'ramsey24041989',
         'HOST': '127.0.0.1',
     }
@@ -135,7 +137,6 @@ STATIC_URL = 'domashkola/storage/static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 
 INTERNAL_IPS = [
     # ...

@@ -22,7 +22,6 @@ body{
 /* FOOTER */
 .footer {
     flex: 0 1 auto;
-
     /* border: 1px solid #000; */
 }
 
@@ -55,5 +54,20 @@ body{
 @media (max-width: 500px) {
     .auth-items {
         display: none;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    .dark  {
+        display: none;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .light {
+        display: none;
+    }
+    body {
+        background-color: darkgrey;
     }
 }
