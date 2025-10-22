@@ -24,7 +24,7 @@
         </style>
     </head>
     <body class="container">
-  
+
         <!-- Прелоадер -->
         <div class="preloader">
             <svg class="preloader__image" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -63,571 +63,598 @@
         <!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> -->
         <script src="{% static 'js/bootstrap.min.js' %}"></script>
         <script src="{% static 'js/jquery-3.7.1.js' %}"></script>
-        <script src="{% static 'js/menu.js' %}"></script>
+        <script src="{% static 'js/accordion.js' %}"></script>
 
         <script type="text/javascript">
+            // import {Accordion} from "{% static 'js/accordion.js' %}";
+            // class Accordion {
+            //     item1;
+            //     item2;
+            //     item3;
 
-            const accordion = document.getElementById('accordion');
-            const item1 = new MenuItem(parentNode=accordion, header='Дошкольники', level=1, id='preSchool');
-            const item2 = new MenuItem(parentNode=accordion, header='Начальная школа', level=1, id='elSchool');
-            const item3 = new MenuItem(parentNode=accordion, header='Средняя школа', level=1, id='hiSchool');
-            var items = [];
-            var item;
-            var id;
-            var event;
+            //     constructor(accordion) {
+            //         // this.accordion = document.getElementById('accordion');
+            //         console.log(accordion.classList)
+            //         this.item1 = new MenuItem(parentNode=accordion, header='Дошкольники', level=1, id='preSchool');
+            //         this.item2 = new MenuItem(parentNode=accordion, header='Начальная школа', level=1, id='elSchool');
+            //         this.item3 = new MenuItem(parentNode=accordion, header='Средняя школа', level=1, id='hiSchool');
 
-            async function getMenu(addContent, navigation){
-                try{
-                    const response = await fetch('/menujson');
+            //         // this.menu();
+            //     }
 
-                    const data = await response.json();
-                    if(response.ok){
-                        console.log('---------формируем полное меню-------------');
-                        for (let i=0; i<data.grades.length; i++){
-                            switch (data.grades[i].grade_code){
-                                case '1_2':
-                                    item = new MenuItem(parentNode=document.getElementById('body_preSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-                                    items.pop(item);
-                                    for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
-                                        item = new MenuItem(parentNode=document.getElementById('body_1_2'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        items.pop(item);
+            //     menu(){
+            //         var item;
+            //         var items = [];
 
-                                        for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
-                                            item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
-                                            items.pop(item);
+            //         async function getMenu() {
+            //             try{
+            //                 const response = await fetch('/menujson');
 
-                                            const wrap_btn_group = document.createElement('div');
-                                            wrap_btn_group.classList.add('d-flex');
-                                            document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
+            //                 const data = await response.json();
+            //                 if(response.ok){
+            //                     console.log('---------формируем полное меню-------------');
+            //                     for (let i=0; i<data.grades.length; i++){
+            //                         switch (data.grades[i].grade_code){
+            //                             case '1_2':
+            //                                 item = new MenuItem(parentNode=document.getElementById('body_preSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
+            //                                 items.pop(item);
+            //                                 for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
+            //                                     item = new MenuItem(parentNode=document.getElementById('body_1_2'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     items.pop(item);
 
-                                            const btn_group = document.createElement('div');
-                                            btn_group.classList.add('btn-group');
-                                            btn_group.classList.add('flex-grow-1');
-                                            // btn_group.classList.add('empty-item');
-                                            wrap_btn_group.appendChild(btn_group);
+            //                                     for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
+            //                                         item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
+            //                                         items.pop(item);
 
-                                            // let checked = true;
-                                            for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
+            //                                         const wrap_btn_group = document.createElement('div');
+            //                                         wrap_btn_group.classList.add('d-flex');
+            //                                         document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
 
-                                                item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                items.pop(item);
+            //                                         const btn_group = document.createElement('div');
+            //                                         btn_group.classList.add('btn-group');
+            //                                         btn_group.classList.add('flex-grow-1');
+            //                                         // btn_group.classList.add('empty-item');
+            //                                         wrap_btn_group.appendChild(btn_group);
 
-                                            }
-                                            // const tNode = document.createTextNode('body id = '+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
-                                            // document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(tNode);
-                                        }
-                                    }
-                                    break;
-                                case '2_3':
-                                    item = new MenuItem(parentNode=document.getElementById('body_preSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-                                    items.pop(item);
-                                    for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
-                                        item = new MenuItem(parentNode=document.getElementById('body_2_3'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        items.pop(item);
-                                        // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
-                                            item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
-                                            items.pop(item);
+            //                                         // let checked = true;
+            //                                         for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
-                                            const wrap_btn_group = document.createElement('div');
-                                            wrap_btn_group.classList.add('d-flex');
-                                            document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
+            //                                             item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
+            //                                             items.pop(item);
 
-                                            const btn_group = document.createElement('div');
-                                            btn_group.classList.add('btn-group');
-                                            btn_group.classList.add('flex-grow-1');
-                                            // btn_group.classList.add('empty-item');
-                                            wrap_btn_group.appendChild(btn_group);
+            //                                         }
+            //                                         // const tNode = document.createTextNode('body id = '+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
+            //                                         // document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(tNode);
+            //                                     }
+            //                                 }
+            //                                 break;
+            //                             case '2_3':
+            //                                 item = new MenuItem(parentNode=document.getElementById('body_preSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
+            //                                 items.pop(item);
+            //                                 for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
+            //                                     item = new MenuItem(parentNode=document.getElementById('body_2_3'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     items.pop(item);
+            //                                     // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
+            //                                         item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
+            //                                         items.pop(item);
 
-                                            for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
+            //                                         const wrap_btn_group = document.createElement('div');
+            //                                         wrap_btn_group.classList.add('d-flex');
+            //                                         document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
 
-                                                item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
-                                                // $(id).attr('checked', true);
-                                                // $(id).trigger('click');
-                                                items.pop(item);
-                                            }
-                                            // const tNode = document.createTextNode('body id = '+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
-                                            // document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(tNode);
-                                        }
-                                    }
-                                    break;
-                                case '3_5':
-                                    item = new MenuItem(parentNode=document.getElementById('body_preSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-                                    items.pop(item);
-                                    for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
-                                        item = new MenuItem(parentNode=document.getElementById('body_3_5'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        items.pop(item);
-                                        // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
-                                            item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
-                                            items.pop(item);
-                                            const wrap_btn_group = document.createElement('div');
-                                            wrap_btn_group.classList.add('d-flex');
-                                            document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
+            //                                         const btn_group = document.createElement('div');
+            //                                         btn_group.classList.add('btn-group');
+            //                                         btn_group.classList.add('flex-grow-1');
+            //                                         // btn_group.classList.add('empty-item');
+            //                                         wrap_btn_group.appendChild(btn_group);
 
-                                            const btn_group = document.createElement('div');
-                                            btn_group.classList.add('btn-group');
-                                            btn_group.classList.add('flex-grow-1');
-                                            // btn_group.classList.add('empty-item');
-                                            wrap_btn_group.appendChild(btn_group);
+            //                                         for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
-                                            for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
+            //                                             item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
+            //                                             // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+            //                                             // $(id).attr('checked', true);
+            //                                             // $(id).trigger('click');
+            //                                             items.pop(item);
+            //                                         }
+            //                                         // const tNode = document.createTextNode('body id = '+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
+            //                                         // document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(tNode);
+            //                                     }
+            //                                 }
+            //                                 break;
+            //                             case '3_5':
+            //                                 item = new MenuItem(parentNode=document.getElementById('body_preSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
+            //                                 items.pop(item);
+            //                                 for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
+            //                                     item = new MenuItem(parentNode=document.getElementById('body_3_5'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     items.pop(item);
+            //                                     // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
+            //                                         item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
+            //                                         items.pop(item);
+            //                                         const wrap_btn_group = document.createElement('div');
+            //                                         wrap_btn_group.classList.add('d-flex');
+            //                                         document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
 
-                                                item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
-                                                // $(id).attr('checked', true);
-                                                // $(id).trigger('click');
-                                                items.pop(item);
-                                            }
-                                            // const tNode = document.createTextNode('body id = '+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
-                                            // document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(tNode);
-                                        }
-                                    }
-                                    break;
-                                case '5_7':
-                                    item = new MenuItem(parentNode=document.getElementById('body_preSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-                                    items.pop(item);
-                                    for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
-                                        item = new MenuItem(parentNode=document.getElementById('body_5_7'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        items.pop(item);
-                                        // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
-                                            item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
-                                            items.pop(item);
-                                            const wrap_btn_group = document.createElement('div');
-                                            wrap_btn_group.classList.add('d-flex');
-                                            document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
+            //                                         const btn_group = document.createElement('div');
+            //                                         btn_group.classList.add('btn-group');
+            //                                         btn_group.classList.add('flex-grow-1');
+            //                                         // btn_group.classList.add('empty-item');
+            //                                         wrap_btn_group.appendChild(btn_group);
 
-                                            const btn_group = document.createElement('div');
-                                            btn_group.classList.add('btn-group');
-                                            btn_group.classList.add('flex-grow-1');
-                                            // btn_group.classList.add('empty-item');
-                                            wrap_btn_group.appendChild(btn_group);
+            //                                         for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
-                                            for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
+            //                                             item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
+            //                                             // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+            //                                             // $(id).attr('checked', true);
+            //                                             // $(id).trigger('click');
+            //                                             items.pop(item);
+            //                                         }
+            //                                         // const tNode = document.createTextNode('body id = '+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
+            //                                         // document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(tNode);
+            //                                     }
+            //                                 }
+            //                                 break;
+            //                             case '5_7':
+            //                                 item = new MenuItem(parentNode=document.getElementById('body_preSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
+            //                                 items.pop(item);
+            //                                 for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
+            //                                     item = new MenuItem(parentNode=document.getElementById('body_5_7'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     items.pop(item);
+            //                                     // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
+            //                                         item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
+            //                                         items.pop(item);
+            //                                         const wrap_btn_group = document.createElement('div');
+            //                                         wrap_btn_group.classList.add('d-flex');
+            //                                         document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
 
-                                                item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
-                                                // $(id).attr('checked', true);
-                                                // $(id).trigger('click');
-                                                items.pop(item);
-                                            }
-                                            // const tNode = document.createTextNode('body id = '+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
-                                            // document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(tNode);
-                                        }
-                                    }
-                                    break;
-                                case '1':
-                                    item = new MenuItem(parentNode=document.getElementById('body_elSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-                                    items.pop(item);
-                                    for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
-                                        item = new MenuItem(parentNode=document.getElementById('body_1'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        items.pop(item);
-                                        // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
-                                            item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
-                                            items.pop(item);
-                                            const wrap_btn_group = document.createElement('div');
-                                            wrap_btn_group.classList.add('d-flex');
-                                            document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
+            //                                         const btn_group = document.createElement('div');
+            //                                         btn_group.classList.add('btn-group');
+            //                                         btn_group.classList.add('flex-grow-1');
+            //                                         // btn_group.classList.add('empty-item');
+            //                                         wrap_btn_group.appendChild(btn_group);
 
-                                            const btn_group = document.createElement('div');
-                                            btn_group.classList.add('btn-group');
-                                            btn_group.classList.add('flex-grow-1');
-                                            // btn_group.classList.add('empty-item');
-                                            wrap_btn_group.appendChild(btn_group);
+            //                                         for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
-                                            for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
+            //                                             item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
+            //                                             // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+            //                                             // $(id).attr('checked', true);
+            //                                             // $(id).trigger('click');
+            //                                             items.pop(item);
+            //                                         }
+            //                                         // const tNode = document.createTextNode('body id = '+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
+            //                                         // document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(tNode);
+            //                                     }
+            //                                 }
+            //                                 break;
+            //                             case '1':
+            //                                 item = new MenuItem(parentNode=document.getElementById('body_elSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
+            //                                 items.pop(item);
+            //                                 for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
+            //                                     item = new MenuItem(parentNode=document.getElementById('body_1'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     items.pop(item);
+            //                                     // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
+            //                                         item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
+            //                                         items.pop(item);
+            //                                         const wrap_btn_group = document.createElement('div');
+            //                                         wrap_btn_group.classList.add('d-flex');
+            //                                         document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
 
-                                                item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
-                                                // $(id).attr('checked', true);
-                                                // $(id).trigger('click');
-                                                items.pop(item);
-                                            }
-                                        }
-                                    }
-                                    break;
-                                case '2':
-                                    item = new MenuItem(parentNode=document.getElementById('body_elSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-                                    items.pop(item);
-                                    for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
-                                        item = new MenuItem(parentNode=document.getElementById('body_2'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        items.pop(item);
-                                        // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
-                                            item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
-                                            items.pop(item);
-                                            const wrap_btn_group = document.createElement('div');
-                                            wrap_btn_group.classList.add('d-flex');
-                                            document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
+            //                                         const btn_group = document.createElement('div');
+            //                                         btn_group.classList.add('btn-group');
+            //                                         btn_group.classList.add('flex-grow-1');
+            //                                         // btn_group.classList.add('empty-item');
+            //                                         wrap_btn_group.appendChild(btn_group);
 
-                                            const btn_group = document.createElement('div');
-                                            btn_group.classList.add('btn-group');
-                                            btn_group.classList.add('flex-grow-1');
-                                            // btn_group.classList.add('empty-item');
-                                            wrap_btn_group.appendChild(btn_group);
+            //                                         for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
-                                            for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
+            //                                             item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
+            //                                             // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+            //                                             // $(id).attr('checked', true);
+            //                                             // $(id).trigger('click');
+            //                                             items.pop(item);
+            //                                         }
+            //                                     }
+            //                                 }
+            //                                 break;
+            //                             case '2':
+            //                                 item = new MenuItem(parentNode=document.getElementById('body_elSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
+            //                                 items.pop(item);
+            //                                 for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
+            //                                     item = new MenuItem(parentNode=document.getElementById('body_2'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     items.pop(item);
+            //                                     // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
+            //                                         item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
+            //                                         items.pop(item);
+            //                                         const wrap_btn_group = document.createElement('div');
+            //                                         wrap_btn_group.classList.add('d-flex');
+            //                                         document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
 
-                                                item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
-                                                // $(id).attr('checked', true);
-                                                // $(id).trigger('click');
-                                                items.pop(item);
-                                            }
-                                        }
-                                    }
-                                    break;
-                                case '3':
-                                    item = new MenuItem(parentNode=document.getElementById('body_elSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-                                    items.pop(item);
-                                    for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
-                                        item = new MenuItem(parentNode=document.getElementById('body_3'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        items.pop(item);
-                                        // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
-                                            item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
-                                            items.pop(item);
-                                            const wrap_btn_group = document.createElement('div');
-                                            wrap_btn_group.classList.add('d-flex');
-                                            document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
+            //                                         const btn_group = document.createElement('div');
+            //                                         btn_group.classList.add('btn-group');
+            //                                         btn_group.classList.add('flex-grow-1');
+            //                                         // btn_group.classList.add('empty-item');
+            //                                         wrap_btn_group.appendChild(btn_group);
 
-                                            const btn_group = document.createElement('div');
-                                            btn_group.classList.add('btn-group');
-                                            btn_group.classList.add('flex-grow-1');
-                                            // btn_group.classList.add('empty-item');
-                                            wrap_btn_group.appendChild(btn_group);
+            //                                         for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
-                                            for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
+            //                                             item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
+            //                                             // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+            //                                             // $(id).attr('checked', true);
+            //                                             // $(id).trigger('click');
+            //                                             items.pop(item);
+            //                                         }
+            //                                     }
+            //                                 }
+            //                                 break;
+            //                             case '3':
+            //                                 item = new MenuItem(parentNode=document.getElementById('body_elSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
+            //                                 items.pop(item);
+            //                                 for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
+            //                                     item = new MenuItem(parentNode=document.getElementById('body_3'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     items.pop(item);
+            //                                     // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
+            //                                         item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
+            //                                         items.pop(item);
+            //                                         const wrap_btn_group = document.createElement('div');
+            //                                         wrap_btn_group.classList.add('d-flex');
+            //                                         document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
 
-                                                item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
-                                                // $(id).attr('checked', true);
-                                                // $(id).trigger('click');
-                                                items.pop(item);
-                                            }
-                                        }
-                                    }
-                                    break;
-                                case '4':
-                                    item = new MenuItem(parentNode=document.getElementById('body_elSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-                                    items.pop(item);
-                                    for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
-                                        item = new MenuItem(parentNode=document.getElementById('body_4'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        items.pop(item);
-                                        // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
-                                            item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
-                                            items.pop(item);
-                                            const wrap_btn_group = document.createElement('div');
-                                            wrap_btn_group.classList.add('d-flex');
-                                            document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
+            //                                         const btn_group = document.createElement('div');
+            //                                         btn_group.classList.add('btn-group');
+            //                                         btn_group.classList.add('flex-grow-1');
+            //                                         // btn_group.classList.add('empty-item');
+            //                                         wrap_btn_group.appendChild(btn_group);
 
-                                            const btn_group = document.createElement('div');
-                                            btn_group.classList.add('btn-group');
-                                            btn_group.classList.add('flex-grow-1');
-                                            // btn_group.classList.add('empty-item');
-                                            wrap_btn_group.appendChild(btn_group);
+            //                                         for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
-                                            for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
+            //                                             item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
+            //                                             // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+            //                                             // $(id).attr('checked', true);
+            //                                             // $(id).trigger('click');
+            //                                             items.pop(item);
+            //                                         }
+            //                                     }
+            //                                 }
+            //                                 break;
+            //                             case '4':
+            //                                 item = new MenuItem(parentNode=document.getElementById('body_elSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
+            //                                 items.pop(item);
+            //                                 for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
+            //                                     item = new MenuItem(parentNode=document.getElementById('body_4'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     items.pop(item);
+            //                                     // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
+            //                                         item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
+            //                                         items.pop(item);
+            //                                         const wrap_btn_group = document.createElement('div');
+            //                                         wrap_btn_group.classList.add('d-flex');
+            //                                         document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
 
-                                                item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
-                                                // $(id).attr('checked', true);
-                                                // $(id).trigger('click');
-                                                items.pop(item);
-                                            }
-                                        }
-                                    }
-                                    break;
-                                case '5':
-                                    item = new MenuItem(parentNode=document.getElementById('body_hiSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-                                    items.pop(item);
-                                    for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
-                                        item = new MenuItem(parentNode=document.getElementById('body_5'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        items.pop(item);
-                                        // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
-                                            item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
-                                            items.pop(item);
-                                            const wrap_btn_group = document.createElement('div');
-                                            wrap_btn_group.classList.add('d-flex');
-                                            document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
+            //                                         const btn_group = document.createElement('div');
+            //                                         btn_group.classList.add('btn-group');
+            //                                         btn_group.classList.add('flex-grow-1');
+            //                                         // btn_group.classList.add('empty-item');
+            //                                         wrap_btn_group.appendChild(btn_group);
 
-                                            const btn_group = document.createElement('div');
-                                            btn_group.classList.add('btn-group');
-                                            btn_group.classList.add('flex-grow-1');
-                                            // btn_group.classList.add('empty-item');
-                                            wrap_btn_group.appendChild(btn_group);
+            //                                         for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
-                                            for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
+            //                                             item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
+            //                                             // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+            //                                             // $(id).attr('checked', true);
+            //                                             // $(id).trigger('click');
+            //                                             items.pop(item);
+            //                                         }
+            //                                     }
+            //                                 }
+            //                                 break;
+            //                             case '5':
+            //                                 item = new MenuItem(parentNode=document.getElementById('body_hiSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
+            //                                 items.pop(item);
+            //                                 for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
+            //                                     item = new MenuItem(parentNode=document.getElementById('body_5'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     items.pop(item);
+            //                                     // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
+            //                                         item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
+            //                                         items.pop(item);
+            //                                         const wrap_btn_group = document.createElement('div');
+            //                                         wrap_btn_group.classList.add('d-flex');
+            //                                         document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
 
-                                                item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
-                                                // $(id).attr('checked', true);
-                                                // $(id).trigger('click');
-                                                items.pop(item);
-                                            }
-                                        }
-                                    }
-                                    break;
-                                case '6':
-                                    item = new MenuItem(parentNode=document.getElementById('body_hiSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-                                    items.pop(item);
-                                    for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
-                                        item = new MenuItem(parentNode=document.getElementById('body_6'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        items.pop(item);
-                                        // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
-                                            item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
-                                            items.pop(item);
-                                            const wrap_btn_group = document.createElement('div');
-                                            wrap_btn_group.classList.add('d-flex');
-                                            document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
+            //                                         const btn_group = document.createElement('div');
+            //                                         btn_group.classList.add('btn-group');
+            //                                         btn_group.classList.add('flex-grow-1');
+            //                                         // btn_group.classList.add('empty-item');
+            //                                         wrap_btn_group.appendChild(btn_group);
 
-                                            const btn_group = document.createElement('div');
-                                            btn_group.classList.add('btn-group');
-                                            btn_group.classList.add('flex-grow-1');
-                                            // btn_group.classList.add('empty-item');
-                                            wrap_btn_group.appendChild(btn_group);
+            //                                         for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
-                                            for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
+            //                                             item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
+            //                                             // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+            //                                             // $(id).attr('checked', true);
+            //                                             // $(id).trigger('click');
+            //                                             items.pop(item);
+            //                                         }
+            //                                     }
+            //                                 }
+            //                                 break;
+            //                             case '6':
+            //                                 item = new MenuItem(parentNode=document.getElementById('body_hiSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
+            //                                 items.pop(item);
+            //                                 for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
+            //                                     item = new MenuItem(parentNode=document.getElementById('body_6'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     items.pop(item);
+            //                                     // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
+            //                                         item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
+            //                                         items.pop(item);
+            //                                         const wrap_btn_group = document.createElement('div');
+            //                                         wrap_btn_group.classList.add('d-flex');
+            //                                         document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
 
-                                                item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
-                                                // $(id).attr('checked', true);
-                                                // $(id).trigger('click');
-                                                items.pop(item);
-                                            }
-                                        }
-                                    }
-                                    break;
-                                case '7':
-                                    item = new MenuItem(parentNode=document.getElementById('body_hiSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-                                    items.pop(item);
-                                    for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
-                                        item = new MenuItem(parentNode=document.getElementById('body_7'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        items.pop(item);
-                                        // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
-                                            item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
-                                            items.pop(item);
-                                            const wrap_btn_group = document.createElement('div');
-                                            wrap_btn_group.classList.add('d-flex');
-                                            document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
+            //                                         const btn_group = document.createElement('div');
+            //                                         btn_group.classList.add('btn-group');
+            //                                         btn_group.classList.add('flex-grow-1');
+            //                                         // btn_group.classList.add('empty-item');
+            //                                         wrap_btn_group.appendChild(btn_group);
 
-                                            const btn_group = document.createElement('div');
-                                            btn_group.classList.add('btn-group');
-                                            btn_group.classList.add('flex-grow-1');
-                                            // btn_group.classList.add('empty-item');
-                                            wrap_btn_group.appendChild(btn_group);
+            //                                         for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
-                                            for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
+            //                                             item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
+            //                                             // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+            //                                             // $(id).attr('checked', true);
+            //                                             // $(id).trigger('click');
+            //                                             items.pop(item);
+            //                                         }
+            //                                     }
+            //                                 }
+            //                                 break;
+            //                             case '7':
+            //                                 item = new MenuItem(parentNode=document.getElementById('body_hiSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
+            //                                 items.pop(item);
+            //                                 for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
+            //                                     item = new MenuItem(parentNode=document.getElementById('body_7'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     items.pop(item);
+            //                                     // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
+            //                                         item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
+            //                                         items.pop(item);
+            //                                         const wrap_btn_group = document.createElement('div');
+            //                                         wrap_btn_group.classList.add('d-flex');
+            //                                         document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
 
-                                                item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
-                                                // $(id).attr('checked', true);
-                                                // $(id).trigger('click');
-                                                items.pop(item);
-                                            }
-                                        }
-                                    }
-                                    break;
-                                case '8':
-                                    item = new MenuItem(parentNode=document.getElementById('body_hiSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-                                    items.pop(item);
-                                    for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
-                                        item = new MenuItem(parentNode=document.getElementById('body_8'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        items.pop(item);
-                                        // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
-                                            item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
-                                            items.pop(item);
-                                            const wrap_btn_group = document.createElement('div');
-                                            wrap_btn_group.classList.add('d-flex');
-                                            document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
+            //                                         const btn_group = document.createElement('div');
+            //                                         btn_group.classList.add('btn-group');
+            //                                         btn_group.classList.add('flex-grow-1');
+            //                                         // btn_group.classList.add('empty-item');
+            //                                         wrap_btn_group.appendChild(btn_group);
 
-                                            const btn_group = document.createElement('div');
-                                            btn_group.classList.add('btn-group');
-                                            btn_group.classList.add('flex-grow-1');
-                                            // btn_group.classList.add('empty-item');
-                                            wrap_btn_group.appendChild(btn_group);
+            //                                         for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
-                                            for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
+            //                                             item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
+            //                                             // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+            //                                             // $(id).attr('checked', true);
+            //                                             // $(id).trigger('click');
+            //                                             items.pop(item);
+            //                                         }
+            //                                     }
+            //                                 }
+            //                                 break;
+            //                             case '8':
+            //                                 item = new MenuItem(parentNode=document.getElementById('body_hiSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
+            //                                 items.pop(item);
+            //                                 for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
+            //                                     item = new MenuItem(parentNode=document.getElementById('body_8'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     items.pop(item);
+            //                                     // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
+            //                                         item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
+            //                                         items.pop(item);
+            //                                         const wrap_btn_group = document.createElement('div');
+            //                                         wrap_btn_group.classList.add('d-flex');
+            //                                         document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
 
-                                                item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
-                                                // $(id).attr('checked', true);
-                                                // $(id).trigger('click');
-                                                items.pop(item);
-                                            }
-                                        }
-                                    }
-                                    break;
-                                case '9':
-                                    item = new MenuItem(parentNode=document.getElementById('body_hiSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-                                    items.pop(item);
-                                    for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
-                                        item = new MenuItem(parentNode=document.getElementById('body_9'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        items.pop(item);
-                                        // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
-                                            item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
-                                            items.pop(item);
-                                            const wrap_btn_group = document.createElement('div');
-                                            wrap_btn_group.classList.add('d-flex');
-                                            document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
+            //                                         const btn_group = document.createElement('div');
+            //                                         btn_group.classList.add('btn-group');
+            //                                         btn_group.classList.add('flex-grow-1');
+            //                                         // btn_group.classList.add('empty-item');
+            //                                         wrap_btn_group.appendChild(btn_group);
 
-                                            const btn_group = document.createElement('div');
-                                            btn_group.classList.add('btn-group');
-                                            btn_group.classList.add('flex-grow-1');
-                                            // btn_group.classList.add('empty-item');
-                                            wrap_btn_group.appendChild(btn_group);
+            //                                         for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
-                                            for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
+            //                                             item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
+            //                                             // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+            //                                             // $(id).attr('checked', true);
+            //                                             // $(id).trigger('click');
+            //                                             items.pop(item);
+            //                                         }
+            //                                     }
+            //                                 }
+            //                                 break;
+            //                             case '9':
+            //                                 item = new MenuItem(parentNode=document.getElementById('body_hiSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
+            //                                 items.pop(item);
+            //                                 for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
+            //                                     item = new MenuItem(parentNode=document.getElementById('body_9'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     items.pop(item);
+            //                                     // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
+            //                                         item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
+            //                                         items.pop(item);
+            //                                         const wrap_btn_group = document.createElement('div');
+            //                                         wrap_btn_group.classList.add('d-flex');
+            //                                         document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
 
-                                                item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
-                                                // $(id).attr('checked', true);
-                                                // $(id).trigger('click');
-                                                items.pop(item);
-                                            }
-                                        }
-                                    }
-                                    break;
-                                case '10':
-                                    item = new MenuItem(parentNode=document.getElementById('body_hiSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-                                    items.pop(item);
-                                    for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
-                                        item = new MenuItem(parentNode=document.getElementById('body_10'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        items.pop(item);
-                                        // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
-                                            item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
-                                            items.pop(item);
-                                            const wrap_btn_group = document.createElement('div');
-                                            wrap_btn_group.classList.add('d-flex');
-                                            document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
+            //                                         const btn_group = document.createElement('div');
+            //                                         btn_group.classList.add('btn-group');
+            //                                         btn_group.classList.add('flex-grow-1');
+            //                                         // btn_group.classList.add('empty-item');
+            //                                         wrap_btn_group.appendChild(btn_group);
 
-                                            const btn_group = document.createElement('div');
-                                            btn_group.classList.add('btn-group');
-                                            btn_group.classList.add('flex-grow-1');
-                                            // btn_group.classList.add('empty-item');
-                                            wrap_btn_group.appendChild(btn_group);
+            //                                         for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
-                                            for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
+            //                                             item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
+            //                                             // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+            //                                             // $(id).attr('checked', true);
+            //                                             // $(id).trigger('click');
+            //                                             items.pop(item);
+            //                                         }
+            //                                     }
+            //                                 }
+            //                                 break;
+            //                             case '10':
+            //                                 item = new MenuItem(parentNode=document.getElementById('body_hiSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
+            //                                 items.pop(item);
+            //                                 for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
+            //                                     item = new MenuItem(parentNode=document.getElementById('body_10'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     items.pop(item);
+            //                                     // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
+            //                                         item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
+            //                                         items.pop(item);
+            //                                         const wrap_btn_group = document.createElement('div');
+            //                                         wrap_btn_group.classList.add('d-flex');
+            //                                         document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
 
-                                                item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
-                                                // $(id).attr('checked', true);
-                                                // $(id).trigger('click');
-                                                items.pop(item);
-                                            }
-                                        }
-                                    }
-                                    break;
-                                case '11':
-                                    item = new MenuItem(parentNode=document.getElementById('body_hiSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
-                                    items.pop(item);
-                                    for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
-                                        item = new MenuItem(parentNode=document.getElementById('body_11'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        items.pop(item);
-                                        // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
-                                        for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
-                                            item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
-                                            items.pop(item);
-                                            const wrap_btn_group = document.createElement('div');
-                                            wrap_btn_group.classList.add('d-flex');
-                                            document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
+            //                                         const btn_group = document.createElement('div');
+            //                                         btn_group.classList.add('btn-group');
+            //                                         btn_group.classList.add('flex-grow-1');
+            //                                         // btn_group.classList.add('empty-item');
+            //                                         wrap_btn_group.appendChild(btn_group);
 
-                                            const btn_group = document.createElement('div');
-                                            btn_group.classList.add('btn-group');
-                                            btn_group.classList.add('flex-grow-1');
-                                            // btn_group.classList.add('empty-item');
-                                            wrap_btn_group.appendChild(btn_group);
+            //                                         for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
-                                            for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
+            //                                             item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
+            //                                             // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+            //                                             // $(id).attr('checked', true);
+            //                                             // $(id).trigger('click');
+            //                                             items.pop(item);
+            //                                         }
+            //                                     }
+            //                                 }
+            //                                 break;
+            //                             case '11':
+            //                                 item = new MenuItem(parentNode=document.getElementById('body_hiSchool'), header=data.grades[i].grade_name, level=2, id=data.grades[i].grade_code);
+            //                                 items.pop(item);
+            //                                 for (let k=0; k<data.subjects.length; k++){  //data.subjects.length
+            //                                     item = new MenuItem(parentNode=document.getElementById('body_11'), header=data.subjects[k].subject_name, level=3, id=data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     items.pop(item);
+            //                                     // console.log('body_+data.subjects[i].subject_code = body_'+data.grades[i].grade_code+data.subjects[k].subject_code);
+            //                                     for (let j=0; j<data.presentation.length; j++){   //data.presentation.length
+            //                                         item = new MenuItem(parentNode=document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code), header=data.presentation[j].presentation_name, level=4, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code);
+            //                                         items.pop(item);
+            //                                         const wrap_btn_group = document.createElement('div');
+            //                                         wrap_btn_group.classList.add('d-flex');
+            //                                         document.getElementById('body_'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code).appendChild(wrap_btn_group);
 
-                                                item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
-                                                // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
-                                                // $(id).attr('checked', true);
-                                                // $(id).trigger('click');
-                                                items.pop(item);
-                                            }
-                                        }
-                                    }
-                                    break;
-                            }
-                        }
-                        // console.log(data.content);
-                        addContent(data.content);
-                    }
-                }
-                catch(error){
-                    console.error('Error:', error);
-                }
-                console.log('---------конец  формирования меню-------------');
-                navigation();
-            }
+            //                                         const btn_group = document.createElement('div');
+            //                                         btn_group.classList.add('btn-group');
+            //                                         btn_group.classList.add('flex-grow-1');
+            //                                         // btn_group.classList.add('empty-item');
+            //                                         wrap_btn_group.appendChild(btn_group);
 
-            function navigation(){
-                $(document).ready(function(){
-                    $('input[name="btncheck"]').click(function(){
-                        $('#content_'+this.id+' a').each(function(el){
-                            // console.log(this);
-                            $(this).parent().toggleClass('empty-item');
-                        });
-                    });
-                    $(".accordion-header").click(function(){
-                        console.log('-----работает функция сворачивания вкладок-------')
-                        let curLvl=0;
-                        //последняя раскрытая вклад. имеет класс accordion-collapse
-                        const collapsedTab = $(this).next();
-                        const body = $(this).next().children();
-                        const header = $(this);
-                        const button = $(this).children();
-                        const item = $(this).parent();
+            //                                         for (let n=0; n<data.formatData.length; n++){   //data.formatData.length
 
-                        // уровень последней раскрытой вкладки
-                        curLvl = collapsedTab.data('lvl');
+            //                                             item = new CheckboxItem(parentNode=btn_group, header=data.formatData[n].format_name, level=5, id=data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[n].format_code);
+            //                                             // id = '#'+data.grades[i].grade_code+data.subjects[k].subject_code+data.presentation[j].presentation_code+data.formatData[0].format_code;
+            //                                             // $(id).attr('checked', true);
+            //                                             // $(id).trigger('click');
+            //                                             items.pop(item);
+            //                                         }
+            //                                     }
+            //                                 }
+            //                                 break;
+            //                         }
+            //                     }
+            //                     // console.log(data.content);
+            //                     // this.addContent(data.content);
 
-                        //раскрываем или закрываем вкладку, по которой произошёл клик
-                        collapsedTab.toggle(350).toggleClass('show');
-                        $(this).children('button').toggleClass('collapsed');
+            //                 }
 
-                        //закрываем все остальные ранее открытые вкладки
-                        for (let i = curLvl; i<=5; i++) {
-                            collapsedEl = $('.show').not(collapsedTab).filter('[data-lvl='+i+']');
-                            collapsedEl.toggle(350).toggleClass('show');
-                            collapsedEl.prev().children('button').toggleClass('collapsed');
-                        }
-                    });
-                });
-            }
-            function preloader(){
-                document.body.classList.add('loaded');
-                document.body.classList.remove('loaded_hiding');
-                console.log('preloader end');
-            }
+            //             }
+            //             catch(error){
+            //                 console.error('Error:', error);
+            //                 this.preloader();
+            //                 $('#accordion').classList.add('d-none');
+            //                 errorAccordion = 'Ведутся плановые работы с базой данных \n Повторите попытку загрузки позже\n' + error;
+            //                 $('#errorAccordion').text(errorAccordion);
+            //                 $('#errorAccordion').classList.remove('d-none');
 
-            function addContent(data){
-                var note;
-                console.log('---------Начало записи данных из БД-------------')
-                for (let i=0; i<data.length; i++){
-                    parentNode = document.getElementById('body_'+data[i].grade_id+data[i].subject_id+data[i].presentation_id);
-                    createNote(parentNode, data[i]);
-                    note = document.getElementById(data[i].grade_id+data[i].subject_id+data[i].presentation_id+data[i].formatData_id);
-                    note.checked = true;
-                    note.dispatchEvent(new Event('click'));
+            //             }
+            //             console.log('---------конец  формирования меню-------------');
+            //         }
 
-                }
-                console.log('---------Конец записи данных из БД-------------')
-                preloader();
-            }
+            //         getMenu();
+            //         // this.navigation();
+            //     }
 
-            getMenu(addContent, navigation);
+            //     addContent(data){
+            //         var note;
+            //         console.log('---------Начало записи данных из БД-------------')
+            //         for (let i=0; i<data.length; i++){
+            //             parentNode = document.getElementById('body_'+data[i].grade_id+data[i].subject_id+data[i].presentation_id);
+            //             createNote(parentNode, data[i]);
+            //             note = document.getElementById(data[i].grade_id+data[i].subject_id+data[i].presentation_id+data[i].formatData_id);
+            //             note.checked = true;
+            //             note.dispatchEvent(new Event('click'));
+
+            //         }
+            //         console.log('---------Конец записи данных из БД-------------')
+            //         this.preloader();
+            //     }
+
+            //     //Завершение работы прелоадера
+            //     preloader() {
+            //         document.body.classList.add('loaded');
+            //         document.body.classList.remove('loaded_hiding');
+            //         console.log('preloader end');
+            //     }
+
+            //     navigation(){
+            //         $(document).ready(function(){
+            //             $('input[name="btncheck"]').click(function(){
+            //                 $('#content_'+this.id+' a').each(function(el){
+            //                     // console.log(this);
+            //                     // $(this).parent().toggleClass('empty-item');
+            //                     $(this).parent().toggleClass('d-none');
+            //                 });
+            //             });
+            //             $(".accordion-header").click(function(){
+            //                 console.log('-----работает функция сворачивания вкладок-------')
+            //                 let curLvl=0;
+            //                 //последняя раскрытая вклад. имеет класс accordion-collapse
+            //                 const collapsedTab = $(this).next();
+            //                 const body = $(this).next().children();
+            //                 const header = $(this);
+            //                 const button = $(this).children();
+            //                 const item = $(this).parent();
+
+            //                 // уровень последней раскрытой вкладки
+            //                 curLvl = collapsedTab.data('lvl');
+
+            //                 //раскрываем или закрываем вкладку, по которой произошёл клик
+            //                 collapsedTab.toggle(350).toggleClass('show');
+            //                 $(this).children('button').toggleClass('collapsed');
+
+            //                 //закрываем все остальные ранее открытые вкладки
+            //                 for (let i = curLvl; i<=5; i++) {
+            //                     collapsedEl = $('.show').not(collapsedTab).filter('[data-lvl='+i+']');
+            //                     collapsedEl.toggle(350).toggleClass('show');
+            //                     collapsedEl.prev().children('button').toggleClass('collapsed');
+            //                 }
+            //             });
+            //         });
+            //     }
+            // }
+
+            // const accordion = document.getElementById('accordion');
+            // console.log(accordion.classList);
+            new Accordion();
 
         </script>
     </body>

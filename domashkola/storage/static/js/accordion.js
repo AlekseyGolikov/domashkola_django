@@ -1,4 +1,126 @@
+const Accordion = (() => {
+    let instance = null;
+
+    return class Accordion {
+        constructor() {
+        if(instance === null) {
+            this.accordion = document.getElementById('accordion');
+            this.item1 = new MenuItem(this.accordion, 'Дошкольники', 1, 'preSchool');
+            this.item2 = new MenuItem(this.accordion, 'Начальная школа', 1, 'elSchool');
+            this.item3 = new MenuItem(this.accordion, 'Средняя школа', 1, 'hiSchool');
+            getMenu();
+            instance = this;
+        }
+        return instance;
+        }
+    }
+})();
+
+
+
+function createItem(parentNode, items, grade, subjects, presentation, formatData){
+    console.log(grade);
+    // console.log(subjects);
+    // console.log(presentation);
+    // console.log(formatData);
+    let item = new MenuItem(parentNode=parentNode, header=grade.grade_name, level=2, id=grade.grade_code);
+    items.pop(item);
+    for (let k=0; k<subjects.length; k++){  //subjects.length
+        item = new MenuItem(parentNode=document.getElementById('body_'+grade.grade_code), header=subjects[k].subject_name, level=3, id=grade.grade_code+subjects[k].subject_code);
+        items.pop(item);
+
+        for (let j=0; j<presentation.length; j++){   //presentation.length
+            item = new MenuItem(parentNode=document.getElementById('body_'+grade.grade_code+subjects[k].subject_code), header=presentation[j].presentation_name, level=4, id=grade.grade_code+subjects[k].subject_code+presentation[j].presentation_code);
+            items.pop(item);
+
+            const wrap_btn_group = document.createElement('div');
+            wrap_btn_group.classList.add('d-flex');
+            document.getElementById('body_'+grade.grade_code+subjects[k].subject_code+presentation[j].presentation_code).appendChild(wrap_btn_group);
+
+            const btn_group = document.createElement('div');
+            btn_group.classList.add('btn-group');
+            btn_group.classList.add('flex-grow-1');
+            // btn_group.classList.add('empty-item');
+            wrap_btn_group.appendChild(btn_group);
+
+            // let checked = true;
+            for (let n=0; n<formatData.length; n++){   //formatData.length
+
+                item = new CheckboxItem(parentNode=btn_group, header=formatData[n].format_name, level=5, id=grade.grade_code+subjects[k].subject_code+presentation[j].presentation_code+formatData[n].format_code);
+                items.pop(item);
+
+            }
+            // const tNode = document.createTextNode('body id = '+grade.grade_code+subjects[k].subject_code+presentation[j].presentation_code);
+            // document.getElementById('body_'+grade.grade_code+subjects[k].subject_code+presentation[j].presentation_code).appendChild(tNode);
+        }
+    }
+}
+
+
+
+async function getMenu(){
+    // let item;
+    let items = [];
+
+
+    try{
+        // throw('Проверочное прерывание');
+        const response = await fetch('/menujson');
+
+        const data = await response.json();
+        if(response.ok){
+            console.log('---------формируем полное меню-------------');
+            for (let i=0; i<data.grades.length; i++){
+                switch (data.grades[i].grade_code){
+                    case '1_2':
+                    case '2_3':
+                    case '3_5':
+                    case '5_7':
+                        createItem(document.getElementById('body_preSchool'), items, data.grades[i], data.subjects, data.presentation, data.formatData)
+                        break;
+                    case '1':
+                    case '2':
+                    case '3':
+                    case '4':
+                        createItem(document.getElementById('body_elSchool'), items, data.grades[i], data.subjects, data.presentation, data.formatData)
+                        break;
+                    case '5':
+                    case '6':
+                    case '7':
+                    case '8':
+                    case '9':
+                    case '10':
+                    case '11':
+                        createItem(document.getElementById('body_hiSchool'), items, data.grades[i], data.subjects, data.presentation, data.formatData)
+                        break;
+                }
+            }
+            // console.log(data.content);
+            addContent(data.content);
+
+        }
+
+    }
+    catch(error){
+        console.error('Error:', error);
+        // $(document).ready(function(){
+            const errorMsg = 'Профилактические работы на сервере <br> Попробуйте загрузить позже <br>';
+            console.log($('#errorAccordion').hasClass('d-none'));
+            console.log($('#accordion').hasClass('d-none'));
+            $('#errorAccordion').html(errorMsg).removeClass('d-none');
+            $('#accordion').addClass('d-none');
+        // });
+        preloader()
+    }
+    console.log('---------конец  формирования меню-------------');
+    navigation();
+}
+
 class MenuItem {
+    _parent;
+    _header;
+    _level;
+    _id;
 
     _lvl_1_icon =
         `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-book ms-2 me-2" viewBox="0 0 16 16">
@@ -26,7 +148,7 @@ class MenuItem {
         const accordion_item = document.createElement('div');
         accordion_item.id = 'item_'+this._id;
         accordion_item.classList.add('accordion-item');
-        accordion_item.classList.add('empty-item');
+        accordion_item.classList.add('d-none'); //empty-item
         // accordion_item.classList.add('opacity-75');
         this._parent.appendChild(accordion_item);
 
@@ -94,6 +216,65 @@ class MenuItem {
     }
 }
 
+function addContent(data){
+    var note;
+    console.log('---------Начало записи данных из БД-------------')
+    for (let i=0; i<data.length; i++){
+        parentNode = document.getElementById('body_'+data[i].grade_id+data[i].subject_id+data[i].presentation_id);
+        createNote(parentNode, data[i]);
+        note = document.getElementById(data[i].grade_id+data[i].subject_id+data[i].presentation_id+data[i].formatData_id);
+        note.checked = true;
+        note.dispatchEvent(new Event('click'));
+
+    }
+    console.log('---------Конец записи данных из БД-------------')
+    preloader();
+}
+
+    //Завершение работы прелоадера
+function preloader() {
+    document.body.classList.add('loaded');
+    document.body.classList.remove('loaded_hiding');
+    console.log('preloader end');
+}
+
+function navigation(){
+    $(document).ready(function(){
+        $('input[name="btncheck"]').click(function(){
+            $('#content_'+this.id+' a').each(function(el){
+                // console.log(this);
+                // $(this).parent().toggleClass('empty-item');
+                $(this).parent().toggleClass('d-none');
+            });
+        });
+        $(".accordion-header").click(function(){
+            console.log('-----работает функция сворачивания вкладок-------')
+            let curLvl=0;
+            //последняя раскрытая вклад. имеет класс accordion-collapse
+            const collapsedTab = $(this).next();
+            const body = $(this).next().children();
+            const header = $(this);
+            const button = $(this).children();
+            const item = $(this).parent();
+
+            // уровень последней раскрытой вкладки
+            curLvl = collapsedTab.data('lvl');
+
+            //раскрываем или закрываем вкладку, по которой произошёл клик
+            collapsedTab.toggle(350).toggleClass('show');
+            $(this).children('button').toggleClass('collapsed');
+
+            //закрываем все остальные ранее открытые вкладки
+            for (let i = curLvl; i<=5; i++) {
+                collapsedEl = $('.show').not(collapsedTab).filter('[data-lvl='+i+']');
+                collapsedEl.toggle(350).toggleClass('show');
+                collapsedEl.prev().children('button').toggleClass('collapsed');
+            }
+        });
+    });
+}
+
+
 class CheckboxItem {
 
     constructor(parentNode, header, level, id) {
@@ -135,7 +316,6 @@ class CheckboxItem {
     }
 }
 
-
 function createNote(parentNode, data){
     // <p><a class="link-opacity-50" href="#">Link opacity 50</a></p>
 
@@ -144,55 +324,55 @@ function createNote(parentNode, data){
     parentNode.appendChild(el_p);
     const el_a = document.createElement('a');
     el_p.appendChild(el_a);
-    el_a.classList.add('link-opacity-50');
+    // el_a.classList.add('link-opacity-50');
     el_a.setAttribute('href','#')
     el_a.appendChild(document.createTextNode(data.content));
 
     switch(data.grade_id){
         case '1_2':
-            document.getElementById('item_preSchool').classList.remove('empty-item');
+            document.getElementById('item_preSchool').classList.remove('d-none');   //empty-item
             break;
         case '2_3':
-            document.getElementById('item_preSchool').classList.remove('empty-item');
+            document.getElementById('item_preSchool').classList.remove('d-none');
             break;
         case '3_5':
-            document.getElementById('item_preSchool').classList.remove('empty-item');
+            document.getElementById('item_preSchool').classList.remove('d-none');
             break;
         case '5_7':
-            document.getElementById('item_preSchool').classList.remove('empty-item');
+            document.getElementById('item_preSchool').classList.remove('d-none');
             break;
         case '1':
-            document.getElementById('item_elSchool').classList.remove('empty-item');
+            document.getElementById('item_elSchool').classList.remove('d-none');
             break;
         case '2':
-            document.getElementById('item_elSchool').classList.remove('empty-item');
+            document.getElementById('item_elSchool').classList.remove('d-none');
             break;
         case '3':
-            document.getElementById('item_elSchool').classList.remove('empty-item');
+            document.getElementById('item_elSchool').classList.remove('d-none');
             break;
         case '4':
-            document.getElementById('item_elSchool').classList.remove('empty-item');
+            document.getElementById('item_elSchool').classList.remove('d-none');
             break;
         case '5':
-            document.getElementById('item_hiSchool').classList.remove('empty-item');
+            document.getElementById('item_hiSchool').classList.remove('d-none');
             break;
         case '6':
-            document.getElementById('item_hiSchool').classList.remove('empty-item');
+            document.getElementById('item_hiSchool').classList.remove('d-none');
             break;
         case '7':
-            document.getElementById('item_hiSchool').classList.remove('empty-item');
+            document.getElementById('item_hiSchool').classList.remove('d-none');
             break;
         case '8':
-            document.getElementById('item_hiSchool').classList.remove('empty-item');
+            document.getElementById('item_hiSchool').classList.remove('d-none');
             break;
         case '9':
-            document.getElementById('item_hiSchool').classList.remove('empty-item');
+            document.getElementById('item_hiSchool').classList.remove('d-none');
             break;
         case '10':
-            document.getElementById('item_hiSchool').classList.remove('empty-item');
+            document.getElementById('item_hiSchool').classList.remove('d-none');
             break;
         case '11':
-            document.getElementById('item_hiSchool').classList.remove('empty-item');
+            document.getElementById('item_hiSchool').classList.remove('d-none');
             break;
     }
 
@@ -208,19 +388,19 @@ function createNote(parentNode, data){
     // document.getElementById('collapse_elSchool').classList.toggle('empty-item');
     // document.getElementById('body_elSchool').classList.toggle('empty-item');
 
-    document.getElementById('item_'+data.grade_id).classList.remove('empty-item');
+    document.getElementById('item_'+data.grade_id).classList.remove('d-none');
     // document.getElementById('header_'+data.grades_id).classList.toggle('empty-item');
     // document.getElementById('button_'+data.grades_id).classList.toggle('empty-item');
     // document.getElementById('collapse_'+data.grades_id).classList.toggle('empty-item');
     // document.getElementById('body_'+data.grades_id).classList.toggle('empty-item');
 
-    document.getElementById('item_'+data.grade_id+data.subject_id).classList.remove('empty-item');
+    document.getElementById('item_'+data.grade_id+data.subject_id).classList.remove('d-none');
     // document.getElementById('header_'+data.grades_id+data.subject).classList.toggle('empty-item');
     // document.getElementById('button_'+data.grades_id+data.subject).classList.toggle('empty-item');
     // document.getElementById('collapse_'+data.grades_id+data.subject).classList.toggle('empty-item');
     // document.getElementById('body_'+data.grades_id+data.subject).classList.toggle('empty-item');
 
-    document.getElementById('item_'+data.grade_id+data.subject_id+data.presentation_id).classList.remove('empty-item');
+    document.getElementById('item_'+data.grade_id+data.subject_id+data.presentation_id).classList.remove('d-none');
     // console.log('-----------------------');
     // console.log('accordion_body id = '+parentNode.id);
     // console.log('accordion_collapse id = '+parentNode.closest('#collapse_'+data.grades_id+data.subject).id);
