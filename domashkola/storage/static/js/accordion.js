@@ -104,7 +104,7 @@ async function getMenu(){
     catch(error){
         console.error('Error:', error);
         // $(document).ready(function(){
-            const errorMsg = 'Профилактические работы на сервере <br> Попробуйте загрузить позже <br>';
+            const errorMsg = 'Профилактические работы на сервере <br> Повторите попытку позже <br>';
             $('#errorAccordion').html(errorMsg).removeClass('d-none');
             $('#accordion').addClass('d-none');
         // });
