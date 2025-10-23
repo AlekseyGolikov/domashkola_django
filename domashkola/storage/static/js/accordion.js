@@ -19,7 +19,7 @@ const Accordion = (() => {
 
 
 function createItem(parentNode, items, grade, subjects, presentation, formatData){
-    console.log(grade);
+    // console.log(grade);
     // console.log(subjects);
     // console.log(presentation);
     // console.log(formatData);
@@ -105,8 +105,6 @@ async function getMenu(){
         console.error('Error:', error);
         // $(document).ready(function(){
             const errorMsg = 'Профилактические работы на сервере <br> Попробуйте загрузить позже <br>';
-            console.log($('#errorAccordion').hasClass('d-none'));
-            console.log($('#accordion').hasClass('d-none'));
             $('#errorAccordion').html(errorMsg).removeClass('d-none');
             $('#accordion').addClass('d-none');
         // });
