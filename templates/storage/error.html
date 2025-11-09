@@ -1,0 +1,16 @@
+{% extends 'storage/base.html' %}
+
+{% block content %}
+
+
+
+    <!-- <div class="d-flex flex-column w-100"> -->
+        <div id="error" class="d-none align-self-center w-100 fs-3 text-danger text-center opacity-75 shadow p-1 mb-2 bg-body-tertiary rounded">
+            {{ error_msg.0 }}
+            <br>
+            {{ error_msg.1 }}
+        </div>
+
+    <!-- </div> -->
+
+{% endblock content %}

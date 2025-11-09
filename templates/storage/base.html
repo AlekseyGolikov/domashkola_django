@@ -1,0 +1,79 @@
+﻿
+{% load static %}
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{{ title }}</title>
+        <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> -->
+        <link rel="shortcut icon" href="{% static 'img/icons/favicon3.png' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/customb.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/preloader.css' %}">
+        <style>
+            body {
+                background-image: url("{% static 'img/logo/bg16.png' %}");
+                background-repeat: round;
+                background-clip: border-box;
+            }
+        </style>
+    </head>
+    <body class="container">
+
+        <!-- Прелоадер -->
+        <div class="preloader">
+            <svg class="preloader__image" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path fill="currentColor"
+                d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z">
+            </path>
+            </svg>
+        </div>
+
+
+        <header class="header border-bottom py-2">
+            <!--Основное меню-->
+                {% include 'storage/menu.html' %}
+            <!--Выплывающее боковое меню-->
+
+                {% include 'storage/menu_side.html' %}
+
+        </header>
+
+        <div class="content">
+            <!--Контент-->
+            {% block content %}
+                {% include 'storage/index.html' %}
+                {% include 'storage/error.html' %}
+
+            {% endblock content %}
+        </div>
+
+
+        <!-- Здесь подразумевается место для содержимого -->
+        <footer class="footer" >
+            <p class="text-center text-primary border-top py-2 ">&copy; 2025 Семейная школа</p>
+        </footer>
+
+
+        <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
+        <!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> -->
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/jquery-3.7.1.js' %}"></script>
+        <script src="{% static 'js/accordion.js' %}"></script>
+
+        <script type="text/javascript">
+
+            url = document.URL;
+            if(url=='http://localhost:8000/' || url=='http://127.0.0.1:8000/' || url=='https://domashkola.ru/' || url=='https://www.domashkola.ru/') {
+                new Accordion();
+                isMobileDevice();
+            }
+            else {
+                preloader();
+            }
+
+        </script>
+    </body>
+</html>

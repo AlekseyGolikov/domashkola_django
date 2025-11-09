@@ -1,0 +1,98 @@
+html {
+    height: 100%;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.header {
+    flex: 0 1 auto;
+}
+
+.content{
+    flex: 1 1 auto;
+    display: flex;
+    /* flex-direction: column; */
+    /* align-items: center; */
+    /* height: auto; */
+    padding-top: 0.25rem;
+
+    /* border: 1px solid #000; */
+}
+
+/* FOOTER */
+.footer {
+    flex: 0 1 auto;
+    /* border: 1px solid #000; */
+}
+
+.menu {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    /* border: 1px solid #da032a; */
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+}
+
+.auth-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-item {
+    flex: 0 1 auto;
+}
+
+.checkbox-group-expanded {
+    width: 100%;
+    height: 2.5rem;
+}
+
+.card-expanded {
+    width: 90%;
+    height: 90%;
+}
+
+.card-collapsed {
+    width: 18rem;
+    height: 15rem;
+}
+
+a:visited {
+    color:lightblue;
+    text-decoration:none;
+}
+
+.hover-target {
+    cursor: pointer;
+}
+
+/* Маленькие экраны */
+@media (max-width: 500px) {
+    .auth-items {
+        display: none;
+    }
+
+}
+
+@media (prefers-color-scheme: light) {
+    .dark  {
+        display: none;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .light {
+        display: none;
+    }
+    body {
+        background-color: darkgrey;
+    }
+}
