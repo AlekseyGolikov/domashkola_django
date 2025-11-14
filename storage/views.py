@@ -19,7 +19,9 @@ def menujson(request):
 		resp2 = Subjects.objects.values('subject_name', 'subject_code').order_by('id')
 		resp3 = Presentation.objects.values('presentation_name', 'presentation_code').order_by('id')
 		resp4 = FormatData.objects.values('format_name', 'format_code').order_by('id')
-		resp5 = Content.objects.values('grade_id', 'subject_id', 'presentation_id', 'formatData_id', 'title', 'content', 'link').order_by('id')
+		resp5 = Content.objects.values('id','grade_id', 'subject_id', 'presentation_id', 'formatData_id', 'title', 'content', 'link').order_by('id')
+		resp6 = Content.objects.values('id','formatData_id').order_by('id')
+		# print(resp6)
 		res1 = [item for item in resp1]
 		res2 = [item for item in resp2]
 		res3 = [item for item in resp3]

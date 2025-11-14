@@ -74,6 +74,16 @@ a:visited {
     cursor: pointer;
 }
 
+.canvas_container {
+    background: #333;
+    text-align: center;
+    border: solid 3px;
+    width: fit-content;
+    height: fit-content;
+    overflow: auto;
+
+}
+
 /* Маленькие экраны */
 @media (max-width: 500px) {
     .auth-items {

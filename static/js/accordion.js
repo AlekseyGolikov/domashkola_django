@@ -18,118 +18,8 @@ const Accordion = (() => {
     }
 })();
 
+var cards = new Map();
 
-
-function createItem(parentNode, grade, subjects, presentation, formatData){
-    // console.log(grade);
-    // console.log(subjects);
-    // console.log(presentation);
-    // console.log(formatData);
-    let item = new MenuItem(parentNode=parentNode, header=grade.grade_name, level=2, id=grade.grade_code);
-    for (let k=0; k<subjects.length; k++){  //subjects.length
-        item = new MenuItem(parentNode=document.getElementById('body_'+grade.grade_code), header=subjects[k].subject_name, level=3, id=grade.grade_code+subjects[k].subject_code);
-        // console.log(item);
-
-        for (let j=0; j<presentation.length; j++){   //presentation.length
-            item = new MenuItem(parentNode=document.getElementById('body_'+grade.grade_code+subjects[k].subject_code), header=presentation[j].presentation_name, level=4, id=grade.grade_code+subjects[k].subject_code+presentation[j].presentation_code);
-
-            const wrap_btn_group = document.createElement('div');
-            wrap_btn_group.classList.add('d-flex');
-            document.getElementById('body_'+grade.grade_code+subjects[k].subject_code+presentation[j].presentation_code).appendChild(wrap_btn_group);
-
-            const btn_group = document.createElement('div');
-            btn_group.classList.add('btn-group');
-            btn_group.classList.add('checkbox-group-expanded');
-            btn_group.classList.add('flex-grow-1');
-            wrap_btn_group.appendChild(btn_group);
-
-            // let checked = true;
-            for (let n=0; n<formatData.length; n++){   //formatData.length
-
-                item = new CheckboxItem(parentNode=btn_group, header=formatData[n].format_name, level=5, id=grade.grade_code+subjects[k].subject_code+presentation[j].presentation_code+formatData[n].format_code);
-
-            }
-
-            // <div class="container d-flex h-100">
-            //     <div class="d-flex justify-content-between flex-row flex-wrap flex-grow-1">
-
-            const wrap_content = document.createElement('div');
-            wrap_content.id = 'wrap_content_'+grade.grade_code+subjects[k].subject_code+presentation[j].presentation_code;
-            wrap_content.classList.add('d-flex');
-            wrap_content.classList.add('justify-content-sm-around');    //выравнивание карт для дисплеев более 576
-            wrap_content.classList.add('justify-content-center');       //выравнивание карт по центру для экрана смартфона до 576
-            // wrap_content.classList.add('align-self-stretch');
-            wrap_content.classList.add('mt-5');
-            wrap_content.classList.add('flex-row');
-            // wrap_content.classList.add('border');
-            // wrap_content.classList.add('border-black');
-            wrap_content.classList.add('flex-wrap');
-            wrap_content.classList.add('w-100');
-            // wrap_content.classList.add('flex-grow-1');
-            document.getElementById('body_'+grade.grade_code+subjects[k].subject_code+presentation[j].presentation_code).appendChild(wrap_content);
-
-        }
-
-    }
-}
-
-async function getMenu(){
-    // let item;
-
-
-    try{
-        // throw('Проверочное прерывание');
-        const response = await fetch('/menujson');
-
-        const data = await response.json();
-        if(response.ok){
-            console.log('---------формируем полное меню-------------');
-            for (let i=0; i<data.grades.length; i++){
-                switch (data.grades[i].grade_code){
-                    case '1_2':
-                    case '2_3':
-                    case '3_5':
-                    case '5_7':
-                        createItem(document.getElementById('body_preSchool'), data.grades[i], data.subjects, data.presentation, data.formatData)
-                        break;
-                    case '1':
-                    case '2':
-                    case '3':
-                    case '4':
-                        createItem(document.getElementById('body_elSchool'), data.grades[i], data.subjects, data.presentation, data.formatData)
-                        break;
-                    case '5':
-                    case '6':
-                    case '7':
-                    case '8':
-                    case '9':
-                    case '10':
-                    case '11':
-                        createItem(document.getElementById('body_hiSchool'), data.grades[i], data.subjects, data.presentation, data.formatData)
-                        break;
-                    case 'psyho':
-                        createItem(document.getElementById('body_usefullMaterials'), data.grades[i], data.subjects, data.presentation, data.formatData)
-                        break;
-                }
-            }
-
-            addContent(data.content);
-
-        }
-
-    }
-    catch(error){
-        console.error('Error:', error);
-        // $(document).ready(function(){
-            const errorMsg = 'Профилактические работы на сервере <br> Повторите попытку позже <br>';
-            $('#errorAccordion').html(errorMsg).removeClass('d-none');
-            $('#accordion').addClass('d-none');
-        // });
-        finish_preloader()
-    }
-    console.log('---------конец  формирования меню-------------');
-    navigation();
-}
 
 class MenuItem {
     _parent;
@@ -231,18 +121,132 @@ class MenuItem {
     }
 }
 
+
+function createItem(parentNode, grade, subjects, presentation, formatData){
+    // console.log(grade);
+    // console.log(subjects);
+    // console.log(presentation);
+    // console.log(formatData);
+    let item = new MenuItem(parentNode=parentNode, header=grade.grade_name, level=2, id=grade.grade_code);
+    for (let k=0; k<subjects.length; k++){  //subjects.length
+        item = new MenuItem(parentNode=document.getElementById('body_'+grade.grade_code), header=subjects[k].subject_name, level=3, id=grade.grade_code+subjects[k].subject_code);
+        // console.log(item);
+
+        for (let j=0; j<presentation.length; j++){   //presentation.length
+            item = new MenuItem(parentNode=document.getElementById('body_'+grade.grade_code+subjects[k].subject_code), header=presentation[j].presentation_name, level=4, id=grade.grade_code+subjects[k].subject_code+presentation[j].presentation_code);
+
+            const wrap_btn_group = document.createElement('div');
+            wrap_btn_group.classList.add('d-flex');
+            document.getElementById('body_'+grade.grade_code+subjects[k].subject_code+presentation[j].presentation_code).appendChild(wrap_btn_group);
+
+            const btn_group = document.createElement('div');
+            btn_group.classList.add('btn-group');
+            btn_group.classList.add('checkbox-group-expanded');
+            btn_group.classList.add('flex-grow-1');
+            wrap_btn_group.appendChild(btn_group);
+
+            // let checked = true;
+            for (let n=0; n<formatData.length; n++){   //formatData.length
+
+                item = new CheckboxItem(parentNode=btn_group, header=formatData[n].format_name, level=5, id=grade.grade_code+subjects[k].subject_code+presentation[j].presentation_code+formatData[n].format_code);
+
+            }
+
+            // <div class="container d-flex h-100">
+            //     <div class="d-flex justify-content-between flex-row flex-wrap flex-grow-1">
+
+            const wrap_content = document.createElement('div');
+            wrap_content.id = 'wrap_content_'+grade.grade_code+subjects[k].subject_code+presentation[j].presentation_code;
+            wrap_content.classList.add('d-flex');
+            wrap_content.classList.add('justify-content-sm-around');    //выравнивание карт для дисплеев более 576
+            wrap_content.classList.add('justify-content-center');       //выравнивание карт по центру для экрана смартфона до 576
+            // wrap_content.classList.add('align-self-stretch');
+            wrap_content.classList.add('mt-5');
+            wrap_content.classList.add('flex-row');
+            // wrap_content.classList.add('border');
+            // wrap_content.classList.add('border-black');
+            wrap_content.classList.add('flex-wrap');
+            wrap_content.classList.add('w-100');
+            // wrap_content.classList.add('flex-grow-1');
+            document.getElementById('body_'+grade.grade_code+subjects[k].subject_code+presentation[j].presentation_code).appendChild(wrap_content);
+
+        }
+
+    }
+}
+
+async function getMenu(){
+    // let item;
+
+
+    try{
+        // throw('Проверочное прерывание');
+        const response = await fetch('/menujson');
+
+        const data = await response.json();
+        if(response.ok){
+            console.log('---------формируем полное меню-------------');
+            for (let i=0; i<data.grades.length; i++){
+                switch (data.grades[i].grade_code){
+                    case '1_2':
+                    case '2_3':
+                    case '3_5':
+                    case '5_7':
+                        createItem(document.getElementById('body_preSchool'), data.grades[i], data.subjects, data.presentation, data.formatData)
+                        break;
+                    case '1':
+                    case '2':
+                    case '3':
+                    case '4':
+                        createItem(document.getElementById('body_elSchool'), data.grades[i], data.subjects, data.presentation, data.formatData)
+                        break;
+                    case '5':
+                    case '6':
+                    case '7':
+                    case '8':
+                    case '9':
+                    case '10':
+                    case '11':
+                        createItem(document.getElementById('body_hiSchool'), data.grades[i], data.subjects, data.presentation, data.formatData)
+                        break;
+                    case 'psyho':
+                        createItem(document.getElementById('body_usefullMaterials'), data.grades[i], data.subjects, data.presentation, data.formatData)
+                        break;
+                }
+            }
+            // console.log(data.content);
+            addContent(data.content);
+
+        }
+
+    }
+    catch(error){
+        console.error('Error:', error);
+        // $(document).ready(function(){
+            const errorMsg = 'Профилактические работы на сервере <br> Повторите попытку позже <br>';
+            $('#errorAccordion').html(errorMsg).removeClass('d-none');
+            $('#accordion').addClass('d-none');
+        // });
+        finish_preloader()
+    }
+    console.log('---------конец  формирования меню-------------');
+    navigation();
+}
+
+
 function addContent(data){
     let note;
     console.log('---------Начало записи данных из БД-------------')
 
     for (let i=0; i<data.length; i++){
         parentNode = document.getElementById('wrap_content_'+data[i].grade_id+data[i].subject_id+data[i].presentation_id);
+        // console.log(parentNode);
         createNote(parentNode, data[i]);
         note = document.getElementById(data[i].grade_id+data[i].subject_id+data[i].presentation_id+data[i].formatData_id);
-        if(note.checked == false){
-            note.checked = true;
-            note.dispatchEvent(new Event('click'));
-        }
+        // note.classList.remove('btn-outline-primary');
+        // note.classList.add('btn-primary');
+        note.checked = true;
+
 
     }
     console.log('---------Конец записи данных из БД-------------')
@@ -267,13 +271,15 @@ function start_preloader() {
 function finish_preloader() {
     document.body.classList.add('loaded');
     document.body.classList.remove('loaded_hiding');
-    console.log('preloader end');
+    console.log('---------preloader end---------');
 }
 
 function navigation(){
+
     $(document).ready(function(){
         $('input[name="btncheck"]').click(function(){
-            $('#content_'+this.id+' div').each(function(el){
+            // console.log('card_'+this.id);
+            $('#card_'+this.id+' div').each(function(el){
                 $(this).parent().toggle(350).toggleClass('d-none');
             });
         });
@@ -306,10 +312,11 @@ function navigation(){
         $('.card-expander').click(function(){
             const elem = $(this).parent().parent().parent().parent();
             const card_text = $(this).parent().parent().siblings('.visually-hidden');
+            // console.log(Number(card_text.attr('id')) + ' | '+ typeof(Number(card_text.attr('id'))));
 
-            console.log('card_text.title: '+ card_text.attr('data-title'));
-            console.log('card_text.link: '+ card_text.attr('data-link'));
-            console.log('card_text.text.length: '+ card_text.html().length);
+            // console.log('card_text.id: '+ card_text.id);
+            // console.log('card_text.link: '+ card_text.attr('data-link'));
+            // console.log('card_text.text.length: '+ card_text.html().length);
 
             $(this).addClass('d-none');
             $(this).siblings().removeClass('d-none');
@@ -332,8 +339,10 @@ function navigation(){
                     function(){
                         elem.removeClass('card-collapsed');
                         elem.addClass('card-expanded');
-                        // elem.children().children('p').removeClass('text-truncate');
-                        elem.children().children('p').html(card_text.html());
+
+                        // console.log(cards);
+                        cards.get(Number(card_text.attr('id'))).expanding();
+                        // elem.children().children('p').html(card_text.html());
                     }
                 );
             }
@@ -352,31 +361,9 @@ function navigation(){
                         elem.removeClass('card-expanded');
                         elem.addClass('card-collapsed');
 
+                        console.log(Number(card_text.attr('id')));
+                        cards.get(Number(card_text.attr('id'))).collapsing();
 
-                        // elem.parent().siblings().removeClass('d-none');
-                        // elem.children().children('p').html(cutted_text);
-                        // elem.children().children('p').addClass('text-truncate');
-
-                        if (card_text.html().length >= 100){
-                            if(card_text.attr('data-title') == '' && card_text.attr('data-link') != ''){
-                                elem.children().children('p').html(text_trancate(card_text.html(), text_trancate_sizes['notitle_link']));
-                            }
-                            if(card_text.attr('data-title') != '' && card_text.attr('data-link') == ''){
-                                elem.children().children('p').html(text_trancate(card_text.html(), text_trancate_sizes['title_nolink']));
-                            }
-                            if(card_text.attr('data-title') == '' && card_text.attr('data-link') == ''){
-                                elem.children().children('p').html(text_trancate(card_text.html(), text_trancate_sizes['notitle_nolink']));
-                            }
-                            if(card_text.attr('data-title') != '' && card_text.attr('data-link') != ''){
-                                elem.children().children('p').html(text_trancate(card_text.html(), text_trancate_sizes['title_link']));
-                            }
-
-                        }
-                        else {
-                            elem.children().children('p').html(card_text.html());
-                        }
-                        // console.log(card_text.html().length)
-                        // elem.children().children('p').html(text_trancate(card_text.html(), 100));
                         elem.siblings().removeClass('d-none');
                     }
                 );
@@ -427,11 +414,13 @@ class CheckboxItem {
 }
 
 
-
 function createNote(parentNode, data){
 
-
-    new Card(parentNode, data);
+    // new Card(parentNode, data);
+    cards.set(data.id, new FactroryCard(parentNode, data).getCard());
+    cards.get(data.id).collapsing();
+    // console.log(data.id + ' | ' + typeof(data.id));
+    // console.log(data.formatData_id);
 
     switch(data.grade_id){
         case '1_2':
@@ -491,105 +480,89 @@ function createNote(parentNode, data){
     $('#item_'+data.grade_id).removeClass('d-none');
     $('#item_'+data.grade_id+data.subject_id).removeClass('d-none');
     $('#item_'+data.grade_id+data.subject_id+data.presentation_id).removeClass('d-none');
-    // document.getElementById('item_'+data.grade_id).classList.remove('d-none');
-    // document.getElementById('item_'+data.grade_id+data.subject_id).classList.remove('d-none');
-    // document.getElementById('item_'+data.grade_id+data.subject_id+data.presentation_id).classList.remove('d-none');
 
 }
 
-class Card {
+class FactroryCard {
+    constructor(parentNode, data){
+        this._parentNode = parentNode;
+        this._data = data;
+    }
+
+    getCard() {
+        // console.log(this._data.formatData_id);
+        switch (this._data.formatData_id) {
+            case 'text':  return new TextCard(this._parentNode, this._data);
+            case 'files': return new PDFViewerCard(this._parentNode, this._data);
+            default: return;
+        }
+    }
+}
+
+class TextCard {
+
+    _card;
+    _data;
 
     constructor(parentNode, data){
 
-        const card = document.createElement('div');
-        card.id = 'content_'+data.grade_id+data.subject_id+data.presentation_id+data.formatData_id;
-        card.classList.add('card');
-        card.classList.add('card-collapsed')
-        // card.classList.add('border');
-        // card.classList.add('border-danger');
-        // card.classList.add('m-1');
-        // card.classList.add('w-25');
-        // card.style.width = '25rem';
-        // card.style.width = '100%';
-        // card.style.height = '100%';
-        // <div class="shadow p-3 mb-5 bg-body-tertiary rounded">Обычная тень</div>
-        card.classList.add('shadow');
-        // card.classList.add('border');
-        // card.classList.add('border-dark');
-        // card.classList.add('p-1');
-        card.classList.add('mb-3');
-        card.classList.add('bg-body-tertiary');
-        card.classList.add('rounded');
-        parentNode.appendChild(card);
+        this._data = data;
+        this._card = document.createElement('div');
 
-        const card_body = document.createElement('div');
+        this._card.id = 'card_'+data.grade_id+data.subject_id+data.presentation_id+data.formatData_id;
+        // this._card.id = 'card_'+data.id;
+        // console.log(this._card.id);
+        this._card.classList.add('card');
+        this._card.classList.add('card-collapsed')
+        this._card.classList.add('shadow');
+        this._card.classList.add('mb-3');
+        this._card.classList.add('bg-body-tertiary');
+        this._card.classList.add('rounded');
+        parentNode.appendChild(this._card);
+
+        this._card_body = document.createElement('div');
+        this._card.appendChild(this._card_body);
         // card_body.id = 'card-body_'+data.grade_id+data.subject_id+data.presentation_id+data.formatData_id;
-        card_body.classList.add('card-body');
-        card_body.classList.add('d-flex');
-        card_body.classList.add('flex-column');
-        card_body.classList.add('h-100');
-        card.appendChild(card_body);
+        this._card_body.classList.add('card-body');
+        this._card_body.classList.add('d-flex');
+        this._card_body.classList.add('flex-column');
+        this._card_body.classList.add('h-100');
 
-        if(data.title != ''){
-            card_body.innerHTML = "<h5 class=\"card-title\">"+data.title+"</h5>";
+
+        if(this._data.title != ''){
+            this._card_body.innerHTML = "<h5 class=\"card-title\">"+this._data.title+"</h5>";
         }
 
-        // let cutted_text = JSON.parse(JSON.stringify(data.content));
-        // console.log(cutted_text);
-        // console.log(typeof(cutted_text));
-        // let qty = 100;
-        // if (data.title == ''){
-        //     qty = 150;
-        // }
-        // if (data.link == ''){
-        //     qty = 120;
-        // }
-        // if (data.title == '' && data.link == ''){
-        //     qty = 200;
-        // }
-        // cutted_text = cutted_text.slice(0, qty).concat('...');
-        // const card_text = document.createElement('div');
-        // card_text.classList.add('visually-hidden');
-        // card_text.classList.add('card_text');
-        // card_text.setAttribute('data-qty',qty);
-        // card_text.appendChild(document.createTextNode(data.content));
-        // card_body.appendChild(card_text);
-        // const card_qty = document.createElement('div');
-        // card_qty.classList.add('visually-hidden');
-        // card_qty.classList.add('card_qty');
-        // card_qty.appendChild(document.createTextNode(qty));
         const card_text = document.createElement('div');
         card_text.classList.add('visually-hidden');
-        card_text.setAttribute('data-link', data.link);
-        card_text.setAttribute('data-title', data.title);
-        card_text.appendChild(document.createTextNode(data.content));
-        // console.log(typeof(data.content));
-        card_body.appendChild(card_text);
+        card_text.setAttribute('data-content', data.content);
+        card_text.id = this._data.id;
+        this._card_body.appendChild(card_text);
 
-        if (data.content.length >= 100){
-            // card_body.innerHTML += "<p class=\"card-text flex-grow-1 txt-truncate\">"+data.content+"</p>";
-            if(data.title == '' && data.link != ''){
-                card_body.innerHTML +="<p class=\"card-text flex-grow-1 \">"+text_trancate(data.content, text_trancate_sizes['notitle_link'])+"</p>";
+        if (this._data.content.length >= 100){
+
+            if(this._data.title == '' && this._data.link != ''){
+                this._card_body.innerHTML +="<p class=\"card-text flex-grow-1 \">"+text_trancate(this._data.content, text_trancate_sizes['notitle_link'])+"</p>";
             }
-            if(data.title != '' && data.link == ''){
-                card_body.innerHTML +="<p class=\"card-text flex-grow-1 \">"+text_trancate(data.content, text_trancate_sizes['title_nolink'])+"</p>";
+            if(this._data.title != '' && this._data.link == ''){
+                this._card_body.innerHTML +="<p class=\"card-text flex-grow-1 \">"+text_trancate(this._data.content, text_trancate_sizes['title_nolink'])+"</p>";
             }
-            if(data.title == '' && data.link == ''){
-                card_body.innerHTML +="<p class=\"card-text flex-grow-1 \">"+text_trancate(data.content, text_trancate_sizes['notitle_nolink'])+"</p>";
+            if(this._data.title == '' && this._data.link == ''){
+                this._card_body.innerHTML +="<p class=\"card-text flex-grow-1 \">"+text_trancate(this._data.content, text_trancate_sizes['notitle_nolink'])+"</p>";
             }
-            if(data.title != '' && data.link != ''){
-                card_body.innerHTML +="<p class=\"card-text flex-grow-1 \">"+text_trancate(data.content, text_trancate_sizes['title_link'])+"</p>";
+            if(this._data.title != '' && this._data.link != ''){
+                this._card_body.innerHTML +="<p class=\"card-text flex-grow-1 \">"+text_trancate(this._data.content, text_trancate_sizes['title_link'])+"</p>";
             }
             // console.log(data.content);
         }
         else {
-            card_body.innerHTML += "<p class=\"card-text flex-grow-1\">"+data.content+"</p>";
+            this._card_body.innerHTML += "<p class=\"card-text flex-grow-1\">"+this._data.content+"</p>";
         }
 
-        if(data.link != ''){
-            card_body.innerHTML += "<div class=\"d-flex flex-row\">"
+        if(this._data.link != ''){
+            this._card_body.innerHTML += "<div class=\"d-flex flex-row\">"
                 +"<div class=\"flex-grow-1 \">"
-                    +"<a href=\""+data.link+"\" class=\" card-link link-offset-2 link-offset-3-hover link-underline link-underline-opacity-25 link-underline-opacity-100-hover \" target=\"_blank\" >Перейти по ссылке</a>"
+                    +"<a href=\""+this._data.link+"\" class=\" card-link link-offset-2 link-offset-3-hover link-underline link-underline-opacity-25 link-underline-opacity-100-hover \" target=\"_blank\" >Перейти по ссылке</a>"
                 +"</div>"
                 +"<div class=\"position-relative \">"
                     +"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1.5rem\" height=\"1.5rem\" fill=\"currentColor\" class=\"card-expander bi bi-box-arrow-down-right position-absolute bottom-0 end-100 text-primary hover-target \" viewBox=\"0 0 16 16\">"
@@ -622,7 +595,7 @@ class Card {
 
         }
         else {
-            card_body.innerHTML += "<div class=\"d-flex flex-row flex-row \">"
+            this._card_body.innerHTML += "<div class=\"d-flex flex-row flex-row \">"
                 +"<div class=\"flex-grow-1 \">"
                     +"<div href=\"\" class=\" card-link \" style=\"height: 1.5rem\"></div>"
                 +"</div>"
@@ -637,10 +610,203 @@ class Card {
                     +"</svg>"
                 +"</div>";
         }
-        card_body.innerHTML += "</div>";
+        this._card_body.innerHTML += "</div>";
+    }
 
+    collapsing(){
+
+        if (this._data.content.length >= 100){
+
+            if(this._data.title == '' && this._data.link != ''){
+                this._card_body.children[1].innerHTML = text_trancate(this._data.content, text_trancate_sizes['notitle_link']);
+            }
+            if(this._data.title != '' && this._data.link == ''){
+                this._card_body.children[2].innerHTML = text_trancate(this._data.content, text_trancate_sizes['title_nolink']);
+            }
+            if(this._data.title == '' && this._data.link == ''){
+                this._card_body.children[1].innerHTML = text_trancate(this._data.content, text_trancate_sizes['notitle_nolink']);
+            }
+            if(this._data.title != '' && this._data.link != ''){
+                this._card_body.children[2].innerHTML = text_trancate(this._data.content, text_trancate_sizes['title_link']);
+            }
+        }
+        else {
+            if(this._data.title == '') {
+                this._card_body.children[1].innerHTML = this._data.content;
+            }
+            else {
+                this._card_body.children[2].innerHTML = this._data.content;
+            }
+
+        }
+    }
+
+    expanding(){
+        // console.log(this._card_body.children);
+
+        if(this._data.title == '') {
+                this._card_body.children[1].innerHTML = this._data.content;
+            }
+            else {
+                this._card_body.children[2].innerHTML = this._data.content;
+            }
     }
 }
+
+class PDFViewerCard {
+
+    _card;
+    _data;
+
+    constructor(parentNode, data){
+
+        this._data = data;
+        this._card = document.createElement('div');
+
+        this._card.id = 'card_'+data.grade_id+data.subject_id+data.presentation_id+data.formatData_id;
+        // this._card.id = 'card_'+data.id;
+        // console.log(this._card.id);
+        this._card.classList.add('card');
+        this._card.classList.add('card-collapsed')
+        this._card.classList.add('shadow');
+        this._card.classList.add('mb-3');
+        this._card.classList.add('bg-body-tertiary');
+        this._card.classList.add('rounded');
+        parentNode.appendChild(this._card);
+
+        this._card_body = document.createElement('div');
+        this._card.appendChild(this._card_body);
+        // card_body.id = 'card-body_'+data.grade_id+data.subject_id+data.presentation_id+data.formatData_id;
+        this._card_body.classList.add('card-body');
+        this._card_body.classList.add('d-flex');
+        this._card_body.classList.add('flex-column');
+        this._card_body.classList.add('h-100');
+
+
+        if(this._data.title != ''){
+            this._card_body.innerHTML = "<h5 class=\"card-title\">"+this._data.title+"</h5>";
+        }
+
+        const card_text = document.createElement('div');
+        card_text.classList.add('visually-hidden');
+        card_text.setAttribute('data-content', data.content);
+        card_text.id = this._data.id;
+        this._card_body.appendChild(card_text);
+
+        if (this._data.content.length >= 100){
+
+            if(this._data.title == '' && this._data.link != ''){
+                this._card_body.innerHTML +="<p class=\"card-text flex-grow-1 \">"+text_trancate(this._data.content, text_trancate_sizes['notitle_link'])+"</p>";
+            }
+            if(this._data.title != '' && this._data.link == ''){
+                this._card_body.innerHTML +="<p class=\"card-text flex-grow-1 \">"+text_trancate(this._data.content, text_trancate_sizes['title_nolink'])+"</p>";
+            }
+            if(this._data.title == '' && this._data.link == ''){
+                this._card_body.innerHTML +="<p class=\"card-text flex-grow-1 \">"+text_trancate(this._data.content, text_trancate_sizes['notitle_nolink'])+"</p>";
+            }
+            if(this._data.title != '' && this._data.link != ''){
+                this._card_body.innerHTML +="<p class=\"card-text flex-grow-1 \">"+text_trancate(this._data.content, text_trancate_sizes['title_link'])+"</p>";
+            }
+            // console.log(data.content);
+        }
+        else {
+            this._card_body.innerHTML += "<p class=\"card-text flex-grow-1\">"+this._data.content+"</p>";
+        }
+
+        if(this._data.link != ''){
+            this._card_body.innerHTML += "<div class=\"d-flex flex-row\">"
+                +"<div class=\"flex-grow-1 \">"
+                    +"<a href=\""+this._data.link+"\" class=\" card-link link-offset-2 link-offset-3-hover link-underline link-underline-opacity-25 link-underline-opacity-100-hover \" target=\"_blank\" >Перейти по ссылке</a>"
+                +"</div>"
+                +"<div class=\"position-relative \">"
+                    +"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1.5rem\" height=\"1.5rem\" fill=\"currentColor\" class=\"card-expander bi bi-box-arrow-down-right position-absolute bottom-0 end-100 text-primary hover-target \" viewBox=\"0 0 16 16\">"
+                        +"<path fill-rule=\"evenodd\" d=\"M8.636 12.5a.5.5 0 0 1-.5.5H1.5A1.5 1.5 0 0 1 0 11.5v-10A1.5 1.5 0 0 1 1.5 0h10A1.5 1.5 0 0 1 13 1.5v6.636a.5.5 0 0 1-1 0V1.5a.5.5 0 0 0-.5-.5h-10a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h6.636a.5.5 0 0 1 .5.5z\"/>"
+                        +"<path fill-rule=\"evenodd\" d=\"M16 15.5a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1 0-1h3.793L6.146 6.854a.5.5 0 1 1 .708-.708L15 14.293V10.5a.5.5 0 0 1 1 0v5z\"/>"
+                    +"</svg>"
+                    +"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1.5rem\" height=\"1.5rem\" fill=\"currentColor\" class=\"card-expander d-none bi bi-box-arrow-up-left position-absolute bottom-0 end-100 text-primary hover-target \" viewBox=\"0 0 16 16\">"
+                            +"<path fill-rule=\"evenodd\" d=\"M7.364 3.5a.5.5 0 0 1 .5-.5H14.5A1.5 1.5 0 0 1 16 4.5v10a1.5 1.5 0 0 1-1.5 1.5h-10A1.5 1.5 0 0 1 3 14.5V7.864a.5.5 0 1 1 1 0V14.5a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-.5-.5H7.864a.5.5 0 0 1-.5-.5z\"/>"
+                            +"<path fill-rule=\"evenodd\" d=\"M0 .5A.5.5 0 0 1 .5 0h5a.5.5 0 0 1 0 1H1.707l8.147 8.146a.5.5 0 0 1-.708.708L1 1.707V5.5a.5.5 0 0 1-1 0v-5z\"/>"
+                    +"</svg>"
+                +"</div>";
+
+            /*
+            <div class="d-flex flex-row">
+                    <div class="flex-grow-1">
+                        <a href="https://doka.guide/css/transition/" class=" card-link ">Ссылка карточки</a>
+                    </div>
+                    <div class="position-relative " >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" fill="currentColor"  class="d-none card-expander bi bi-box-arrow-down-right position-absolute bottom-0 end-100" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8.636 12.5a.5.5 0 0 1-.5.5H1.5A1.5 1.5 0 0 1 0 11.5v-10A1.5 1.5 0 0 1 1.5 0h10A1.5 1.5 0 0 1 13 1.5v6.636a.5.5 0 0 1-1 0V1.5a.5.5 0 0 0-.5-.5h-10a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h6.636a.5.5 0 0 1 .5.5z"/>
+                            <path fill-rule="evenodd" d="M16 15.5a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1 0-1h3.793L6.146 6.854a.5.5 0 1 1 .708-.708L15 14.293V10.5a.5.5 0 0 1 1 0v5z"/>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" fill="currentColor" class="card-expander bi bi-box-arrow-up-left position-absolute bottom-0 end-100" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M7.364 3.5a.5.5 0 0 1 .5-.5H14.5A1.5 1.5 0 0 1 16 4.5v10a1.5 1.5 0 0 1-1.5 1.5h-10A1.5 1.5 0 0 1 3 14.5V7.864a.5.5 0 1 1 1 0V14.5a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-.5-.5H7.864a.5.5 0 0 1-.5-.5z"/>
+                            <path fill-rule="evenodd" d="M0 .5A.5.5 0 0 1 .5 0h5a.5.5 0 0 1 0 1H1.707l8.147 8.146a.5.5 0 0 1-.708.708L1 1.707V5.5a.5.5 0 0 1-1 0v-5z"/>
+                        </svg>
+                    </div>
+                </div>
+            */
+
+        }
+        else {
+            this._card_body.innerHTML += "<div class=\"d-flex flex-row flex-row \">"
+                +"<div class=\"flex-grow-1 \">"
+                    +"<div href=\"\" class=\" card-link \" style=\"height: 1.5rem\"></div>"
+                +"</div>"
+                +"<div class=\"position-relative\">"
+                    +"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1.5rem\" height=\"1.5rem\" fill=\"currentColor\" class=\"card-expander bi bi-box-arrow-down-right  position-absolute bottom-0 end-100 text-primary hover-target \" viewBox=\"0 0 16 16\">"
+                        +"<path fill-rule=\"evenodd\" d=\"M8.636 12.5a.5.5 0 0 1-.5.5H1.5A1.5 1.5 0 0 1 0 11.5v-10A1.5 1.5 0 0 1 1.5 0h10A1.5 1.5 0 0 1 13 1.5v6.636a.5.5 0 0 1-1 0V1.5a.5.5 0 0 0-.5-.5h-10a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h6.636a.5.5 0 0 1 .5.5z\"/>"
+                        +"<path fill-rule=\"evenodd\" d=\"M16 15.5a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1 0-1h3.793L6.146 6.854a.5.5 0 1 1 .708-.708L15 14.293V10.5a.5.5 0 0 1 1 0v5z\"/>"
+                    +"</svg>"
+                    +"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1.5rem\" height=\"1.5rem\" fill=\"currentColor\" class=\"card-expander d-none bi bi-box-arrow-up-left position-absolute bottom-0 end-100 text-primary hover-target \" viewBox=\"0 0 16 16\">"
+                            +"<path fill-rule=\"evenodd\" d=\"M7.364 3.5a.5.5 0 0 1 .5-.5H14.5A1.5 1.5 0 0 1 16 4.5v10a1.5 1.5 0 0 1-1.5 1.5h-10A1.5 1.5 0 0 1 3 14.5V7.864a.5.5 0 1 1 1 0V14.5a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-.5-.5H7.864a.5.5 0 0 1-.5-.5z\"/>"
+                            +"<path fill-rule=\"evenodd\" d=\"M0 .5A.5.5 0 0 1 .5 0h5a.5.5 0 0 1 0 1H1.707l8.147 8.146a.5.5 0 0 1-.708.708L1 1.707V5.5a.5.5 0 0 1-1 0v-5z\"/>"
+                    +"</svg>"
+                +"</div>";
+        }
+        this._card_body.innerHTML += "</div>";
+    }
+
+    collapsing(){
+
+        if (this._data.content.length >= 100){
+
+            if(this._data.title == '' && this._data.link != ''){
+                this._card_body.children[1].innerHTML = text_trancate(this._data.content, text_trancate_sizes['notitle_link']);
+            }
+            if(this._data.title != '' && this._data.link == ''){
+                this._card_body.children[2].innerHTML = text_trancate(this._data.content, text_trancate_sizes['title_nolink']);
+            }
+            if(this._data.title == '' && this._data.link == ''){
+                this._card_body.children[1].innerHTML = text_trancate(this._data.content, text_trancate_sizes['notitle_nolink']);
+            }
+            if(this._data.title != '' && this._data.link != ''){
+                this._card_body.children[2].innerHTML = text_trancate(this._data.content, text_trancate_sizes['title_link']);
+            }
+        }
+        else {
+            if(this._data.title == '') {
+                this._card_body.children[1].innerHTML = this._data.content;
+            }
+            else {
+                this._card_body.children[2].innerHTML = this._data.content;
+            }
+
+        }
+    }
+
+    expanding(){
+        // console.log(this._card_body.children);
+
+        if(this._data.title == '') {
+                this._card_body.children[1].innerHTML = this._data.content;
+            }
+            else {
+                this._card_body.children[2].innerHTML = this._data.content;
+            }
+    }
+}
+
 
 function isMobileDevice() {
     const isMobileUA = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -664,19 +830,5 @@ function text_trancate(str, numLts){
 
     return res;
 }
-
-// if(data.title == '' && data.link != ''){
-//     card_body.innerHTML +="<p class=\"card-text flex-grow-1 \">"+text_trancate(data.content, 190)+"</p>";
-// }
-// if(data.title != '' && data.link == ''){
-//     card_body.innerHTML +="<p class=\"card-text flex-grow-1 \">"+text_trancate(data.content, 120)+"</p>";
-// }
-// if(data.title == '' && data.link == ''){
-//     card_body.innerHTML +="<p class=\"card-text flex-grow-1 \">"+text_trancate(data.content, 150)+"</p>";
-// }
-// if(data.title != '' && data.link != ''){
-//     card_body.innerHTML +="<p class=\"card-text flex-grow-1 \">"+text_trancate(data.content, 100)+"</p>";
-// }
-
 
 text_trancate_sizes = { 'notitle_link': 190, 'title_nolink': 120, 'notitle_nolink': 200, 'title_link': 100 }
