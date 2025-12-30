@@ -17,7 +17,6 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
@@ -128,14 +127,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 
-# STATIC_URL = 'domashkola/storage/static/'
+
 STATIC_URL = '/domashkola/static/'
 STATIC_ROOT = 'domashkola/static/'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-# MEDIA_ROOT = f'{BASE_DIR}/media'
-# MEDIA_URL = '/media/'
 
+MEDIA_ROOT = 'media'
+MEDIA_URL = '/media/'
 
 
 STATICFILES_DIRS = [

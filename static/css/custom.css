@@ -6,6 +6,9 @@ body{
     display: flex;
     flex-direction: column;
     height: 100%;
+    background-image: url("../img/logo/bg16.png");
+    background-repeat: round;
+    background-clip: border-box;
 }
 
 .header {
@@ -84,13 +87,21 @@ a:visited {
 
 }
 
+.pdf-view-area {
+    height: 720px;
+}
+
 /* Маленькие экраны */
 @media (max-width: 500px) {
     .auth-items {
         display: none;
     }
+    .pdf-view-area {
+        height: 400px;
+    }
 
 }
+
 
 @media (prefers-color-scheme: light) {
     .dark  {
@@ -106,3 +117,9 @@ a:visited {
         background-color: darkgrey;
     }
 }
+
+/* @media print {
+  body {
+    display: none !important;
+  }
+} */

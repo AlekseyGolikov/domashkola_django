@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 
-app_name = 'storage'
+app_name = 'android'
 urlpatterns = [
     # path('', views.index, name='index'),
     path('android', views.IndexView.as_view(), name = 'index'),

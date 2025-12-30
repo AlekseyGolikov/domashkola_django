@@ -311,12 +311,12 @@ function navigation(){
 
         $('.card-expander').click(function(){
             const elem = $(this).parent().parent().parent().parent();
-            const card_text = $(this).parent().parent().siblings('.visually-hidden');
-            // console.log(Number(card_text.attr('id')) + ' | '+ typeof(Number(card_text.attr('id'))));
+            const card_visually_hidden = $(this).parent().parent().siblings('.visually-hidden');
+            // console.log(Number(card_visually_hidden.attr('id')) + ' | '+ typeof(Number(card_visually_hidden.attr('id'))));
 
-            // console.log('card_text.id: '+ card_text.id);
-            // console.log('card_text.link: '+ card_text.attr('data-link'));
-            // console.log('card_text.text.length: '+ card_text.html().length);
+            // console.log('card_visually_hidden.id: '+ card_visually_hidden.id);
+            // console.log('card_visually_hidden.link: '+ card_visually_hidden.attr('data-link'));
+            // console.log('card_visually_hidden.text.length: '+ card_visually_hidden.html().length);
 
             $(this).addClass('d-none');
             $(this).siblings().removeClass('d-none');
@@ -340,9 +340,8 @@ function navigation(){
                         elem.removeClass('card-collapsed');
                         elem.addClass('card-expanded');
 
-                        // console.log(cards);
-                        cards.get(Number(card_text.attr('id'))).expanding();
-                        // elem.children().children('p').html(card_text.html());
+                        cards.get(Number(card_visually_hidden.attr('id'))).expanding();
+                        // elem.children().children('p').html(card_visually_hidden.html());
                     }
                 );
             }
@@ -361,8 +360,8 @@ function navigation(){
                         elem.removeClass('card-expanded');
                         elem.addClass('card-collapsed');
 
-                        console.log(Number(card_text.attr('id')));
-                        cards.get(Number(card_text.attr('id'))).collapsing();
+                        // console.log(Number(card_visually_hidden.attr('id')));
+                        cards.get(Number(card_visually_hidden.attr('id'))).collapsing();
 
                         elem.siblings().removeClass('d-none');
                     }
@@ -533,11 +532,11 @@ class TextCard {
             this._card_body.innerHTML = "<h5 class=\"card-title\">"+this._data.title+"</h5>";
         }
 
-        const card_text = document.createElement('div');
-        card_text.classList.add('visually-hidden');
-        card_text.setAttribute('data-content', data.content);
-        card_text.id = this._data.id;
-        this._card_body.appendChild(card_text);
+        const card_visually_hidden = document.createElement('div');
+        card_visually_hidden.classList.add('visually-hidden');
+        card_visually_hidden.setAttribute('data-content', data.content);
+        card_visually_hidden.id = this._data.id;
+        this._card_body.appendChild(card_visually_hidden);
 
         if (this._data.content.length >= 100){
 
@@ -687,69 +686,52 @@ class PDFViewerCard {
             this._card_body.innerHTML = "<h5 class=\"card-title\">"+this._data.title+"</h5>";
         }
 
-        const card_text = document.createElement('div');
-        card_text.classList.add('visually-hidden');
-        card_text.setAttribute('data-content', data.content);
-        card_text.id = this._data.id;
-        this._card_body.appendChild(card_text);
+        const card_visually_hidden = document.createElement('div');
+        card_visually_hidden.classList.add('visually-hidden');
+        card_visually_hidden.setAttribute('data-content', data.content);
+        card_visually_hidden.id = this._data.id;
+        this._card_body.appendChild(card_visually_hidden);
 
         if (this._data.content.length >= 100){
 
-            if(this._data.title == '' && this._data.link != ''){
-                this._card_body.innerHTML +="<p class=\"card-text flex-grow-1 \">"+text_trancate(this._data.content, text_trancate_sizes['notitle_link'])+"</p>";
-            }
+
             if(this._data.title != '' && this._data.link == ''){
                 this._card_body.innerHTML +="<p class=\"card-text flex-grow-1 \">"+text_trancate(this._data.content, text_trancate_sizes['title_nolink'])+"</p>";
             }
             if(this._data.title == '' && this._data.link == ''){
                 this._card_body.innerHTML +="<p class=\"card-text flex-grow-1 \">"+text_trancate(this._data.content, text_trancate_sizes['notitle_nolink'])+"</p>";
             }
-            if(this._data.title != '' && this._data.link != ''){
-                this._card_body.innerHTML +="<p class=\"card-text flex-grow-1 \">"+text_trancate(this._data.content, text_trancate_sizes['title_link'])+"</p>";
-            }
-            // console.log(data.content);
+
         }
         else {
             this._card_body.innerHTML += "<p class=\"card-text flex-grow-1\">"+this._data.content+"</p>";
         }
 
-        if(this._data.link != ''){
-            this._card_body.innerHTML += "<div class=\"d-flex flex-row\">"
-                +"<div class=\"flex-grow-1 \">"
-                    +"<a href=\""+this._data.link+"\" class=\" card-link link-offset-2 link-offset-3-hover link-underline link-underline-opacity-25 link-underline-opacity-100-hover \" target=\"_blank\" >Перейти по ссылке</a>"
-                +"</div>"
-                +"<div class=\"position-relative \">"
-                    +"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1.5rem\" height=\"1.5rem\" fill=\"currentColor\" class=\"card-expander bi bi-box-arrow-down-right position-absolute bottom-0 end-100 text-primary hover-target \" viewBox=\"0 0 16 16\">"
-                        +"<path fill-rule=\"evenodd\" d=\"M8.636 12.5a.5.5 0 0 1-.5.5H1.5A1.5 1.5 0 0 1 0 11.5v-10A1.5 1.5 0 0 1 1.5 0h10A1.5 1.5 0 0 1 13 1.5v6.636a.5.5 0 0 1-1 0V1.5a.5.5 0 0 0-.5-.5h-10a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h6.636a.5.5 0 0 1 .5.5z\"/>"
-                        +"<path fill-rule=\"evenodd\" d=\"M16 15.5a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1 0-1h3.793L6.146 6.854a.5.5 0 1 1 .708-.708L15 14.293V10.5a.5.5 0 0 1 1 0v5z\"/>"
-                    +"</svg>"
-                    +"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1.5rem\" height=\"1.5rem\" fill=\"currentColor\" class=\"card-expander d-none bi bi-box-arrow-up-left position-absolute bottom-0 end-100 text-primary hover-target \" viewBox=\"0 0 16 16\">"
-                            +"<path fill-rule=\"evenodd\" d=\"M7.364 3.5a.5.5 0 0 1 .5-.5H14.5A1.5 1.5 0 0 1 16 4.5v10a1.5 1.5 0 0 1-1.5 1.5h-10A1.5 1.5 0 0 1 3 14.5V7.864a.5.5 0 1 1 1 0V14.5a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-.5-.5H7.864a.5.5 0 0 1-.5-.5z\"/>"
-                            +"<path fill-rule=\"evenodd\" d=\"M0 .5A.5.5 0 0 1 .5 0h5a.5.5 0 0 1 0 1H1.707l8.147 8.146a.5.5 0 0 1-.708.708L1 1.707V5.5a.5.5 0 0 1-1 0v-5z\"/>"
-                    +"</svg>"
-                +"</div>";
 
-            /*
+
+        /*
             <div class="d-flex flex-row">
-                    <div class="flex-grow-1">
-                        <a href="https://doka.guide/css/transition/" class=" card-link ">Ссылка карточки</a>
-                    </div>
-                    <div class="position-relative " >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" fill="currentColor"  class="d-none card-expander bi bi-box-arrow-down-right position-absolute bottom-0 end-100" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M8.636 12.5a.5.5 0 0 1-.5.5H1.5A1.5 1.5 0 0 1 0 11.5v-10A1.5 1.5 0 0 1 1.5 0h10A1.5 1.5 0 0 1 13 1.5v6.636a.5.5 0 0 1-1 0V1.5a.5.5 0 0 0-.5-.5h-10a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h6.636a.5.5 0 0 1 .5.5z"/>
-                            <path fill-rule="evenodd" d="M16 15.5a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1 0-1h3.793L6.146 6.854a.5.5 0 1 1 .708-.708L15 14.293V10.5a.5.5 0 0 1 1 0v5z"/>
-                        </svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" fill="currentColor" class="card-expander bi bi-box-arrow-up-left position-absolute bottom-0 end-100" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M7.364 3.5a.5.5 0 0 1 .5-.5H14.5A1.5 1.5 0 0 1 16 4.5v10a1.5 1.5 0 0 1-1.5 1.5h-10A1.5 1.5 0 0 1 3 14.5V7.864a.5.5 0 1 1 1 0V14.5a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-.5-.5H7.864a.5.5 0 0 1-.5-.5z"/>
-                            <path fill-rule="evenodd" d="M0 .5A.5.5 0 0 1 .5 0h5a.5.5 0 0 1 0 1H1.707l8.147 8.146a.5.5 0 0 1-.708.708L1 1.707V5.5a.5.5 0 0 1-1 0v-5z"/>
-                        </svg>
-                    </div>
+                <div class="flex-grow-1">
+                    <a href="https://doka.guide/css/transition/" class=" card-link ">Ссылка карточки</a>
                 </div>
-            */
+                <div class="position-relative " >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" fill="currentColor"  class="d-none card-expander bi bi-box-arrow-down-right position-absolute bottom-0 end-100" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8.636 12.5a.5.5 0 0 1-.5.5H1.5A1.5 1.5 0 0 1 0 11.5v-10A1.5 1.5 0 0 1 1.5 0h10A1.5 1.5 0 0 1 13 1.5v6.636a.5.5 0 0 1-1 0V1.5a.5.5 0 0 0-.5-.5h-10a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h6.636a.5.5 0 0 1 .5.5z"/>
+                        <path fill-rule="evenodd" d="M16 15.5a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1 0-1h3.793L6.146 6.854a.5.5 0 1 1 .708-.708L15 14.293V10.5a.5.5 0 0 1 1 0v5z"/>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" fill="currentColor" class="card-expander bi bi-box-arrow-up-left position-absolute bottom-0 end-100" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M7.364 3.5a.5.5 0 0 1 .5-.5H14.5A1.5 1.5 0 0 1 16 4.5v10a1.5 1.5 0 0 1-1.5 1.5h-10A1.5 1.5 0 0 1 3 14.5V7.864a.5.5 0 1 1 1 0V14.5a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-.5-.5H7.864a.5.5 0 0 1-.5-.5z"/>
+                        <path fill-rule="evenodd" d="M0 .5A.5.5 0 0 1 .5 0h5a.5.5 0 0 1 0 1H1.707l8.147 8.146a.5.5 0 0 1-.708.708L1 1.707V5.5a.5.5 0 0 1-1 0v-5z"/>
+                    </svg>
+                </div>
+            </div>
+        */
 
-        }
-        else {
-            this._card_body.innerHTML += "<div class=\"d-flex flex-row flex-row \">"
+        // this._card_body.innerHTML += '<div id="pdf_view_area" class="container border "></div>';
+        this._card_body.innerHTML += '<div id="pdf_view_area_'+ this._data.id + '" class="container border "></div>';
+
+        this._card_body.innerHTML +=
+            "<div class=\"d-flex flex-row flex-row \">"
                 +"<div class=\"flex-grow-1 \">"
                     +"<div href=\"\" class=\" card-link \" style=\"height: 1.5rem\"></div>"
                 +"</div>"
@@ -763,26 +745,23 @@ class PDFViewerCard {
                             +"<path fill-rule=\"evenodd\" d=\"M0 .5A.5.5 0 0 1 .5 0h5a.5.5 0 0 1 0 1H1.707l8.147 8.146a.5.5 0 0 1-.708.708L1 1.707V5.5a.5.5 0 0 1-1 0v-5z\"/>"
                     +"</svg>"
                 +"</div>";
-        }
-        this._card_body.innerHTML += "</div>";
+            +"</div>";
     }
 
     collapsing(){
 
+        document.getElementById('pdf_view_area_'+this._data.id).innerHTML = '';
+        // document.getElementById('pdf_view_area').innerHTML = '';
+
         if (this._data.content.length >= 100){
 
-            if(this._data.title == '' && this._data.link != ''){
-                this._card_body.children[1].innerHTML = text_trancate(this._data.content, text_trancate_sizes['notitle_link']);
-            }
             if(this._data.title != '' && this._data.link == ''){
                 this._card_body.children[2].innerHTML = text_trancate(this._data.content, text_trancate_sizes['title_nolink']);
             }
             if(this._data.title == '' && this._data.link == ''){
                 this._card_body.children[1].innerHTML = text_trancate(this._data.content, text_trancate_sizes['notitle_nolink']);
             }
-            if(this._data.title != '' && this._data.link != ''){
-                this._card_body.children[2].innerHTML = text_trancate(this._data.content, text_trancate_sizes['title_link']);
-            }
+
         }
         else {
             if(this._data.title == '') {
@@ -797,13 +776,23 @@ class PDFViewerCard {
 
     expanding(){
         // console.log(this._card_body.children);
+        // document.getElementById('pdf_view_area_'+this._data.id).style='height: 720px;';
+        document.getElementById('pdf_view_area_'+this._data.id).classList.add('pdf-view-area');
+        document.getElementById('pdf_view_area_'+this._data.id).innerHTML = '<object id="pdf_'+this._data.id+'"  type="application/pdf" data="'+this._data.link+'" alt="pdf" standby="PDF документ загружается..." width=100% height="100%"></object>';     //#toolbar=0 - отключение вспомогательных элементов
 
-        if(this._data.title == '') {
-                this._card_body.children[1].innerHTML = this._data.content;
-            }
-            else {
-                this._card_body.children[2].innerHTML = this._data.content;
-            }
+            // document.getElementById('pdf_view_area').style.height = '200px';
+            // document.getElementById('pdf_view_area').style.width = '100%';
+            // document.getElementById('pdf_view_area').style.background = 'blue';
+            // console.log(document.getElementById('pdf_view_area'));
+
+
+
+        // if(this._data.title == '') {
+        //         this._card_body.children[1].innerHTML = this._data.link;
+        //     }
+        //     else {
+        //         this._card_body.children[2].innerHTML = this._data.link;
+        //     }
     }
 }
 
