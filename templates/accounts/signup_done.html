@@ -1,0 +1,22 @@
+{% extends 'index/base.html' %}
+
+
+{% block title %}Регистрация на сайте{% endblock title %}
+
+{% block content %}
+
+
+    <div id="" class="align-self-center w-100 fs-2 text-success text-center opacity-75 shadow p-1 mb-2 bg-body-tertiary rounded">
+        <h1>Добро пожаловать!</h1>
+
+        <p >Вы успешно зарегистрировались на сайте! Для входа в систему необходимо авторизоваться по этой <a href="{% url 'accounts:login' %}">ссылке</a></p>
+        <!-- <p >Для завершения регистрации Вам необходимо перейти по ссылке, высланной на Вашу электронную почту</p> -->
+
+    </div>
+
+
+
+
+    <!-- </div> -->
+
+{% endblock content %}

@@ -3,7 +3,7 @@ from .models import Content, Grades, Subjects, Presentation, FormatData
 
 
 class ContentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'grade_id', 'subject_id', 'presentation_id', 'formatData_id', 'content', 'title', 'link', 'timestamp')
+    list_display = ('id', 'grade_id', 'subject_id', 'presentation_id', 'formatData_id', 'content', 'file', 'title', 'link', 'timestamp')
 
 
 class GradesAdmin(admin.ModelAdmin):

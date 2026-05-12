@@ -45,11 +45,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'storage.apps.StorageConfig',
     'android.apps.AndroidConfig',
-    'debug_toolbar',
+    'accounts.apps.AccountsConfig',
+    # 'debug_toolbar',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -91,6 +93,44 @@ DATABASES = {
     }
 }
 
+# Authentication
+
+AUTHENTICATION_BACKENDS = [
+    # 'django.contrib.auth.backends.ModelBackend',
+    'accounts.authentication.EmailAuthBackend',
+]
+
+AUTH_USER_MODEL = 'accounts.User'
+
+
+# настройки вашего SMTP сервера
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465   # или 465 для SSL
+EMAIL_HOST_USER = 'family-school-92@yandex.ru'
+# EMAIL_FROM_ADDRESS = ''
+EMAIL_HOST_PASSWORD = 'csmxcrfwfjjonvfy'
+EMAIL_USE_SSL = True    # или EMAIL_USE_SSL = True, если используете SSL
+ACCOUNT_EMAIL_UNIQUE = False    # если email является уникальным
+ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = False
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
+EMAIL_ADMIN = EMAIL_HOST_USER
+
+# используется для тестирования
+# выводит письма в консоли
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_FILE_PATH = BASE_DIR / "emails"
+
+
+# DEFAULT_FROM_EMAIL = 'Your Project Name <your-email@example.com>'
+
+# Redirect to home URL after login (Default redirects to /accounts/profile/)
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'  # После выхода
+LOGIN_URL = 'accounts/login/'   # если неавторизованный посетитель попытается зайти на закрытую страницу сайта
+
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -114,7 +154,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'ru'
+LANGUAGE_CODE = 'RU-ru'
 
 TIME_ZONE = 'UTC'
 
@@ -128,16 +168,26 @@ USE_TZ = True
 
 
 
-STATIC_URL = '/domashkola/static/'
-STATIC_ROOT = 'domashkola/static/'
+# # STATIC_URL = '/domashkola/static/'
+# # STATIC_ROOT = 'domashkola/static/'
+# STATIC_URL = 'static/'
+# STATIC_ROOT = '/static/'
 
-MEDIA_ROOT = 'media'
-MEDIA_URL = '/media/'
+# MEDIA_ROOT = 'media/'
+# MEDIA_URL = '/media/'
 
 
+# STATICFILES_DIRS = [
+#    os.path.join(BASE_DIR, "static"),
+# ]
+
+STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-   os.path.join(BASE_DIR, "static"),
+   BASE_DIR / "static",
 ]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media/'
 
 
 # Default primary key field type

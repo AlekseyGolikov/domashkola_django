@@ -34,13 +34,18 @@ class FormatData(models.Model):
 class Content(models.Model):
     title = models.TextField(null=False, blank=True)    # null=False blank=True - поле обязательно для заполнения в БД и необязательно при валидации форм
     content = models.TextField(null=False, blank=False)
-    link = models.TextField(null=False, blank=True)
+    link = models.TextField(null=False, blank=False)
     timestamp = models.DateTimeField()
-
+    file = models.FileField(upload_to='pdf/', null=True, blank=True, verbose_name='Файл')
+    status = models.IntegerField(null=False, blank=False, default=3)
+        # status = 1 - запись доступна только пользователям с полем status=1
+        # status = 2 - запись доступна только пользователям с полем status=2
+        # status = 3 - запись доступна только пользователям с полем status=3
+        # назначить default самый максимальный приоритет, это самое большое число
+ 
     grade = models.ForeignKey(Grades, on_delete=models.SET_NULL, null=True, to_field='grade_code')
     subject = models.ForeignKey(Subjects, on_delete=models.SET_NULL, null=True, to_field='subject_code')
     presentation = models.ForeignKey(Presentation, on_delete=models.SET_NULL, null=True, to_field='presentation_code')
     formatData = models.ForeignKey(FormatData, on_delete=models.SET_NULL, null=True, to_field='format_code')
     def __str__(self):
         return str(self.id)+' | '+str(self.grade_id)+' | '+str(self.subject_id)+' | '+str(self.presentation_id)+' | '+str(self.formatData_id)+' | '+str(self.timestamp)+' | '+textwrap.shorten(self.content, width=20, placeholder="...")+'\n'
-

@@ -18,9 +18,9 @@ body{
 .content{
     flex: 1 1 auto;
     display: flex;
-    /* flex-direction: column; */
-    /* align-items: center; */
-    /* height: auto; */
+    flex-direction: column;
+    /* justify-content: stretch; */
+    height: 100%;
     padding-top: 0.25rem;
 
     /* border: 1px solid #000; */
@@ -46,11 +46,19 @@ body{
 
 .auth-items {
     display: flex;
+    /* border: 5px solid #da032a; */
+    height: 100%;
+    align-items: center;
     flex-direction: column;
 }
 
 .auth-item {
-    flex: 0 1 auto;
+    /* flex: 0 1 auto; */
+    display: flex;
+    /* border: 5px solid #da032a; */
+    height: 100%;
+    align-items: center;
+    flex-direction: column;
 }
 
 .checkbox-group-expanded {
@@ -92,9 +100,12 @@ a:visited {
 }
 
 /* Маленькие экраны */
-@media (max-width: 500px) {
-    .auth-items {
+@media screen and (max-width: 500px) {
+    .hide-item-on-small-display {
         display: none;
+    }
+    .text-greeting1 {
+        font-size: 1em;
     }
     .pdf-view-area {
         height: 400px;

@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from debug_toolbar.toolbar import debug_toolbar_urls
+# from debug_toolbar.toolbar import debug_toolbar_urls
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -24,7 +24,10 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('storage.urls')),
-    path('', include('android.urls')),
+    path('android/', include('android.urls')),
+    path('accounts/', include('accounts.urls'))
+    # path('accounts/', include('django.contrib.auth.urls')),
+    # path('accounts/', include('accounts.urls', namespace='accounts')),
 ]
 
 
@@ -36,4 +39,4 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
 	document_root=settings.MEDIA_ROOT)
 
-    urlpatterns += debug_toolbar_urls()
+    # urlpatterns += debug_toolbar_urls()

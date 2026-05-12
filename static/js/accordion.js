@@ -185,7 +185,7 @@ async function getMenu(){
 
         const data = await response.json();
         if(response.ok){
-            console.log('---------формируем полное меню-------------');
+            // console.log('---------начало формирования полное меню-------------');
             for (let i=0; i<data.grades.length; i++){
                 switch (data.grades[i].grade_code){
                     case '1_2':
@@ -223,20 +223,21 @@ async function getMenu(){
     catch(error){
         console.error('Error:', error);
         // $(document).ready(function(){
-            const errorMsg = 'Профилактические работы на сервере <br> Повторите попытку позже <br>';
+            // const errorMsg = 'Профилактические работы на сервере  Повторите попытку позже <br>';
+            const errorMsg = 'ошибка при формировании меню Accordion';
             $('#errorAccordion').html(errorMsg).removeClass('d-none');
             $('#accordion').addClass('d-none');
         // });
         finish_preloader()
     }
-    console.log('---------конец  формирования меню-------------');
+    // console.log('---------конец  формирования меню-------------');
     navigation();
 }
 
 
 function addContent(data){
     let note;
-    console.log('---------Начало записи данных из БД-------------')
+    // console.log('---------Начало чтения данных из БД-------------')
 
     for (let i=0; i<data.length; i++){
         parentNode = document.getElementById('wrap_content_'+data[i].grade_id+data[i].subject_id+data[i].presentation_id);
@@ -249,7 +250,7 @@ function addContent(data){
 
 
     }
-    console.log('---------Конец записи данных из БД-------------')
+    // console.log('---------Конец чтения данных из БД-------------')
     finish_preloader();
 }
 
@@ -271,21 +272,20 @@ function start_preloader() {
 function finish_preloader() {
     document.body.classList.add('loaded');
     document.body.classList.remove('loaded_hiding');
-    console.log('---------preloader end---------');
+    // console.log('---------preloader end---------');
 }
 
 function navigation(){
 
     $(document).ready(function(){
         $('input[name="btncheck"]').click(function(){
-            // console.log('card_'+this.id);
-            $('#card_'+this.id+' div').each(function(el){
-                $(this).parent().toggle(350).toggleClass('d-none');
+            $('.card_'+this.id).each(function(el){
+                $(this).toggle(350);
             });
         });
 
         $(".accordion-header").click(function(){
-            console.log('-----работает функция сворачивания вкладок-------')
+            // console.log('-----работает функция сворачивания вкладок-------')
             let curLvl=0;
             //последняя раскрытая вклад. имеет класс accordion-collapse
             const collapsedTab = $(this).next();
@@ -508,7 +508,8 @@ class TextCard {
         this._data = data;
         this._card = document.createElement('div');
 
-        this._card.id = 'card_'+data.grade_id+data.subject_id+data.presentation_id+data.formatData_id;
+        this._card.id = 'card_'+data.id+'_'+data.grade_id+data.subject_id+data.presentation_id+data.formatData_id;
+        this._card.classList.add('card_'+data.grade_id+data.subject_id+data.presentation_id+data.formatData_id);
         // this._card.id = 'card_'+data.id;
         // console.log(this._card.id);
         this._card.classList.add('card');
@@ -662,7 +663,8 @@ class PDFViewerCard {
         this._data = data;
         this._card = document.createElement('div');
 
-        this._card.id = 'card_'+data.grade_id+data.subject_id+data.presentation_id+data.formatData_id;
+        this._card.id = 'card_'+data.id+'_'+data.grade_id+data.subject_id+data.presentation_id+data.formatData_id;
+        this._card.classList.add('card_'+data.grade_id+data.subject_id+data.presentation_id+data.formatData_id);
         // this._card.id = 'card_'+data.id;
         // console.log(this._card.id);
         this._card.classList.add('card');
@@ -779,7 +781,7 @@ class PDFViewerCard {
         // document.getElementById('pdf_view_area_'+this._data.id).style='height: 720px;';
         document.getElementById('pdf_view_area_'+this._data.id).classList.add('pdf-view-area');
         document.getElementById('pdf_view_area_'+this._data.id).innerHTML = '<object id="pdf_'+this._data.id+'"  type="application/pdf" data="'+this._data.link+'" alt="pdf" standby="PDF документ загружается..." width=100% height="100%"></object>';     //#toolbar=0 - отключение вспомогательных элементов
-
+        // console.log('data.file = '+this._data.file);
             // document.getElementById('pdf_view_area').style.height = '200px';
             // document.getElementById('pdf_view_area').style.width = '100%';
             // document.getElementById('pdf_view_area').style.background = 'blue';
@@ -821,3 +823,38 @@ function text_trancate(str, numLts){
 }
 
 text_trancate_sizes = { 'notitle_link': 190, 'title_nolink': 120, 'notitle_nolink': 200, 'title_link': 100 }
+
+
+async function getAccordion(){
+    var user_id;
+
+    try{
+        response = await fetch('/accounts/get_session_info');
+
+        const data = await response.json();
+        if(response.ok){
+
+            if(Number(data.user_id) != 0){
+                console.log('Пользователь '+data.username+' авторизовался')
+                var preloader = document.getElementById('preloader');
+                preloader.innerHTML = "<svg class=\"preloader__image\" role=\"img\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\">"
+                                        + "<path fill=\"currentColor\" d=\"M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z\">"
+                                        + "</path>"
+                                        + "</svg>";
+                new Accordion();
+            }
+            else{
+                console.log('Никто не авторизован')
+            }
+
+        }
+        finish_preloader();
+    }
+    catch(error){
+        finish_preloader();
+        console.error('Error:', error);
+    }
+
+
+    return user_id;
+}

@@ -24,3 +24,5 @@ templates/storage/test.html
 media/pdf/test1.pdf
 media/pdf/test2.pdf
 templates/storage/test.html
+templates/accounts/test.html
+templates/accounts/signup — копия.html
